@@ -346,15 +346,18 @@
 //  Každá scéna má: id, title, text (HTML), choices nebo ending
 // ═══════════════════════════════════════════════════════════
 const STORY = {
-  title: "Stíny Starého Mlýna",
+  title: "Sauna s trochou zábavy",
 
   scenes: {
 
     "start": {
-      title: "Prolog",
-      text: `<p>Podzimní mlha zahalila celé údolí, když jsi konečně dorazil do Starých Bříz. Vesnice vypadala opuštěněji, než sis představoval — okenice zavřené, ulice tiché, jen osamělý pes tě sledoval z dálky.</p>
-             <p>Tvůj strýc Bedřich ti zanechal vzkaz: <em>„Přijď do mlýna. Dříve než nastane noc. Je to důležité."</em> Vzkaz byl starý tři dny. Nikdo od té doby strýce neviděl.</p>
-             <p>Stojíš na rozcestí. Vlevo vede úzká stezka k mlýnu na konci vesnice. Vpravo je hospoda U Čápa — jediný osvětlený dům v celé vsi.</p>`,
+      title: "Úvod",
+      text: `<p>Už nějaký čas se bavíme o tom, ze zajdeme do soukromého wellnessu, konečně je tu víkend, kdy
+                si naši odvezli děti do Děčína a my máme před sebou tři hodiny pohody. V duchu si říkáš, že by možná byla lepší saunie, protože v soukromí se budu o něco pokoušet, 
+                ale už jsme si dlouho přádně nezašukali, tak si říkáš, že to přežiješ a wellnes je dobrý bonus.</p>
+             <p>Přecejen bude pohoda, ujistil jsem tě, že máme raději dvě láhve proseca a něco na zub a užijeme si relax. 
+             Nevíš přesně kam jedeme, wellness jsem objednával já. Takže jsi příjemně překvapená, že jsme zastavili u wellness Fenix, 
+             pod Ještědem, kam jsi se chtěl už dlouho podívat.</p>`,
       choices: [
         { text: "Vydat se rovnou ke mlýnu. Strýc čeká.", next: "mlyn_vchod" },
         { text: "Nejprve zajít do hospody a zjistit, co se děje.", next: "hospoda" }
