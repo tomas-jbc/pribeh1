@@ -359,52 +359,57 @@ const STORY = {
              Nevíš přesně kam jedeme, wellness jsem objednával já. Takže jsi příjemně překvapená, že jsme zastavili u wellness Fenix, 
              pod Ještědem, kam jsi se chtěl už dlouho podívat.</p>`,
       choices: [
-        { text: "Vydat se rovnou ke mlýnu. Strýc čeká.", next: "mlyn_vchod" },
-        { text: "Nejprve zajít do hospody a zjistit, co se děje.", next: "hospoda" }
+        { text: "Máme čas, takže si nejdřív jdeme sednout ještě na bar.", next: "Posezení u baru" },
+        { text: "Jdeme rovnou do wellness, už se těšíš, až se prohřeješ a dáš si k tomu prosecco", next: "Rovnou do wellness" }
       ]
     },
 
-    "hospoda": {
-      title: "Hospoda U Čápa",
-      text: `<p>Těžké dveře se za tebou zavřely s hluchým rachotem. Uvnitř seděli u stolu čtyři starci a hráli karty v mlčení. Hostinský — obtloustlý muž s šedivým knírem — zvedl oči.</p>
-             <p>„Cizinec," řekl bez překvapení. „Hledáte Bedřicha, co?"</p>
-             <p>Přikývneš. Hostinský si přetáhl přes pult mokrý hadr a sklopil hlas. „Naposledy ho viděli tři noci zpátky. Šel ke mlýnu. Říkají, že tam zase svítilo — ale mlýn je dvacet let prázdný."</p>
-             <p>Jeden ze starců vyhodil karty na stůl. „Nechte toho, Frantíku. Ať mladý jde, kam chce." Pak se podíval přímo na tebe. „Pokud jdete k mlýnu, vezměte si svíčku. Elektřina tam nefunguje od té noci."</p>`,
+    "Posezení u baru": {
+      title: "Pár skleniček a trochu provokace",
+      text: `<p>Nakonec jsme dorazili dost brzy, takže jsme měli dost času, abychom poseděli a dali si pár skleniček.</p>
+             <p>Prosecco ti celkem dost zachutnalo, tak jsi dala rychle po sobě 3 skleny a vyjímečně jsi byla celkem v dobré připité náladě.</p>
+             <p>Rozhlížíš se po baru a vidíš hned několik fešáků kolem 30-35. Vidíš, že jeden tě pozoruje, i když se to snaží skrývat.</p>
+             <p>Vzhledem k tomu, že jdeme do sauny, oblékla jsi se dost nalehko, jsi bez podprsenky, máš halenku s rozplým knoflíčkem tak,
+             že máš trochu odhalený výstřih, ale jen decentně. Dál máš růžovou sukni nad kolena.<p>
+             <p>Napadlo tě, že si trochu zaflirtuješ, rozepnula sis knoflíček a tvoje krásná prsa poodhalíš tak akorát, aby ještě nebylo nic vidět, 
+             ale bylo jasné, co skrýváš.</p>`,
       choices: [
-        { text: "Vzít svíčku a vydat se ke mlýnu.", next: "mlyn_vchod_svicka" },
-        { text: "Zeptat se hostinského na historii mlýna.", next: "hospoda_historia" }
+        { text: "Chlapík se chytne a vidíš, jak nemůže od tvého výstřihu odtrhnout oči.", next: "Flirt bar pokračování" },
+        { text: "Bohužel dotyčný už se zvedá a odchází. Máš chuť se ohřát a jdeme do wellness.", next: "Do wellness z baru" }
       ]
     },
 
-    "hospoda_historia": {
-      title: "Stará historie",
-      text: `<p>Hostinský se odmlčel na dlouho, než promluvil. „Mlýn patřil rodině Novotných sto let. Poslední mlynář — Oldřich — zemřel za záhadných okolností. Nalezli ho v podkroví. Úředně to bylo zástava srdce, ale…"</p>
-             <p>„Ale co?" pobídneš ho.</p>
-             <p>„Dveře byly zamčeny zevnitř. A na podlaze kolem něj byly rozmístěny svíčky. Devět svíček v kruhu." Hostinský přestal utírat sklenici. „Váš strýc se tím případem zabýval. Říkal, že v mlýně je schovaný Novotného deník."</p>
-             <p>Venku zavyl vítr. Hodiny na stěně odbily půl osmé. Čas ubývá.</p>`,
+    "Rovnou do wellness": {
+      title: "Rychle svléknout a šup do sauny",
+      text: `<p>V šatně moc času nestrávíme, rychle se svlékneme, vezmeme prostěradla a jdem do sauny.</p>
+             <p>Já vytahuju dvě skleničky a nalévám prosecco.</p>
+             <p></p>
+             <p></p>`,
       choices: [
-        { text: "Vyrazit ke mlýnu vyzbrojený touto znalostí.", next: "mlyn_vchod_svicka" },
-        { text: "Přenocovat v hospodě a jít ráno za denního světla.", next: "hospoda_nocovani" }
+        { text: "Rychlá sklenka a jdeme na první kolečko sauny.", next: "První sauna" },
+        { text: "Chvíli popíjíme, uklidňuju tě, že nakonec máme zaplacené 4 hodiny, čili času máme dost.", next: "Rozpíjení v sauně." }
       ]
     },
 
-    "hospoda_nocovani": {
-      title: "Bezpečná noc",
-      text: `<p>Rozhodneš se, že noční výprava do opuštěného mlýna by byla pošetilostí. Hostinský ti bez řečí přidělí malý pokoj v patře.</p>
-             <p>V noci tě vzbudí zvuk — pravidelné klepání, jako by někdo klepal na okno. Třetí patro. Okno se otevřít nedá.</p>
-             <p>Ráno je mlýn prázdný. Strýce nikdy nenajdeš. O dvacet let později vyprávíš tenhle příběh svým vnoučatům a vždy litujete té jedné noci.</p>`,
-      ending: "Konec č. 1 — Bezpečná volba",
-      ending_note: "Strýc Bedřich zůstal záhadou. Někdy bezpečnost něco stojí."
+    "Do wellness z baru": {
+      title: "Hezky rozpito a pokračujeme v sauně",
+      text: `<p>Už při svlékání se trochu motáš, ale zatím jsi v příjemné náladě.</p>
+             <p>Otevíráme první prosecco - vzal jsem i hezké skleničky.</p>
+             <p></p>`,
+choices: [
+        { text: "První kolečko proběhlo skvěle, bazének a jdem relaxovat a popíjet.", next: "První kolo" },
+        { text: "Máš trochu laškovnou náladu, v sauně ses rozhodla mě trochu provokovat.", next: "Provokace první kolo" }
+      ]
     },
 
-    "mlyn_vchod": {
-      title: "Brána mlýna",
-      text: `<p>Mlýn se tyčil před tebou jako temná silueta na pozadí mračného nebe. Dřevěné kolo nehybně trčelo nad zaplaveným náhonem. Na vratech visěl nový zámek — ale dveře vedle vrat byly pootevřeny.</p>
-             <p>Dovnitř pronikal slabý světelný záblesk, jako by někde v hloubce budovy blikala svíčka.</p>
-             <p>Otevřenou skulinou tě ovane pach — vlhká dřevěná zatuchlina a něco jiného. Síra? Ne, spíš zápalky. Čerstvé.</p>`,
+    "Flirt bar pokračování": {
+      title: "Pokračuješ v laškování",
+      text: `<p>Vidíš, že se chytil a má pohled zabodnutý k tobě do výstřihu.</p>
+             <p>Pomalu přehazuješ nohu přes nohu a jsi otočená směrem k němu.</p>
+             <p></p>`,
       choices: [
-        { text: "Vstoupit otevřenými dveřmi a sledovat světlo.", next: "mlyn_uvnitr" },
-        { text: "Obejít mlýn a hledat jiný vchod.", next: "mlyn_zadni" }
+        { text: "Bohužel je čas jít do sauny.", next: "Sauna po flirtu" },
+        { text: "Jdeš se upravit na toaletu, dost tě to baví.", next: "Flirt pokračuje" }
       ]
     },
 
