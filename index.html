@@ -1,9 +1,9 @@
-}<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="cs">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wellness se zápletkou</title>
+<title>Wellness se záplekou</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
 <style>
@@ -590,14 +590,154 @@
     font-size: 0.85rem;
     font-style: italic;
   }
+
+  /* ── Vstupní login obrazovka ── */
+  #loginScreen {
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #loginScreen::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 50% at 50% 0%, rgba(240,122,184,0.13) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 70% at 15% 90%, rgba(240,122,184,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 55% at 88% 35%, rgba(240,122,184,0.08) 0%, transparent 55%);
+    pointer-events: none;
+  }
+
+  .login-box {
+    position: relative;
+    background: linear-gradient(160deg, #42424e 0%, #38383f 100%);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 3rem 3.5rem;
+    width: min(90vw, 420px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.7), 0 0 60px rgba(180,60,120,0.07);
+    animation: fadeSlide 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .login-box::before,
+  .login-box::after {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-color: var(--amber);
+    border-style: solid;
+    opacity: 0.35;
+  }
+  .login-box::before { top: 10px; left: 10px; border-width: 1px 0 0 1px; }
+  .login-box::after  { bottom: 10px; right: 10px; border-width: 0 1px 1px 0; }
+
+  .login-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--amber-glow);
+    letter-spacing: 0.04em;
+    text-align: center;
+    text-shadow: 0 0 40px rgba(224,111,160,0.4);
+  }
+
+  .login-ornament {
+    color: var(--amber);
+    opacity: 0.4;
+    letter-spacing: 0.5em;
+    font-size: 0.9rem;
+  }
+
+  .login-field {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .login-field label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: rgba(240,122,184,0.55);
+  }
+
+  .login-field input {
+    background: rgba(240,122,184,0.07);
+    border: 1px solid rgba(240,122,184,0.28);
+    border-radius: 2px;
+    padding: 0.65rem 1rem;
+    color: var(--parchment);
+    font-family: 'Crimson Pro', serif;
+    font-size: 1rem;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .login-field input:focus { border-color: var(--amber); }
+
+  .login-btn {
+    width: 100%;
+    margin-top: 0.4rem;
+    background: rgba(240,122,184,0.12);
+    border: 1px solid rgba(240,122,184,0.38);
+    border-radius: 2px;
+    color: var(--amber-glow);
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.88rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.7rem 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .login-btn:hover { background: rgba(240,122,184,0.22); border-color: var(--amber); }
+
+  .login-error {
+    color: #e06090;
+    font-size: 0.85rem;
+    font-style: italic;
+    min-height: 1.2em;
+    text-align: center;
+  }
 </style>
 </head>
 <body>
 
+<!-- ── Vstupní login obrazovka ── -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="login-title">Povídka pro Míšu</div>
+    <div class="login-ornament">✦ ✦ ✦</div>
+    <div class="login-field">
+      <label>Uživatelské jméno</label>
+      <input type="text" id="loginUser" placeholder="jméno" autocomplete="username"
+             onkeydown="if(event.key==='Enter') document.getElementById('loginPass').focus()">
+    </div>
+    <div class="login-field">
+      <label>Heslo</label>
+      <input type="password" id="loginPass" placeholder="heslo" autocomplete="current-password"
+             onkeydown="if(event.key==='Enter') doLogin()">
+    </div>
+    <div class="login-error" id="loginError"></div>
+    <button class="login-btn" onclick="doLogin()">Vstoupit do příběhu →</button>
+  </div>
+</div>
+
 <div class="wrapper">
   <header>
     <div class="story-title" id="storyTitle">Povídka pro Míšu</div>
-    <div class="story-subtitle">Interaktivní povídka · Tvoje volby tvoří příběh</div>
+    <div class="story-subtitle">Interaktivní příběh · Vaše volby tvoří příběh</div>
     <div class="ornament">✦ ✦ ✦</div>
   </header>
 
@@ -1087,8 +1227,48 @@ document.addEventListener('keydown', e => {
 });
 
 // ═══════════════════════════════════════════════════════════
+//  UŽIVATELÉ — přidej nebo odeber záznamy dle potřeby
+//  formát: { user: "jméno", pass: "heslo" }
+// ═══════════════════════════════════════════════════════════
+const USERS = [
+  { user: "misa",  pass: "ruzovysvet" },
+  { user: "admin", pass: "tajneheslo" }
+  // sem přidej další uživatele stejným způsobem
+];
+
+const SESSION_KEY = 'story_auth';
+
+function doLogin() {
+  const u = document.getElementById('loginUser').value.trim().toLowerCase();
+  const p = document.getElementById('loginPass').value;
+  const match = USERS.find(x => x.user.toLowerCase() === u && x.pass === p);
+  if (match) {
+    sessionStorage.setItem(SESSION_KEY, u);
+    const screen = document.getElementById('loginScreen');
+    screen.style.transition = 'opacity 0.4s ease';
+    screen.style.opacity = '0';
+    setTimeout(() => screen.remove(), 400);
+  } else {
+    const err = document.getElementById('loginError');
+    err.textContent = 'Nesprávné jméno nebo heslo.';
+    document.getElementById('loginPass').value = '';
+    document.getElementById('loginPass').focus();
+    setTimeout(() => { err.textContent = ''; }, 3000);
+  }
+}
+
+function checkAuth() {
+  if (sessionStorage.getItem(SESSION_KEY)) {
+    document.getElementById('loginScreen').remove();
+  } else {
+    setTimeout(() => document.getElementById('loginUser').focus(), 100);
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
 //  INIT
 // ═══════════════════════════════════════════════════════════
+checkAuth();
 renderScene('start');
 </script>
 </body>
