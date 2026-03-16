@@ -353,11 +353,11 @@ const STORY = {
     "start": {
       title: "Úvod",
       text: `<p>Už nějaký čas se bavíme o tom, ze zajdeme do soukromého wellnessu, konečně je tu víkend, kdy
-                si naši odvezli děti do Děčína a my máme před sebou tři hodiny pohody. V duchu si říkáš, že by možná byla lepší saunie, protože v soukromí se budu o něco pokoušet, 
-                ale už jsme si dlouho přádně nezašukali, tak si říkáš, že to přežiješ a wellnes je dobrý bonus.</p>
-             <p>Přecejen bude pohoda, ujistil jsem tě, že máme raději dvě láhve proseca a něco na zub a užijeme si relax. 
+                si naši odvezli děti do Děčína a my máme před sebou tři hodiny pohody. V duchu si říkáš, že by možná byla lepší saunie, 
+                protože v soukromí se budu o něco pokoušet, ale už jsme si dlouho přádně nezašukali, tak si říkáš, že to přežiješ a wellnes je dobrý bonus.</p>
+             <p>Přecejen bude pohoda, ujistil jsem tě, že máme raději dvě láhve prosecca a něco na zub a užijeme si relax. 
              Nevíš přesně kam jedeme, wellness jsem objednával já. Takže jsi příjemně překvapená, že jsme zastavili u wellness Fenix, 
-             pod Ještědem, kam jsi se chtěl už dlouho podívat.</p>`,
+             pod Ještědem, kam jsi se chtěla už dlouho podívat.</p>`,
       choices: [
         { text: "Máme čas, takže si nejdřív jdeme sednout ještě na bar.", next: "Posezení u baru" },
         { text: "Jdeme rovnou do wellness, už se těšíš, až se prohřeješ a dáš si k tomu prosecco", next: "Rovnou do wellness" }
@@ -369,8 +369,8 @@ const STORY = {
       text: `<p>Nakonec jsme dorazili dost brzy, takže jsme měli dost času, abychom poseděli a dali si pár skleniček.</p>
              <p>Prosecco ti celkem dost zachutnalo, tak jsi dala rychle po sobě 3 skleny a vyjímečně jsi byla celkem v dobré připité náladě.</p>
              <p>Rozhlížíš se po baru a vidíš hned několik fešáků kolem 30-35. Vidíš, že jeden tě pozoruje, i když se to snaží skrývat.</p>
-             <p>Vzhledem k tomu, že jdeme do sauny, oblékla jsi se dost nalehko, jsi bez podprsenky, máš halenku s rozplým knoflíčkem tak,
-             že máš trochu odhalený výstřih, ale jen decentně. Dál máš růžovou sukni nad kolena.<p>
+             <p>Vzhledem k tomu, že jdeme do sauny, oblékla jsi se dost nalehko, jsi bez podprsenky, máš halenku s rozeplým knoflíčkem tak,
+             že máš decentně odhalený výstřih. Dál máš růžovou sukni nad kolena.<p>
              <p>Napadlo tě, že si trochu zaflirtuješ, rozepnula sis knoflíček a tvoje krásná prsa poodhalíš tak akorát, aby ještě nebylo nic vidět, 
              ale bylo jasné, co skrýváš.</p>`,
       choices: [
@@ -382,245 +382,156 @@ const STORY = {
     "Rovnou do wellness": {
       title: "Rychle svléknout a šup do sauny",
       text: `<p>V šatně moc času nestrávíme, rychle se svlékneme, vezmeme prostěradla a jdem do sauny.</p>
-             <p>Já vytahuju dvě skleničky a nalévám prosecco.</p>
+             <p>Já vytahuju dvě skleničky a nalévám prosecco. Venku je celkem zima, takže je dobře vychlazené.
+             Chvíli popíjíme a povídáme. Ani nevíš jak, a vypili jsme první sklenku. Nalévám další.
+             "Jdeme s tím už dovnitř, nebo chceš ještě popíjet?"</p>
+             <p>Sauna je vytopená akorát, rozkládáš prostěradlo a leháš si na něj, prosecco máme s sebou a pomalu popíjíme.</p>
+             <p></p>`,
+      choices: [
+        { text: "Máš chuť se ohřát, jdeme na první kolečko sauny.", next: "První sauna" },
+        { text: "Chvíli popíjíme, uklidňuju tě, že nakonec máme zaplacené 4 hodiny, čili času máme dost.", next: "Rozpíjení před saunou" }
+      ]
+    },
+    
+        "První sauna": {
+      title: "Příjemné první kolečko",
+      text: `<p>Celkem ti zachutná, nicméně jdeme na první kolečko. Dávám lahev do ledničky a hurá do sauny.</p>
+             <p>Sauna je vytopená akorát, rozkládáš prostěradlo a leháš si na něj, prosecco máme s sebou a pomalu popíjíme.</p>
+             <p>Povídáme, je ti jasné, že po tobě pořád pokukuju, ale zatím se držím.</p>
+             <p>Přemýšlíš, jestli mě chceš trochu provokovat nebo nebo ne.</p>`,
+      choices: [
+        { text: "Ne, v klidu dopijeme a jdeme se zchladit.", next: "Sprcha první kolečko" },
+        { text: "Jo, trochu si se mnou pohraješ, ale k ničemu mě nepustíš.", next: "Hrátky v prvním kolečku" }
+      ]
+    },
+    
+    "Sprcha první kolečko": {
+      title: "Ven a první zchlazení",
+      text: `<p>Vydrželi jsme 15min a je čas na první ochlazení. Sklenky s sebou a jdem se sprchnout.</p>
+             <p>Vzhledem ke studené vodě se do ničeho nepouštím, ale pozoruju tvoje krásné kozičky a úhledně upravený klín.</p>
+             <p>Oblékáme ručník a jdeme popíjet. Ve wellnes je postel, takže si leháme na ní, relaxujeme a popíjíme.</p>
+             <p>Čas celkem utíká, zvládli jsme jednou dolít a jdeme na druhé kolečko.</p>`,
+      choices: [
+        { text: "Začínáš mít chuť na trochu provokace.", next: "Provokace drhuhé kolečko" },
+        { text: "Přemýšlíš, jaké by to bylo, kdybychom v sauně nebyli sami.", next: "Alternativy společnost v sauně" }
+      ]
+    },
+    
+    "Flirt bar pokračování": {
+      title: "Pokračuješ v laškování",
+      text: `<p>Vidíš, že se chytil a má pohled zabodnutý v tvém výstřihu výstřihu.</p>
+             <p>Děláš, že se potřebuješ podrbat na lýtku a nakláníš se naproti němu, tvoje kozičky se snaží dostat ven, ale halenka je zatím drží.
+             Zaujatě tě pozoruju a trochu se mi dělá boule v kalhotech.
+             Otáčíš se proti muži u stolu. Trošičku roztáhneš nohy a pak pomalu přehazuješ nohu přes nohu.</p>
+             <p>Vzrušeně prohazuji: "Zlato, jsi strašně sexy, co kdyby sis šla na záchod sundat kalhotky?"</p>`,
+      choices: [
+        { text: "Jsi trochu vzrušená, ale flitrování bylo dost, je čas jít do sauny.", next: "Sauna po flirtu" },
+        { text: "Tak jo, jdeš se upravit na toaletu, dost tě to baví.", next: "Flirt pokračuje" }
+      ]
+    },
+    
+    "Rozpíjení před saunou": {
+      title: "Času je dost a prosecco dnes chutná!",
+      text: `<p></p>
+             <p></p>
+             <p></p>
              <p></p>
              <p></p>`,
       choices: [
-        { text: "Rychlá sklenka a jdeme na první kolečko sauny.", next: "První sauna" },
-        { text: "Chvíli popíjíme, uklidňuju tě, že nakonec máme zaplacené 4 hodiny, čili času máme dost.", next: "Rozpíjení v sauně." }
+        { text: "", next: "" },
+        { text: "", next: "" }
       ]
     },
-
     "Do wellness z baru": {
       title: "Hezky rozpito a pokračujeme v sauně",
       text: `<p>Už při svlékání se trochu motáš, ale zatím jsi v příjemné náladě.</p>
              <p>Otevíráme první prosecco - vzal jsem i hezké skleničky.</p>
              <p></p>`,
 choices: [
-        { text: "První kolečko proběhlo skvěle, bazének a jdem relaxovat a popíjet.", next: "První kolo" },
+        { text: "První kolečko proběhlo skvěle, ochlazení a jdem relaxovat a popíjet.", next: "První kolo" },
         { text: "Máš trochu laškovnou náladu, v sauně ses rozhodla mě trochu provokovat.", next: "Provokace první kolo" }
       ]
     },
 
-    "Flirt bar pokračování": {
-      title: "Pokračuješ v laškování",
-      text: `<p>Vidíš, že se chytil a má pohled zabodnutý k tobě do výstřihu.</p>
-             <p>Pomalu přehazuješ nohu přes nohu a jsi otočená směrem k němu.</p>
+    "Flirt pokračuje": {
+      title: "Trochu to okořeníme",
+      text: `<p>Vracíš nohu přes nohu zpět, necháváš zase mírně roztažené nohy a pokračuješ v provokaci.</p>
+             <p>Zvedneš se a odejdeš na toaletu. Po cestě si uvědomuješ, že jsi celkem vzrušená.</p>
+             <p>Na toaletě rychle sundáš kalhotky, hodíš je do kabelky. Rychlá kontrola v zrcadle, upravíš výstřih - jeden knoflíček by to ještě sneslo:)
+             Jdeš zpět, při příchodu se na mě šibalsky usmíváš, je mi jasné, že se ti to líbí.
+             Sedáš si zase tak, že máš kolena nasměrována k muži, se kterým flirtuješ. Sedáš si s mírně roztaženými stehny a čekáš, jestli si všimne.
+             Po chvili, kdy těká očima sem a tam, zabloudí jeho pohled do tvého klína a nedokáže zakrýt překvapení. Evidentně chvíli nedokáže koukat jinam.
+             Otáčíš se směrem ke mě a stehna dáváš od sebe o něco víc, abych se také tím krásným pohledem pokochal.
+             </p>`,
+      choices: [
+        { text: "", next: "" },
+        { text: "", next: "" 
+      ]
+    },
+
+    "": {
+      title: "",
+      text: `<p></p>
+             <p></p>
              <p></p>`,
       choices: [
-        { text: "Bohužel je čas jít do sauny.", next: "Sauna po flirtu" },
-        { text: "Jdeš se upravit na toaletu, dost tě to baví.", next: "Flirt pokračuje" }
+        { text: "", next: "" },
+        { text: "", next: "" }
       ]
     },
 
-    "mlyn_vchod_svicka": {
-      title: "Brána mlýna (se svíčkou)",
-      text: `<p>Svíčka v tvé ruce vrhá teplý kruh světla na zem, jak kráčíš po stezce ke mlýnu. Budova se tyčí před tebou v mlze — dřevěné kolo nehybně trčí nad náhonem, vrata jsou zajištěna novým zámkem.</p>
-             <p>Ale dveře vedle vrat jsou pootevřeny. Tvoje svíčka se náhle zachvěje, jako by proudil vzduch — ale vítr se přestal.</p>
-             <p>Dovnitř proniká temnota. Záblesk světla, co hostinský zmínil? Teď tu není. Jen ticho a pach zápalek.</p>`,
+    "": {
+      title: "",
+      text: `<p></p>
+             <p></p>
+             <p>"</p>`,
       choices: [
-        { text: "Vstoupit otevřenými dveřmi.", next: "mlyn_uvnitr_svicka" },
-        { text: "Zavolat na strýce ještě před vstupem.", next: "mlyn_zavolat" }
+        { text: "", next: "" },
+        { text: "" }
       ]
     },
 
-    "mlyn_zavolat": {
-      title: "Hlas v tichu",
-      text: `<p>„Strýče Bedřichu!" Tvůj hlas se rozplynul v mlze. Ticho. Pak — po dlouhé chvíli — odpověď.</p>
-             <p>„Tady jsem." Strýcův hlas. Ale přicházel shora. Z podkroví.</p>
-             <p>„Vstup. Ale opatrně. A nezhasínej svíčku — ať se stane cokoli."</p>`,
+    "": {
+      title: "",
+      text: `<p></p>
+             <p></p>
+             <p>"</p>`,
       choices: [
-        { text: "Vstoupit a zamířit do podkroví.", next: "mlyn_podkrovi" },
-        { text: "Zeptat se, jestli je v pořádku, než vstoupíš.", next: "mlyn_zavolat2" }
+        { text: "", next: "" },
+        { text: "" }
       ]
     },
 
-    "mlyn_zavolat2": {
-      title: "Rozhovor přes práh",
-      text: `<p>„Jsi v pořádku? Co se děje?"</p>
-             <p>Pauza. Delší, než by měla být. „Jsem... ano. Přijď. Musím ti ukázat deník. Pochopíš, až ho uvidíš."</p>
-             <p>Něco na tom hlase je zvláštní. Příliš klidný. Strýc Bedřich nikdy nebýval klidný — byl to chaotický, překotný člověk, který přerušoval věty.</p>
-             <p>Tenhle hlas mluví pomalu. Odměřeně.</p>`,
+    "": {
+      title: "",
+      text: `<p></p>
+             <p></p>
+             <p>"</p>`,
       choices: [
-        { text: "Je to přece strýc. Vstoupit a jít do podkroví.", next: "mlyn_podkrovi" },
-        { text: "Podezření je příliš silné. Ustoupit a zavolat záchranáře.", next: "konec_zachranari" }
+        { text: "", next: "" },
+        { text: "" }
       ]
     },
 
-    "mlyn_uvnitr": {
-      title: "Uvnitř mlýna",
-      text: `<p>Uvnitř bylo chladno a temno. Dřevěné soukolí mlýna stálo jako monumentální kostra uprostřed haly. Tvoje oči si pomalu zvykaly na tmu.</p>
-             <p>Světlo — viděl jsi ho. Mžikal ze schodiště vedoucího do podkroví. Přesný, pravidelný rytmus, jako by někdo přikrýval a odkrýval svíčku.</p>
-             <p>Na podlaze jsi uviděl stopy v prachu. Čerstvé. Dvoje — jedny vedou ke schodišti, druhé ke staré kanceláři mlynáře.</p>`,
+    "": {
+      title: "",
+      text: `<p></p>
+             <p></p>
+             <p>"</p>`,
       choices: [
-        { text: "Sledovat světlo a jít do podkroví.", next: "mlyn_podkrovi_tma" },
-        { text: "Prozkoumat kancelář mlynáře.", next: "mlyn_kancelar" }
+        { text: "", next: "" },
+        { text: "" }
       ]
     },
 
-    "mlyn_uvnitr_svicka": {
-      title: "Uvnitř mlýna",
-      text: `<p>Svíčka osvětlila dřevěné soukolí a pavučiny. Obrovský mlýnský kámen stál na místě, pokrytý prachem let. Vzduch byl zatuchlý, ale čerstvý — někdo tu nedávno byl.</p>
-             <p>Na podlaze — stopy v prachu. Dvoje. Vedou různými směry: jedny ke schodišti do podkroví, druhé ke staré kanceláři mlynáře vlevo.</p>`,
-      choices: [
-        { text: "Sledovat stopy do podkroví.", next: "mlyn_podkrovi" },
-        { text: "Prozkoumat kancelář mlynáře.", next: "mlyn_kancelar" }
-      ]
-    },
-
-    "mlyn_zadni": {
-      title: "Zadní dvůr",
-      text: `<p>Obešel jsi mlýn. Za budovou byl malý dvorek — a v rohu sklepní okénko, které někdo nedávno vypáčil. Sklo bylo vylomeno čistě, bez spěchu.</p>
-             <p>Sklouzl jsi dovnitř do sklepa. Tma, pach uhlí a starého oleje. Ale také — papír. Svazek listů přivázaný ke kalovému čerpadlu. Sáhl jsi po nich.</p>
-             <p><em>„Pokud čteš toto, nenašel jsi mě včas. Deník je pod mlýnským kamenem. Pravda o Oldřichu Novotném musí vyjít najevo — i za cenu mého života. Odpusť mi. — Bedřich"</em></p>`,
-      choices: [
-        { text: "Najít mlýnský kámen a deník.", next: "mlyn_kamen_denik" },
-        { text: "Okamžitě volat policii.", next: "konec_policie" }
-      ]
-    },
-
-    "mlyn_kancelar": {
-      title: "Kancelář mlynáře",
-      text: `<p>Prašná místnost. Rozbitý stůl, rozházené papíry. Ale na stole — čerstvý odraz světla na kovu. Klíč.</p>
-             <p>A pod ním list papíru, rukou psaný: <em>„Podkroví — klíč od truhly — deník Oldřicha Novotného. Pravda je uvnitř. Buď opatrný. Nejsi tu sám. — B."</em></p>
-             <p>Strýcovo písmo. Klíč je studený a těžký v dlani.</p>`,
-      choices: [
-        { text: "S klíčem vyrazit do podkroví.", next: "mlyn_podkrovi_klic" },
-        { text: "Prohledat kancelář důkladněji.", next: "mlyn_kancelar2" }
-      ]
-    },
-
-    "mlyn_kancelar2": {
-      title: "Skrytá zpráva",
-      text: `<p>Za zrcadlem na stěně — obálka. Uvnitř fotografie: mlýn ve čtyřicátých letech. Skupinka lidí před budovou. Na rubu připsáno: <em>„Oldřich věděl o zlatě. Zlaté mince z války, schované pod kamenem. Zabil ho syn. Ne srdeční záchvata."</em></p>
-             <p>Strýc to věděl. Proto sem přišel.</p>`,
-      choices: [
-        { text: "Vyrazit do podkroví s klíčem i fotografií.", next: "mlyn_podkrovi_klic" }
-      ]
-    },
-
-    "mlyn_kamen_denik": {
-      title: "Deník pod kamenem",
-      text: `<p>Mlýnský kámen. Starý, masivní — ale na jedné straně rýha v prachu, jako by se s ním nedávno hýbalo. S vypětím sil se ti podaří ho posunout.</p>
-             <p>Pod ním plochá plechová krabička. Uvnitř deník svázaný koženou tkanicí a zlatá mince — habsburský dukát.</p>
-             <p>A také malá složenka: jméno, adresa, bankovní číslo. Strýc byl blíž pravdě, než kdokoli tušil.</p>`,
-      choices: [
-        { text: "Vzít vše a odejít. Předat policii.", next: "konec_vitezstvi" },
-        { text: "Přečíst deník a pochopit celou pravdu.", next: "konec_pravda" }
-      ]
-    },
-
-    "mlyn_podkrovi": {
-      title: "Podkroví",
-      text: `<p>Schody vrzaly pod každým krokem. Podkroví bylo rozlehlé — trámy, prach, staré pytle od mouky. A uprostřed: strýc Bedřich, sedící na zemi, opřený o trám. Živý. Vyčerpaný.</p>
-             <p>„Přišel jsi," vydechl. V jeho klíně ležel starý kožený deník. „Četl jsem to celé. Víš, co se tu stalo před sedmdesáti lety?"</p>
-             <p>Pak uslyšíš skřípění dveří dole. Někdo jiný vstoupil do mlýna.</p>`,
-      choices: [
-        { text: "Schovat se s strýcem za trámy.", next: "mlyn_schovani" },
-        { text: "Vzít deník a utéct zadním oknem.", next: "konec_utek" }
-      ]
-    },
-
-    "mlyn_podkrovi_tma": {
-      title: "Podkroví ve tmě",
-      text: `<p>Bez světla jsi šlápl na prohnilé prkno. Rána, praskot — a pak ticho. Světlo nahoře zhaslo.</p>
-             <p>„Kdo je tam?" Strýcův hlas, napjatý. „Odpověz!"</p>
-             <p>„Jsem to já!" zvolal jsi. Světlo se znovu rozsvítilo — a strýc se naklonil přes zábradlí schodu s lucernou v ruce. Starší, unavený, ale naživu.</p>`,
-      choices: [
-        { text: "Vyšplhat nahoru ke strýci.", next: "mlyn_podkrovi" }
-      ]
-    },
-
-    "mlyn_podkrovi_klic": {
-      title: "Truhla v podkroví",
-      text: `<p>Uprostřed podkroví stála stará truhla se zavěšeným zámkem. Klíč pasoval. Uvnitř: deník svázaný koženou tkanicí, zlaté mince a — strýcova peněženka.</p>
-             <p>Ale strýc tu nebyl.</p>
-             <p>Na vnitřní straně víka truhly byl přilepen lísteček: <em>„Sklep. Rychle."</em></p>`,
-      choices: [
-        { text: "Sestoupit do sklepa.", next: "mlyn_sklep_finale" }
-      ]
-    },
-
-    "mlyn_schovani": {
-      title: "Ve stínech",
-      text: `<p>Schovali jste se za trámy. Kroky na schodech — jeden člověk, těžký. Baterka rozsvítila podkroví.</p>
-             <p>Muž sui generis — šedesátník v dešťovém plášti — prohledával prostor pohledem. Pak vytáhl telefon. „Nenašel jsem nic. Deník zmizel." Přestávka. „Rozumím. Zlikviduju ho."</p>
-             <p>Strýc tě stisknul za paži. „Novotnýho vnuk," zašeptal. „Ví, že otec vraždil. Chce to pohřbít."</p>`,
-      choices: [
-        { text: "Zkusit nenápadně utéct.", next: "konec_utek" },
-        { text: "Konfrontovat muže s deníkem jako důkazem.", next: "konec_konfrontace" }
-      ]
-    },
-
-    "mlyn_sklep_finale": {
-      title: "Sklep",
-      text: `<p>Ve sklepě — strýc. Svázaný, ale živý. Za ním stál stín. Muž, který tě sledoval z vesnice.</p>
-             <p>„Deník," řekl chladně. „Dej mi ho a odejdete oba."</p>
-             <p>Ale deník jsi neměl — byl v truhle. A truhla byla otevřená. Lhal.</p>`,
-      choices: [
-        { text: "Předstírat, že deník máš, a taktizovat.", next: "konec_taktika" },
-        { text: "Přiznat, že deník nemáš, a jednat přímo.", next: "konec_konfrontace" }
-      ]
-    },
-
-    "konec_zachranari": {
-      title: "Prozřetelná volba",
-      text: `<p>Ustoupil jsi do bezpečí a vytáhl telefon. Za dvacet minut dorazila policie a záchranáři.</p>
-             <p>Strýce Bedřicha našli v podkroví — dehydrovaného, ale živého. Byl zamčený zevnitř vlastním rozhodnutím: čekal na tebe, ale bál se, že přijde někdo jiný.</p>
-             <p>Deník Oldřicha Novotného odhalil vraždu starého mlynáře i schované zlato. Případ z roku 1952 byl konečně uzavřen. Strýc dostal za objev historické odměny.</p>
-             <p>A ty — ty ses naučil, že instinkt má cenu.</p>`,
-      ending: "Konec č. 2 — Moudrá opatrnost",
-      ending_note: "Správná volba ve správný čas. Strýc žije a pravda vyšla najevo."
-    },
-
-    "konec_policie": {
-      title: "Zákon zvítězil",
-      text: `<p>Zavolal jsi policii. Přijeli za půl hodiny — a zpočátku tě nebrali vážně. Opuštěný mlýn, nějaký vzkaz.</p>
-             <p>Ale pak přečetli strýcovu zprávu. A pak deník pod kamenem. Vyšetřování trvalo dva roky.</p>
-             <p>Strýce Bedřicha našli o týden později v malém hotelu v Brně — živého, ale v skrytu. Bál se. Měl k tomu důvod — syn Oldřicha Novotného byl stále naživu a věděl, že strýc deník hledá.</p>
-             <p>Díky tobě byl nakonec dopaden.</p>`,
-      ending: "Konec č. 3 — Vítězství zákona",
-      ending_note: "Pomalé, ale správné řešení. Spravedlnost má svůj čas."
-    },
-
-    "konec_vitezstvi": {
-      title: "Bezpečí v pohybu",
-      text: `<p>Schoval jsi deník, mince i složenku za košili a vyšplhal zpět oknem do noci. Mlha tě pohltila.</p>
-             <p>Druhý den ráno jsi byl na policii. Detektiv Kovář si pročetl deník a dlouze mlčel. „Víte, co jste v tomhle mlýnu našel? Případ, který byl dvacet let pohřbený."</p>
-             <p>Strýce Bedřicha našli o tři dny později — byl v bezpečí, schoval se z vlastní vůle, když zjistil, že je sledován. Přišel na policii sám, jakmile uslyšel, že jsi předal důkazy.</p>`,
-      ending: "Konec č. 4 — Šťastný konec",
-      ending_note: "Pravda vyšla najevo a všichni přežili. Gratulujeme!"
-    },
-
-    "konec_pravda": {
-      title: "Celá pravda",
-      text: `<p>Četl jsi celou noc. Deník mlynáře Oldřicha byl záznamem pomalého hrůzy — jak jeho vlastní syn Miroslav ukradl válečné zlato, jak otec to zjistil a jak byl nakonec zavražděn devíti svíčkami v kruhu — rituálem, který syn četl v okultní knize a věřil, že zakryje stopy.</p>
-             <p>Věřil neprávem. Ty nyní víš vše.</p>
-             <p>Strýc přišel sám o tři hodiny později, když viděl světlo v mlýně. „Přečetl jsi to celé?" zeptal se tiše. Přikývl jsi. „Tak víš, proč jsem se bál jít na policii. Miroslavův syn — Novotný junior — je radní v kraji."</p>
-             <p>Ale šli jste přesto. A tentokrát to vyšlo.</p>`,
-      ending: "Konec č. 5 — Konec s poznáním",
-      ending_note: "Znát celou pravdu má svou cenu — ale také svou hodnotu."
-    },
-
-    "konec_utek": {
-      title: "Útěk s deníkem",
-      text: `<p>Skočil jsi k oknu — staré, ale povolilo. Strýc se zpočátku vzpíral, pak skočil za tebou.</p>
-             <p>Přistáli jste na hromadě starého sena. Za vámi — křik, kroky, baterka míří z okna. Běželi jste.</p>
-             <p>Za úsvitu jste seděli na policejní stanici v Liberci s deníkem na stole. Detektiv ho otevřel, přečetl první stránku a vytočil číslo.</p>
-             <p>„Tady Kovář. Probuďte soudce. Máme to."</p>`,
-      ending: "Konec č. 6 — Útěk a vítězství",
-      ending_note: "Někdy je nejlepší strategií prostě utéct. A přesto zvítězit."
-    },
-
-    "konec_konfrontace": {
-      title: "Přímá konfrontace",
-      text: `<p>Vstal jsi ze stínů. Muž se prudce otočil — a zamrznul, když uviděl deník v tvé ruce.</p>
-             <p>„Víme, co váš otec udělal," řekl jsi klidně. „A jméno vaší banky taky. Buď zavoláte policii sami, nebo to uděláme my — s tímhle jako důkazem."</p>
-             <p>Ticho se táhlo věčnost.</p>
-             <p>Pak muž sáhl do kapsy. Vytáhl ne zbraň, ale telefon. A zavolal sám.</p>
-             <p>Bylo to odvážné. Mohlo to dopadnout jinak. Ale tentokrát ne.</p>`,
-      ending: "Konec č. 7 — Odvaha rozhodla",
-      ending_note: "Riskantní, ale přímá cesta. Občas funguje i to nejodvážnější řešení."
+    "": {
+      title: "",
+      text: `<p></p>
+             <p></p>
+             <p></p>
+             <p></p>`,
+      ending: "",
+      ending_note: ""
     },
 
     "konec_taktika": {
