@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+}<!DOCTYPE html>
 <html lang="cs">
 <head>
 <meta charset="UTF-8">
@@ -36,7 +36,6 @@
     overflow-x: hidden;
   }
 
-  /* Ambient background effect */
   body::before {
     content: '';
     position: fixed;
@@ -49,7 +48,6 @@
     z-index: 0;
   }
 
-  /* Grain texture */
   body::after {
     content: '';
     position: fixed;
@@ -69,7 +67,6 @@
     padding: 0 1.5rem;
   }
 
-  /* ── Header ── */
   header {
     padding: 3.5rem 0 2rem;
     text-align: center;
@@ -101,7 +98,6 @@
     letter-spacing: 0.5em;
   }
 
-  /* ── Progress & breadcrumb ── */
   .breadcrumb {
     display: flex;
     align-items: center;
@@ -119,7 +115,6 @@
   .breadcrumb .sep { opacity: 0.3; user-select: none; }
   .breadcrumb .current { color: rgba(242,200,224,0.55); cursor: default; }
 
-  /* ── Scene card ── */
   .scene-card {
     background: linear-gradient(160deg, #42424e 0%, #38383f 100%);
     border: 1px solid var(--border);
@@ -133,7 +128,6 @@
       0 0 60px rgba(180,60,120,0.07);
   }
 
-  /* Corner decorations */
   .scene-card::before,
   .scene-card::after {
     content: '';
@@ -170,7 +164,6 @@
 
   .scene-text p + p { margin-top: 1.1em; }
 
-  /* ── Choices ── */
   .choices-divider {
     display: flex;
     align-items: center;
@@ -252,7 +245,6 @@
   .choice-btn:hover::before { opacity: 1; }
   .choice-btn:hover::after  { opacity: 1; transform: translateY(-50%) translateX(0); }
 
-  /* ── Ending card ── */
   .ending-badge {
     display: inline-block;
     font-size: 0.68rem;
@@ -265,7 +257,6 @@
     margin-bottom: 1.4rem;
   }
 
-  /* ── Navigation buttons ── */
   .nav-buttons {
     display: flex;
     gap: 1rem;
@@ -312,7 +303,6 @@
     color: rgba(242,200,224,0.18);
   }
 
-  /* Scrollbar */
   ::-webkit-scrollbar { width: 10px; }
   ::-webkit-scrollbar-track { background: #2e2e35; }
   ::-webkit-scrollbar-thumb {
@@ -323,55 +313,384 @@
   ::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(180deg, #ff99cc, #e0609a);
   }
+
+  /* ── Admin overlay ── */
+  #adminOverlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(10,10,14,0.85);
+    backdrop-filter: blur(6px);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+  }
+  #adminOverlay.open { display: flex; }
+
+  .admin-box {
+    background: #242429;
+    border: 1px solid rgba(240,122,184,0.35);
+    border-radius: 4px;
+    width: min(92vw, 820px);
+    max-height: 88vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.7), 0 0 40px rgba(240,122,184,0.08);
+    overflow: hidden;
+  }
+
+  .admin-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 1.6rem;
+    border-bottom: 1px solid rgba(240,122,184,0.18);
+    flex-shrink: 0;
+  }
+
+  .admin-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: var(--amber-glow);
+    letter-spacing: 0.05em;
+  }
+
+  .admin-close {
+    background: none;
+    border: 1px solid rgba(240,122,184,0.25);
+    border-radius: 2px;
+    color: rgba(240,180,220,0.6);
+    font-size: 1rem;
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .admin-close:hover { border-color: var(--amber); color: var(--amber-glow); }
+
+  .admin-tabs {
+    display: flex;
+    border-bottom: 1px solid rgba(240,122,184,0.18);
+    flex-shrink: 0;
+  }
+
+  .admin-tab {
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 0.75rem 1.4rem;
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(240,180,220,0.45);
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: -1px;
+  }
+  .admin-tab.active, .admin-tab:hover {
+    color: var(--amber-glow);
+    border-bottom-color: var(--amber);
+  }
+
+  .admin-body {
+    overflow-y: auto;
+    padding: 1.4rem 1.6rem;
+    flex: 1;
+  }
+
+  .admin-stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 0.8rem;
+    margin-bottom: 1.6rem;
+  }
+
+  .stat-card {
+    background: rgba(240,122,184,0.07);
+    border: 1px solid rgba(240,122,184,0.18);
+    border-radius: 3px;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--amber-glow);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(240,180,220,0.45);
+    margin-top: 0.3rem;
+  }
+
+  .admin-section-title {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: rgba(240,122,184,0.55);
+    margin: 1.4rem 0 0.8rem;
+    border-bottom: 1px solid rgba(240,122,184,0.12);
+    padding-bottom: 0.4rem;
+  }
+
+  .choice-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 0.55rem;
+  }
+
+  .choice-bar-label {
+    flex: 1;
+    color: rgba(253,240,248,0.75);
+    font-size: 0.88rem;
+    line-height: 1.3;
+  }
+
+  .choice-bar-wrap {
+    width: 120px;
+    height: 6px;
+    background: rgba(240,122,184,0.12);
+    border-radius: 3px;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+
+  .choice-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #f07ab8, #ff99cc);
+    border-radius: 3px;
+    transition: width 0.5s ease;
+  }
+
+  .choice-bar-count {
+    width: 2rem;
+    text-align: right;
+    color: var(--amber);
+    font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+
+  .session-item {
+    background: rgba(240,122,184,0.05);
+    border: 1px solid rgba(240,122,184,0.14);
+    border-radius: 3px;
+    padding: 0.9rem 1rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .session-meta {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(240,122,184,0.5);
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .session-path {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    align-items: center;
+  }
+
+  .path-node {
+    font-size: 0.8rem;
+    background: rgba(240,122,184,0.1);
+    border: 1px solid rgba(240,122,184,0.2);
+    border-radius: 2px;
+    padding: 0.15em 0.5em;
+    color: rgba(253,240,248,0.7);
+  }
+
+  .path-node.ending {
+    background: rgba(240,122,184,0.2);
+    border-color: rgba(240,122,184,0.4);
+    color: var(--amber-glow);
+  }
+
+  .admin-empty {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: rgba(240,180,220,0.3);
+    font-style: italic;
+    font-size: 0.95rem;
+  }
+
+  .admin-clear-btn {
+    background: none;
+    border: 1px solid rgba(201,77,138,0.3);
+    border-radius: 2px;
+    color: rgba(201,77,138,0.6);
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 1rem;
+  }
+  .admin-clear-btn:hover { border-color: #c94d8a; color: #c94d8a; }
+
+  .admin-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 2.5rem;
+  }
+
+  .admin-login h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--amber-glow);
+    font-size: 1.3rem;
+  }
+
+  .admin-login input {
+    background: rgba(240,122,184,0.07);
+    border: 1px solid rgba(240,122,184,0.3);
+    border-radius: 2px;
+    padding: 0.6rem 1rem;
+    color: var(--parchment);
+    font-family: 'Crimson Pro', serif;
+    font-size: 1rem;
+    width: 240px;
+    text-align: center;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .admin-login input:focus { border-color: var(--amber); }
+
+  .admin-login button {
+    background: rgba(240,122,184,0.12);
+    border: 1px solid rgba(240,122,184,0.35);
+    border-radius: 2px;
+    color: var(--amber-glow);
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.55rem 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .admin-login button:hover { background: rgba(240,122,184,0.22); }
+
+  .admin-login .error {
+    color: #c94d8a;
+    font-size: 0.85rem;
+    font-style: italic;
+  }
 </style>
 </head>
 <body>
 
 <div class="wrapper">
   <header>
-    <div class="story-title" id="storyTitle">Stíny Starého Mlýna</div>
-    <div class="story-subtitle">Interaktivní příběh · Vaše volby tvoří příběh</div>
+    <div class="story-title" id="storyTitle">Povídka pro Míšu</div>
+    <div class="story-subtitle">Interaktivní povídka · Tvoje volby tvoří příběh</div>
     <div class="ornament">✦ ✦ ✦</div>
   </header>
 
   <div id="breadcrumb" class="breadcrumb"></div>
   <div id="sceneContainer"></div>
 
-  <footer>Interaktivní příběh · Vytvořeno pomocí Claude</footer>
+  <footer>Interaktivní příběh · Vytvořeno s láskou</footer>
+</div>
+
+<!-- Skryté tlačítko pro admin (pravý dolní roh) -->
+<button id="adminTrigger" onclick="openAdmin()" title="Admin" style="
+  position: fixed; bottom: 1rem; right: 1rem;
+  width: 2rem; height: 2rem;
+  background: none; border: none;
+  opacity: 0.08; cursor: pointer;
+  font-size: 1.1rem; color: #f07ab8;
+  transition: opacity 0.3s; z-index: 500;
+" onmouseenter="this.style.opacity='0.5'" onmouseleave="this.style.opacity='0.08'">⚙</button>
+
+<!-- Admin overlay -->
+<div id="adminOverlay">
+  <div class="admin-box">
+
+    <div id="adminLogin" class="admin-login">
+      <h3>Admin přístup</h3>
+      <input type="password" id="adminPwdInput" placeholder="Heslo" onkeydown="if(event.key==='Enter') adminLogin()">
+      <button onclick="adminLogin()">Vstoupit</button>
+      <span id="adminErr" class="error" style="display:none">Špatné heslo</span>
+      <button onclick="closeAdmin()" style="background:none;border:none;color:rgba(240,180,220,0.3);font-family:inherit;cursor:pointer;font-size:0.85rem;margin-top:0.5rem">Zrušit</button>
+    </div>
+
+    <div id="adminDash" style="display:none; flex-direction:column; flex:1; overflow:hidden;">
+      <div class="admin-header">
+        <h2>📊 Admin — Statistiky příběhu</h2>
+        <button class="admin-close" onclick="closeAdmin()">✕</button>
+      </div>
+      <div class="admin-tabs">
+        <button class="admin-tab active" onclick="showTab('overview', this)">Přehled</button>
+        <button class="admin-tab" onclick="showTab('choices', this)">Volby</button>
+        <button class="admin-tab" onclick="showTab('sessions', this)">Průchody</button>
+      </div>
+      <div class="admin-body">
+        <div id="tab-overview">
+          <div class="admin-stat-grid" id="statGrid"></div>
+          <div class="admin-section-title">Nejpopulárnější volby</div>
+          <div id="topChoices"></div>
+        </div>
+        <div id="tab-choices" style="display:none">
+          <div class="admin-section-title">Všechny volby a počty kliknutí</div>
+          <div id="allChoices"></div>
+        </div>
+        <div id="tab-sessions" style="display:none">
+          <div class="admin-section-title">Historie průchodů příběhem</div>
+          <div id="sessionsList"></div>
+        </div>
+        <button class="admin-clear-btn" onclick="clearLog()">🗑 Smazat všechna data</button>
+      </div>
+    </div>
+
+  </div>
 </div>
 
 <script>
 // ═══════════════════════════════════════════════════════════
 //  PŘÍBĚHOVÁ DATA
-//  Každá scéna má: id, title, text (HTML), choices nebo ending
 // ═══════════════════════════════════════════════════════════
 const STORY = {
-  title: "Sauna s trochou zábavy",
+  title: "Povídka pro Míšu",
 
   scenes: {
 
     "start": {
       title: "Úvod",
-      text: `<p>Už nějaký čas se bavíme o tom, ze zajdeme do soukromého wellnessu, konečně je tu víkend, kdy
-                si naši odvezli děti do Děčína a my máme před sebou tři hodiny pohody. V duchu si říkáš, že by možná byla lepší saunie, 
-                protože v soukromí se budu o něco pokoušet, ale už jsme si dlouho přádně nezašukali, tak si říkáš, že to přežiješ a wellnes je dobrý bonus.</p>
-             <p>Přecejen bude pohoda, ujistil jsem tě, že máme raději dvě láhve prosecca a něco na zub a užijeme si relax. 
-             Nevíš přesně kam jedeme, wellness jsem objednával já. Takže jsi příjemně překvapená, že jsme zastavili u wellness Fenix, 
+      text: `<p>Už nějaký čas se bavíme o tom, že zajdeme do soukromého wellnessu, konečně je tu víkend, kdy
+                si naši odvezli děti do Děčína a my máme před sebou tři hodiny pohody. V duchu si říkáš, že by možná byla lepší sauna,
+                protože v soukromí se budu o něco pokoušet, ale už jsme si dlouho pořádně nezašukali, tak si říkáš, že to přežiješ a wellness je dobrý bonus.</p>
+             <p>Přecejen bude pohoda, ujistil jsem tě, že máme raději dvě láhve prosecca a něco na zub a užijeme si relax.
+             Nevíš přesně kam jedeme, wellness jsem objednával já. Takže jsi příjemně překvapená, že jsme zastavili u wellness Fenix,
              pod Ještědem, kam jsi se chtěla už dlouho podívat.</p>`,
       choices: [
         { text: "Máme čas, takže si nejdřív jdeme sednout ještě na bar.", next: "Posezení u baru" },
-        { text: "Jdeme rovnou do wellness, už se těšíš, až se prohřeješ a dáš si k tomu prosecco", next: "Rovnou do wellness" }
+        { text: "Jdeme rovnou do wellness, už se těšíš, až se prohřeješ a dáš si k tomu prosecco.", next: "Rovnou do wellness" }
       ]
     },
 
     "Posezení u baru": {
       title: "Pár skleniček a trochu provokace",
       text: `<p>Nakonec jsme dorazili dost brzy, takže jsme měli dost času, abychom poseděli a dali si pár skleniček.</p>
-             <p>Prosecco ti celkem dost zachutnalo, tak jsi dala rychle po sobě 3 skleny a vyjímečně jsi byla celkem v dobré připité náladě.</p>
-             <p>Rozhlížíš se po baru a vidíš hned několik fešáků kolem 30-35. Vidíš, že jeden tě pozoruje, i když se to snaží skrývat.</p>
-             <p>Vzhledem k tomu, že jdeme do sauny, oblékla jsi se dost nalehko, jsi bez podprsenky, máš halenku s rozeplým knoflíčkem tak,
-             že máš decentně odhalený výstřih. Dál máš růžovou sukni nad kolena.<p>
-             <p>Napadlo tě, že si trochu zaflirtuješ, rozepnula sis knoflíček a tvoje krásná prsa poodhalíš tak akorát, aby ještě nebylo nic vidět, 
+             <p>Prosecco ti celkem dost zachutnalo, tak jsi dala rychle po sobě 3 sklenice a výjimečně jsi byla celkem v dobré připité náladě.</p>
+             <p>Rozhlížíš se po baru a vidíš hned několik fešáků kolem 30–35. Vidíš, že jeden tě pozoruje, i když se to snaží skrývat.</p>
+             <p>Vzhledem k tomu, že jdeme do sauny, oblékla jsi se dost nalehko, jsi bez podprsenky, máš halenku s rozepnutým knoflíčkem tak,
+             že máš decentně odhalený výstřih. Dál máš růžovou sukni nad kolena.</p>
+             <p>Napadlo tě, že si trochu zaflirtuješ, rozepnula sis knoflíček a tvoje krásná prsa poodhalíš tak akorát, aby ještě nebylo nic vidět,
              ale bylo jasné, co skrýváš.</p>`,
       choices: [
         { text: "Chlapík se chytne a vidíš, jak nemůže od tvého výstřihu odtrhnout oči.", next: "Flirt bar pokračování" },
@@ -383,74 +702,81 @@ const STORY = {
       title: "Rychle svléknout a šup do sauny",
       text: `<p>V šatně moc času nestrávíme, rychle se svlékneme, vezmeme prostěradla a jdem do sauny.</p>
              <p>Já vytahuju dvě skleničky a nalévám prosecco. Venku je celkem zima, takže je dobře vychlazené.
-             Chvíli popíjíme a povídáme. Ani nevíš jak, a vypili jsme první sklenku. Nalévám další.
-             "Jdeme s tím už dovnitř, nebo chceš ještě popíjet?"</p>
-             <p>Sauna je vytopená akorát, rozkládáš prostěradlo a leháš si na něj, prosecco máme s sebou a pomalu popíjíme.</p>
-             <p></p>`,
+             Chvíli popíjíme a povídáme. Ani nevíš jak, a vypili jsme první sklenku. Nalévám další.</p>
+             <p>„Jdeme s tím už dovnitř, nebo chceš ještě popíjet?"</p>
+             <p>Sauna je vytopená akorát, rozkládáš prostěradlo a leháš si na něj, prosecco máme s sebou a pomalu popíjíme.</p>`,
       choices: [
         { text: "Máš chuť se ohřát, jdeme na první kolečko sauny.", next: "První sauna" },
         { text: "Chvíli popíjíme, uklidňuju tě, že nakonec máme zaplacené 4 hodiny, čili času máme dost.", next: "Rozpíjení před saunou" }
       ]
     },
-    
-        "První sauna": {
+
+    "První sauna": {
       title: "Příjemné první kolečko",
       text: `<p>Celkem ti zachutná, nicméně jdeme na první kolečko. Dávám lahev do ledničky a hurá do sauny.</p>
              <p>Sauna je vytopená akorát, rozkládáš prostěradlo a leháš si na něj, prosecco máme s sebou a pomalu popíjíme.</p>
              <p>Povídáme, je ti jasné, že po tobě pořád pokukuju, ale zatím se držím.</p>
-             <p>Přemýšlíš, jestli mě chceš trochu provokovat nebo nebo ne.</p>`,
+             <p>Přemýšlíš, jestli mě chceš trochu provokovat nebo ne.</p>`,
       choices: [
         { text: "Ne, v klidu dopijeme a jdeme se zchladit.", next: "Sprcha první kolečko" },
         { text: "Jo, trochu si se mnou pohraješ, ale k ničemu mě nepustíš.", next: "Hrátky v prvním kolečku" }
       ]
     },
-    
+
     "Sprcha první kolečko": {
       title: "Ven a první zchlazení",
-      text: `<p>Vydrželi jsme 15min a je čas na první ochlazení. Sklenky s sebou a jdem se sprchnout.</p>
+      text: `<p>Vydrželi jsme 15 min a je čas na první ochlazení. Sklenky s sebou a jdem se sprchnout.</p>
              <p>Vzhledem ke studené vodě se do ničeho nepouštím, ale pozoruju tvoje krásné kozičky a úhledně upravený klín.</p>
              <p>Oblékáme ručník a jdeme popíjet. Ve wellnes je postel, takže si leháme na ní, relaxujeme a popíjíme.</p>
              <p>Čas celkem utíká, zvládli jsme jednou dolít a jdeme na druhé kolečko.</p>`,
       choices: [
-        { text: "Začínáš mít chuť na trochu provokace.", next: "Provokace drhuhé kolečko" },
+        { text: "Začínáš mít chuť na trochu provokace.", next: "Provokace druhé kolečko" },
         { text: "Přemýšlíš, jaké by to bylo, kdybychom v sauně nebyli sami.", next: "Alternativy společnost v sauně" }
       ]
     },
-    
+
+    "Hrátky v prvním kolečku": {
+      title: "Trochu si hraješ",
+      text: `<p>— tato scéna ještě čeká na dopsání —</p>`,
+      choices: [
+        { text: "Pokračovat →", next: "Sprcha první kolečko" }
+      ]
+    },
+
+    "Provokace druhé kolečko": {
+      title: "Druhé kolečko s provokací",
+      text: `<p>— tato scéna ještě čeká na dopsání —</p>`,
+      choices: [
+        { text: "Pokračovat →", next: "Sprcha první kolečko" }
+      ]
+    },
+
+    "Alternativy společnost v sauně": {
+      title: "Co kdybychom nebyli sami?",
+      text: `<p>— tato scéna ještě čeká na dopsání —</p>`,
+      choices: [
+        { text: "Pokračovat →", next: "Sprcha první kolečko" }
+      ]
+    },
+
     "Flirt bar pokračování": {
       title: "Pokračuješ v laškování",
-      text: `<p>Vidíš, že se chytil a má pohled zabodnutý v tvém výstřihu výstřihu.</p>
+      text: `<p>Vidíš, že se chytil a má pohled zabodnutý v tvém výstřihu.</p>
              <p>Děláš, že se potřebuješ podrbat na lýtku a nakláníš se naproti němu, tvoje kozičky se snaží dostat ven, ale halenka je zatím drží.
              Zaujatě tě pozoruju a trochu se mi dělá boule v kalhotech.
              Otáčíš se proti muži u stolu. Trošičku roztáhneš nohy a pak pomalu přehazuješ nohu přes nohu.</p>
-             <p>Vzrušeně prohazuji: "Zlato, jsi strašně sexy, co kdyby sis šla na záchod sundat kalhotky?"</p>`,
+             <p>Vzrušeně prohazuji: „Zlato, jsi strašně sexy, co kdyby sis šla na záchod sundat kalhotky?"</p>`,
       choices: [
-        { text: "Jsi trochu vzrušená, ale flitrování bylo dost, je čas jít do sauny.", next: "Sauna po flirtu" },
+        { text: "Jsi trochu vzrušená, ale flirtování bylo dost, je čas jít do sauny.", next: "Sauna po flirtu" },
         { text: "Tak jo, jdeš se upravit na toaletu, dost tě to baví.", next: "Flirt pokračuje" }
       ]
     },
-    
-    "Rozpíjení před saunou": {
-      title: "Času je dost a prosecco dnes chutná!",
-      text: `<p></p>
-             <p></p>
-             <p></p>
-             <p></p>
-             <p></p>`,
+
+    "Sauna po flirtu": {
+      title: "Do sauny po flirtu",
+      text: `<p>— tato scéna ještě čeká na dopsání —</p>`,
       choices: [
-        { text: "", next: "" },
-        { text: "", next: "" }
-      ]
-    },
-    
-    "Do wellness z baru": {
-      title: "Hezky rozpito a pokračujeme v sauně",
-      text: `<p>Už při svlékání se trochu motáš, ale zatím jsi v příjemné náladě.</p>
-             <p>Otevíráme první prosecco - vzal jsem i hezké skleničky.</p>
-             <p></p>`,
-choices: [
-        { text: "První kolečko proběhlo skvěle, ochlazení a jdem relaxovat a popíjet.", next: "První kolo" },
-        { text: "Máš trochu laškovnou náladu, v sauně ses rozhodla mě trochu provokovat.", next: "Provokace první kolo" }
+        { text: "Pokračovat →", next: "První sauna" }
       ]
     },
 
@@ -458,38 +784,50 @@ choices: [
       title: "Trochu to okořeníme",
       text: `<p>Vracíš nohu přes nohu zpět, necháváš zase mírně roztažené nohy a pokračuješ v provokaci.</p>
              <p>Zvedneš se a odejdeš na toaletu. Po cestě si uvědomuješ, že jsi celkem vzrušená.</p>
-             <p>Na toaletě rychle sundáš kalhotky, hodíš je do kabelky. Rychlá kontrola v zrcadle, upravíš výstřih - jeden knoflíček by to ještě sneslo:)
+             <p>Na toaletě rychle sundáš kalhotky, hodíš je do kabelky. Rychlá kontrola v zrcadle, upravíš výstřih — jeden knoflíček by to ještě sneslo.
              Jdeš zpět, při příchodu se na mě šibalsky usmíváš, je mi jasné, že se ti to líbí.
              Sedáš si zase tak, že máš kolena nasměrována k muži, se kterým flirtuješ. Sedáš si s mírně roztaženými stehny a čekáš, jestli si všimne.
-             Po chvili, kdy těká očima sem a tam, zabloudí jeho pohled do tvého klína a nedokáže zakrýt překvapení. Evidentně chvíli nedokáže koukat jinam.
+             Po chvíli, kdy těká očima sem a tam, zabloudí jeho pohled do tvého klína a nedokáže zakrýt překvapení. Evidentně chvíli nedokáže koukat jinam.
              Otáčíš se směrem ke mě a stehna dáváš od sebe o něco víc, abych se také tím krásným pohledem pokochal.</p>`,
       choices: [
         { text: "Jsi dost vzrušená, odcházíme do sauny a já jsem evidentně nadšený.", next: "Sauna po flirtu 2" },
-        { text: "Půjdeš k muži a zeptáš se ho, jestli by se k nám nechtěl přidat.", next: "Pokračujeme do sauny ve 3?" } 
+        { text: "Půjdeš k muži a zeptáš se ho, jestli by se k nám nechtěl přidat.", next: "Pokračujeme do sauny ve 3?" }
       ]
     },
 
     "Sauna po flirtu 2": {
-      title: "",
-      text: `<p></p>
-             <p></p>
-             <p></p>`,
+      title: "Do sauny nabitá vzrušením",
+      text: `<p>— tato scéna ještě čeká na dopsání —</p>`,
       choices: [
-        { text: "", next: "" },
-        { text: "", next: "" }
+        { text: "Pokračovat →", next: "První sauna" }
       ]
     },
 
-    "konec_taktika": {
-      title: "Lstivý manévr",
-      text: `<p>„Deník?" Přikývl jsi pomalu. „Mám ho. Je v bezpečí — spolu s fotografiemi, které jsem pořídil. Jsou teď u mého právníka. Pokud nezavolám do jedné hodiny, jdou na policii automaticky."</p>
-             <p>Bylo to lhaní. Ale fungovalo.</p>
-             <p>Muž stál nehybně. Pak pomalu odložil, cokoli držel. „Co chcete?"</p>
-             <p>„Pustit strýce. A zítra ráno si pro vás přijde policie."</p>
-             <p>Svázaný strýc se tiše zasmál. „Vždy jsi byl nejchytřejší v rodině."</p>`,
-      ending: "Konec č. 8 — Vítězství lstí",
-      ending_note: "Inteligence jako zbraň. Někdy je hbitý jazyk cennější než síla."
+    "Pokračujeme do sauny ve 3?": {
+      title: "Odvážná nabídka",
+      text: `<p>— tato scéna ještě čeká na dopsání —</p>`,
+      choices: [
+        { text: "Pokračovat →", next: "První sauna" }
+      ]
     },
+
+    "Do wellness z baru": {
+      title: "Hezky rozpito a pokračujeme v sauně",
+      text: `<p>Už při svlékání se trochu motáš, ale zatím jsi v příjemné náladě.</p>
+             <p>Otevíráme první prosecco — vzal jsem i hezké skleničky.</p>`,
+      choices: [
+        { text: "První kolečko proběhlo skvěle, ochlazení a jdem relaxovat a popíjet.", next: "Sprcha první kolečko" },
+        { text: "Máš trochu laškovnou náladu, v sauně ses rozhodla mě trochu provokovat.", next: "Hrátky v prvním kolečku" }
+      ]
+    },
+
+    "Rozpíjení před saunou": {
+      title: "Času je dost a prosecco dnes chutná!",
+      text: `<p>— tato scéna ještě čeká na dopsání —</p>`,
+      choices: [
+        { text: "Pokračovat →", next: "První sauna" }
+      ]
+    }
 
   }
 };
@@ -509,19 +847,16 @@ function renderScene(sceneId) {
 
   currentScene = sceneId;
   document.getElementById('storyTitle').textContent = STORY.title;
-
-  // Breadcrumb
   renderBreadcrumb();
 
-  // Scene HTML
   const container = document.getElementById('sceneContainer');
-
   let choicesHTML = '';
+
   if (scene.ending) {
     choicesHTML = `
       <div style="margin-top:2rem; text-align:center;">
         <div class="ending-badge">${scene.ending}</div>
-        <p style="font-style:italic; color:rgba(200,144,42,0.7); margin-top:0.5rem;">${scene.ending_note || ''}</p>
+        <p style="font-style:italic; color:rgba(240,122,184,0.7); margin-top:0.5rem;">${scene.ending_note || ''}</p>
       </div>
     `;
   } else if (scene.choices && scene.choices.length) {
@@ -552,16 +887,12 @@ function renderScene(sceneId) {
 function renderBreadcrumb() {
   const bc = document.getElementById('breadcrumb');
   if (history.length === 0) { bc.innerHTML = ''; return; }
-
   const items = history.map((id, i) => {
     const sc = STORY.scenes[id];
-    const label = sc ? sc.title : id;
-    return `<span onclick="jumpToHistory(${i})">${label}</span><span class="sep">›</span>`;
+    return `<span onclick="jumpToHistory(${i})">${sc ? sc.title : id}</span><span class="sep">›</span>`;
   });
-
   const current = STORY.scenes[currentScene];
   items.push(`<span class="current">${current ? current.title : currentScene}</span>`);
-
   bc.innerHTML = items.join('');
 }
 
@@ -576,8 +907,7 @@ function chooseOption(nextId) {
 
 function goBack() {
   if (history.length === 0) return;
-  const prev = history.pop();
-  renderScene(prev);
+  renderScene(history.pop());
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -590,9 +920,171 @@ function jumpToHistory(index) {
 
 function restartStory() {
   history = [];
+  activeSession = { start: new Date().toISOString(), steps: [] };
   renderScene('start');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+
+// ═══════════════════════════════════════════════════════════
+//  LOGOVÁNÍ
+// ═══════════════════════════════════════════════════════════
+const LOG_KEY = 'story_log_v1';
+
+function getLog() {
+  try { return JSON.parse(localStorage.getItem(LOG_KEY)) || { choices: {}, sessions: [] }; }
+  catch { return { choices: {}, sessions: [] }; }
+}
+function saveLog(data) { localStorage.setItem(LOG_KEY, JSON.stringify(data)); }
+
+let activeSession = { start: new Date().toISOString(), steps: [] };
+
+const _origChoose = chooseOption;
+window.chooseOption = function(nextId) {
+  const scene = STORY.scenes[currentScene];
+  const choiceObj = scene?.choices?.find(c => c.next === nextId);
+  const step = {
+    from: currentScene,
+    fromTitle: scene?.title || currentScene,
+    choiceText: choiceObj?.text || nextId,
+    to: nextId,
+    toTitle: STORY.scenes[nextId]?.title || nextId,
+    time: new Date().toISOString()
+  };
+  activeSession.steps.push(step);
+
+  const log = getLog();
+  const key = `${currentScene}→${nextId}`;
+  log.choices[key] = log.choices[key] || { fromTitle: step.fromTitle, toTitle: step.toTitle, text: step.choiceText, count: 0 };
+  log.choices[key].count++;
+  saveLog(log);
+
+  _origChoose(nextId);
+
+  const nextScene = STORY.scenes[nextId];
+  if (nextScene?.ending) {
+    activeSession.end = new Date().toISOString();
+    activeSession.endTitle = nextScene.ending;
+    const log2 = getLog();
+    log2.sessions.unshift({ ...activeSession });
+    if (log2.sessions.length > 200) log2.sessions = log2.sessions.slice(0, 200);
+    saveLog(log2);
+    activeSession = { start: new Date().toISOString(), steps: [] };
+  }
+};
+
+// ═══════════════════════════════════════════════════════════
+//  ADMIN PANEL
+// ═══════════════════════════════════════════════════════════
+const ADMIN_PASSWORD = 'admin123'; // ← ZDE ZMĚŇ HESLO
+
+function openAdmin() {
+  document.getElementById('adminOverlay').classList.add('open');
+  document.getElementById('adminLogin').style.display = 'flex';
+  document.getElementById('adminDash').style.display = 'none';
+  document.getElementById('adminPwdInput').value = '';
+  document.getElementById('adminErr').style.display = 'none';
+  setTimeout(() => document.getElementById('adminPwdInput').focus(), 100);
+}
+
+function closeAdmin() {
+  document.getElementById('adminOverlay').classList.remove('open');
+}
+
+function adminLogin() {
+  if (document.getElementById('adminPwdInput').value === ADMIN_PASSWORD) {
+    document.getElementById('adminLogin').style.display = 'none';
+    document.getElementById('adminDash').style.display = 'flex';
+    renderAdminDash();
+  } else {
+    document.getElementById('adminErr').style.display = 'block';
+    document.getElementById('adminPwdInput').value = '';
+  }
+}
+
+function showTab(name, btn) {
+  ['overview','choices','sessions'].forEach(t => {
+    document.getElementById('tab-'+t).style.display = t === name ? 'block' : 'none';
+  });
+  document.querySelectorAll('.admin-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function fmtDate(iso) {
+  const d = new Date(iso);
+  return d.toLocaleDateString('cs-CZ') + ' ' + d.toLocaleTimeString('cs-CZ', { hour: '2-digit', minute: '2-digit' });
+}
+
+function renderAdminDash() {
+  const log = getLog();
+  const choices = Object.values(log.choices);
+  const sessions = log.sessions;
+  const totalClicks = choices.reduce((s, c) => s + c.count, 0);
+  const completedSessions = sessions.filter(s => s.endTitle).length;
+
+  document.getElementById('statGrid').innerHTML = `
+    <div class="stat-card"><div class="stat-num">${totalClicks}</div><div class="stat-label">Celkem rozhodnutí</div></div>
+    <div class="stat-card"><div class="stat-num">${sessions.length}</div><div class="stat-label">Průchodů příběhem</div></div>
+    <div class="stat-card"><div class="stat-num">${completedSessions}</div><div class="stat-label">Dokončených konců</div></div>
+    <div class="stat-card"><div class="stat-num">${choices.length}</div><div class="stat-label">Různých voleb</div></div>
+  `;
+
+  const sorted = [...choices].sort((a,b) => b.count - a.count).slice(0, 6);
+  const maxCount = sorted[0]?.count || 1;
+  document.getElementById('topChoices').innerHTML = sorted.length
+    ? sorted.map(c => `
+        <div class="choice-bar-row">
+          <div class="choice-bar-label">${c.text}</div>
+          <div class="choice-bar-wrap"><div class="choice-bar-fill" style="width:${Math.round(c.count/maxCount*100)}%"></div></div>
+          <div class="choice-bar-count">${c.count}×</div>
+        </div>`).join('')
+    : '<div class="admin-empty">Zatím žádná data.</div>';
+
+  const allSorted = [...choices].sort((a,b) => b.count - a.count);
+  const maxAll = allSorted[0]?.count || 1;
+  document.getElementById('allChoices').innerHTML = allSorted.length
+    ? allSorted.map(c => `
+        <div class="choice-bar-row">
+          <div class="choice-bar-label" style="font-size:0.84rem">
+            <span style="color:rgba(240,122,184,0.5);font-size:0.75rem">${c.fromTitle} → ${c.toTitle}</span><br>
+            ${c.text}
+          </div>
+          <div class="choice-bar-wrap"><div class="choice-bar-fill" style="width:${Math.round(c.count/maxAll*100)}%"></div></div>
+          <div class="choice-bar-count">${c.count}×</div>
+        </div>`).join('')
+    : '<div class="admin-empty">Zatím žádná data.</div>';
+
+  document.getElementById('sessionsList').innerHTML = sessions.length
+    ? sessions.map((s, i) => {
+        const nodes = s.steps.map(step =>
+          `<span class="path-node">${step.fromTitle}</span><span style="color:rgba(240,122,184,0.35);font-size:0.75rem"> › </span>`
+        ).join('');
+        const lastStep = s.steps[s.steps.length - 1];
+        const endNode = s.endTitle
+          ? `<span class="path-node ending">${s.endTitle}</span>`
+          : (lastStep ? `<span class="path-node">${lastStep.toTitle}</span><span style="color:rgba(240,122,184,0.3);font-size:0.75rem"> (nedokončeno)</span>` : '');
+        return `
+          <div class="session-item">
+            <div class="session-meta">
+              <span>Průchod #${sessions.length - i} · ${fmtDate(s.start)}</span>
+              <span>${s.steps.length} rozhodnutí</span>
+            </div>
+            <div class="session-path">${nodes}${endNode}</div>
+          </div>`;
+      }).join('')
+    : '<div class="admin-empty">Zatím žádné průchody.</div>';
+}
+
+function clearLog() {
+  if (confirm('Opravdu smazat všechna statistická data?')) {
+    localStorage.removeItem(LOG_KEY);
+    renderAdminDash();
+  }
+}
+
+// Klávesová zkratka: Ctrl+Shift+A
+document.addEventListener('keydown', e => {
+  if (e.ctrlKey && e.shiftKey && e.key === 'A') openAdmin();
+});
 
 // ═══════════════════════════════════════════════════════════
 //  INIT
