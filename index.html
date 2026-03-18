@@ -17,209 +17,81 @@
     --choice-bg: rgba(240,122,184,0.09);
     --choice-hover: rgba(240,122,184,0.20);
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    background: var(--bg);
-    color: var(--parchment);
-    font-family: 'Crimson Pro', Georgia, serif;
-    font-weight: 300;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow-x: hidden;
-  }
-
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 70% 50% at 50% 0%, rgba(240,122,184,0.13) 0%, transparent 70%),
-      radial-gradient(ellipse 50% 70% at 15% 90%, rgba(240,122,184,0.07) 0%, transparent 60%),
-      radial-gradient(ellipse 40% 55% at 88% 35%, rgba(240,122,184,0.08) 0%, transparent 55%);
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  body::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-    background-size: 200px;
-    opacity: 0.4;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .wrapper {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    max-width: 720px;
-    padding: 0 1.5rem;
-  }
-
+  body { background: var(--bg); color: var(--parchment); font-family: 'Crimson Pro', Georgia, serif; font-weight: 300; min-height: 100vh; display: flex; flex-direction: column; align-items: center; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(240,122,184,0.13) 0%, transparent 70%), radial-gradient(ellipse 50% 70% at 15% 90%, rgba(240,122,184,0.07) 0%, transparent 60%), radial-gradient(ellipse 40% 55% at 88% 35%, rgba(240,122,184,0.08) 0%, transparent 55%); pointer-events: none; z-index: 0; }
+  body::after { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E"); background-size: 200px; opacity: 0.4; pointer-events: none; z-index: 0; }
+  .wrapper { position: relative; z-index: 1; width: 100%; max-width: 720px; padding: 0 1.5rem; }
   header { padding: 3.5rem 0 2rem; text-align: center; }
-
-  .story-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.8rem, 5vw, 3rem);
-    font-weight: 700;
-    color: var(--amber-glow);
-    letter-spacing: 0.04em;
-    text-shadow: 0 0 40px rgba(224,111,160,0.5), 0 0 80px rgba(180,60,120,0.25);
-    line-height: 1.2;
-  }
-
-  .story-subtitle {
-    margin-top: 0.5rem;
-    font-style: italic;
-    font-size: 1rem;
-    color: rgba(242,200,224,0.4);
-    letter-spacing: 0.08em;
-  }
-
+  .story-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 5vw, 3rem); font-weight: 700; color: var(--amber-glow); letter-spacing: 0.04em; text-shadow: 0 0 40px rgba(224,111,160,0.5), 0 0 80px rgba(180,60,120,0.25); line-height: 1.2; }
+  .story-subtitle { margin-top: 0.5rem; font-style: italic; font-size: 1rem; color: rgba(242,200,224,0.4); letter-spacing: 0.08em; }
   .ornament { margin: 1.2rem auto 0; color: var(--amber); opacity: 0.5; font-size: 1.1rem; letter-spacing: 0.5em; }
+  @keyframes fadeSlide { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
 
-  @keyframes fadeSlide {
-    from { opacity: 0; transform: translateY(18px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  /* ════════ LOGIN ════════ */
-  #loginScreen {
-    position: fixed; inset: 0; background: var(--bg);
-    z-index: 2000; display: flex; align-items: center; justify-content: center;
-  }
-  #loginScreen::before {
-    content: ''; position: fixed; inset: 0;
-    background:
-      radial-gradient(ellipse 70% 50% at 50% 0%, rgba(240,122,184,0.13) 0%, transparent 70%),
-      radial-gradient(ellipse 50% 70% at 15% 90%, rgba(240,122,184,0.07) 0%, transparent 60%),
-      radial-gradient(ellipse 40% 55% at 88% 35%, rgba(240,122,184,0.08) 0%, transparent 55%);
-    pointer-events: none;
-  }
-
-  .login-box {
-    position: relative;
-    background: linear-gradient(160deg, #42424e 0%, #38383f 100%);
-    border: 1px solid var(--border); border-radius: 2px;
-    padding: 3rem 3.5rem; width: min(90vw, 420px);
-    display: flex; flex-direction: column; align-items: center; gap: 1.2rem;
-    box-shadow: 0 8px 40px rgba(0,0,0,0.7), 0 0 60px rgba(180,60,120,0.07);
-    animation: fadeSlide 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-  .login-box::before, .login-box::after {
-    content: ''; position: absolute; width: 18px; height: 18px;
-    border-color: var(--amber); border-style: solid; opacity: 0.35;
-  }
+  /* LOGIN */
+  #loginScreen { position: fixed; inset: 0; background: var(--bg); z-index: 2000; display: flex; align-items: center; justify-content: center; }
+  #loginScreen::before { content: ''; position: fixed; inset: 0; background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(240,122,184,0.13) 0%, transparent 70%), radial-gradient(ellipse 50% 70% at 15% 90%, rgba(240,122,184,0.07) 0%, transparent 60%), radial-gradient(ellipse 40% 55% at 88% 35%, rgba(240,122,184,0.08) 0%, transparent 55%); pointer-events: none; }
+  .login-box { position: relative; background: linear-gradient(160deg, #42424e 0%, #38383f 100%); border: 1px solid var(--border); border-radius: 2px; padding: 3rem 3.5rem; width: min(90vw, 420px); display: flex; flex-direction: column; align-items: center; gap: 1.2rem; box-shadow: 0 8px 40px rgba(0,0,0,0.7), 0 0 60px rgba(180,60,120,0.07); animation: fadeSlide 0.55s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .login-box::before, .login-box::after { content: ''; position: absolute; width: 18px; height: 18px; border-color: var(--amber); border-style: solid; opacity: 0.35; }
   .login-box::before { top: 10px; left: 10px; border-width: 1px 0 0 1px; }
-  .login-box::after  { bottom: 10px; right: 10px; border-width: 0 1px 1px 0; }
-
+  .login-box::after { bottom: 10px; right: 10px; border-width: 0 1px 1px 0; }
   .login-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: var(--amber-glow); letter-spacing: 0.04em; text-align: center; text-shadow: 0 0 40px rgba(224,111,160,0.4); }
   .login-ornament { color: var(--amber); opacity: 0.4; letter-spacing: 0.5em; font-size: 0.9rem; }
-
   .login-field { width: 100%; display: flex; flex-direction: column; gap: 0.35rem; }
   .login-field label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em; color: rgba(240,122,184,0.55); }
-  .login-field input {
-    background: rgba(240,122,184,0.07); border: 1px solid rgba(240,122,184,0.28); border-radius: 2px;
-    padding: 0.65rem 1rem; color: var(--parchment); font-family: 'Crimson Pro', serif; font-size: 1rem;
-    width: 100%; outline: none; transition: border-color 0.2s;
-  }
+  .login-field input { background: rgba(240,122,184,0.07); border: 1px solid rgba(240,122,184,0.28); border-radius: 2px; padding: 0.65rem 1rem; color: var(--parchment); font-family: 'Crimson Pro', serif; font-size: 1rem; width: 100%; outline: none; transition: border-color 0.2s; }
   .login-field input:focus { border-color: var(--amber); }
-
-  .login-btn {
-    width: 100%; margin-top: 0.4rem;
-    background: rgba(240,122,184,0.12); border: 1px solid rgba(240,122,184,0.38); border-radius: 2px;
-    color: var(--amber-glow); font-family: 'Crimson Pro', serif; font-size: 0.88rem;
-    letter-spacing: 0.12em; text-transform: uppercase; padding: 0.7rem 1.5rem; cursor: pointer; transition: all 0.2s;
-  }
+  .login-btn { width: 100%; margin-top: 0.4rem; background: rgba(240,122,184,0.12); border: 1px solid rgba(240,122,184,0.38); border-radius: 2px; color: var(--amber-glow); font-family: 'Crimson Pro', serif; font-size: 0.88rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.7rem 1.5rem; cursor: pointer; transition: all 0.2s; }
   .login-btn:hover { background: rgba(240,122,184,0.22); border-color: var(--amber); }
   .login-error { color: #e06090; font-size: 0.85rem; font-style: italic; min-height: 1.2em; text-align: center; }
 
-  /* ════════ HOME SCREEN ════════ */
+  /* HOME SCREEN */
   #homeScreen { display: none; position: relative; z-index: 1; width: 100%; max-width: 720px; padding: 0 1.5rem; animation: fadeSlide 0.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
-
   .home-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 3rem; }
-
-  .story-card {
-    background: linear-gradient(160deg, #42424e 0%, #38383f 100%);
-    border: 1px solid var(--border); border-radius: 2px;
-    padding: 1.6rem 1.8rem; cursor: pointer; position: relative;
-    transition: all 0.22s ease; text-align: left;
-    font-family: 'Crimson Pro', serif; color: var(--parchment);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.4); overflow: hidden;
-  }
-  .story-card::before, .story-card::after {
-    content: ''; position: absolute; width: 12px; height: 12px;
-    border-color: var(--amber); border-style: solid; opacity: 0.3; transition: opacity 0.2s;
-  }
+  .story-card { background: linear-gradient(160deg, #42424e 0%, #38383f 100%); border: 1px solid var(--border); border-radius: 2px; padding: 1.6rem 1.8rem; cursor: pointer; position: relative; transition: all 0.22s ease; text-align: left; font-family: 'Crimson Pro', serif; color: var(--parchment); box-shadow: 0 4px 20px rgba(0,0,0,0.4); overflow: hidden; }
+  .story-card::before, .story-card::after { content: ''; position: absolute; width: 12px; height: 12px; border-color: var(--amber); border-style: solid; opacity: 0.3; transition: opacity 0.2s; }
   .story-card::before { top: 7px; left: 7px; border-width: 1px 0 0 1px; }
-  .story-card::after  { bottom: 7px; right: 7px; border-width: 0 1px 1px 0; }
+  .story-card::after { bottom: 7px; right: 7px; border-width: 0 1px 1px 0; }
   .story-card:hover { transform: translateY(-3px); border-color: rgba(240,122,184,0.55); box-shadow: 0 8px 30px rgba(0,0,0,0.5), 0 0 20px rgba(240,122,184,0.08); }
   .story-card:hover::before, .story-card:hover::after { opacity: 0.6; }
-
-  .story-card-tag { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.18em; color: rgba(240,122,184,0.55); margin-bottom: 0.6rem; }
+  .story-card.locked { cursor: default; opacity: 0.65; border-color: rgba(240,122,184,0.15); }
+  .story-card.locked:hover { transform: none; box-shadow: 0 4px 20px rgba(0,0,0,0.4); border-color: rgba(240,122,184,0.15); }
+  .story-card-tag { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.18em; color: rgba(240,122,184,0.55); margin-bottom: 0.6rem; display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
   .tag-branch { background: rgba(240,122,184,0.12); border: 1px solid rgba(240,122,184,0.25); border-radius: 1px; padding: 0.1em 0.5em; color: var(--amber-glow); }
+  .tag-locked { background: rgba(120,120,140,0.18); border: 1px solid rgba(180,180,200,0.2); border-radius: 1px; padding: 0.1em 0.5em; color: rgba(200,200,220,0.6); font-size: 0.6rem; }
   .story-card-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; color: var(--amber-glow); letter-spacing: 0.02em; line-height: 1.3; margin-bottom: 0.5rem; }
   .story-card-desc { font-size: 0.9rem; color: rgba(242,200,224,0.5); font-style: italic; line-height: 1.5; padding-right: 1.5rem; }
+  .locked-note { margin-top: 0.6rem; font-size: 0.82rem; color: rgba(200,200,220,0.5); font-style: italic; background: rgba(100,100,120,0.15); border: 1px solid rgba(150,150,170,0.15); border-radius: 2px; padding: 0.3em 0.6em; }
   .story-card-arrow { position: absolute; bottom: 1.2rem; right: 1.4rem; color: var(--amber); opacity: 0; font-size: 1rem; transition: all 0.22s ease; transform: translateX(-4px); }
-  .story-card:hover .story-card-arrow { opacity: 0.7; transform: translateX(0); }
+  .story-card:not(.locked):hover .story-card-arrow { opacity: 0.7; transform: translateX(0); }
 
-  /* ════════ SCENE CARD ════════ */
-  #storyScreen { display: none; position: relative; z-index: 1; width: 100%; max-width: 720px; padding: 0 1.5rem; }
-
+  /* SCENE / SIMPLE */
+  #storyScreen, #simpleStoryScreen { display: none; position: relative; z-index: 1; width: 100%; max-width: 720px; padding: 0 1.5rem; }
   .breadcrumb { display: flex; align-items: center; gap: 0.4rem; font-size: 0.78rem; color: rgba(242,200,224,0.3); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 1.8rem; flex-wrap: wrap; }
   .breadcrumb span { cursor: pointer; transition: color 0.2s; }
   .breadcrumb span:hover { color: var(--amber); }
   .breadcrumb .sep { opacity: 0.3; user-select: none; }
   .breadcrumb .current { color: rgba(242,200,224,0.55); cursor: default; }
-
-  .scene-card {
-    background: linear-gradient(160deg, #42424e 0%, #38383f 100%);
-    border: 1px solid var(--border); border-radius: 2px; padding: 2.8rem 3rem; position: relative;
-    animation: fadeSlide 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
-    box-shadow: 0 0 0 1px rgba(224,111,160,0.05) inset, 0 8px 40px rgba(0,0,0,0.7), 0 0 60px rgba(180,60,120,0.07);
-  }
+  .scene-card { background: linear-gradient(160deg, #42424e 0%, #38383f 100%); border: 1px solid var(--border); border-radius: 2px; padding: 2.8rem 3rem; position: relative; animation: fadeSlide 0.55s cubic-bezier(0.22, 1, 0.36, 1) both; box-shadow: 0 0 0 1px rgba(224,111,160,0.05) inset, 0 8px 40px rgba(0,0,0,0.7), 0 0 60px rgba(180,60,120,0.07); }
   .scene-card::before, .scene-card::after { content: ''; position: absolute; width: 18px; height: 18px; border-color: var(--amber); border-style: solid; opacity: 0.35; }
   .scene-card::before { top: 10px; left: 10px; border-width: 1px 0 0 1px; }
-  .scene-card::after  { bottom: 10px; right: 10px; border-width: 0 1px 1px 0; }
-
+  .scene-card::after { bottom: 10px; right: 10px; border-width: 0 1px 1px 0; }
   .scene-id { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--amber); opacity: 0.55; margin-bottom: 1.4rem; }
-
   .scene-text { font-size: clamp(1rem, 2.5vw, 1.18rem); line-height: 1.85; color: rgba(242,232,248,0.88); font-weight: 300; }
   .scene-text p + p { margin-top: 1.1em; }
-
   .choices-divider { display: flex; align-items: center; gap: 1rem; margin: 2.4rem 0 1.6rem; }
   .choices-divider::before, .choices-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
   .choices-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.18em; color: rgba(224,111,160,0.5); white-space: nowrap; }
   .choices-list { display: flex; flex-direction: column; gap: 0.7rem; }
-
-  .choice-btn {
-    background: var(--choice-bg); border: 1px solid var(--border); border-radius: 2px;
-    padding: 1rem 1.4rem 1rem 3.2rem; text-align: left; cursor: pointer;
-    font-family: 'Crimson Pro', serif; font-size: 1.05rem; font-weight: 300;
-    color: rgba(242,200,224,0.75); line-height: 1.5; position: relative; transition: all 0.22s ease; letter-spacing: 0.01em;
-  }
+  .choice-btn { background: var(--choice-bg); border: 1px solid var(--border); border-radius: 2px; padding: 1rem 1.4rem 1rem 3.2rem; text-align: left; cursor: pointer; font-family: 'Crimson Pro', serif; font-size: 1.05rem; font-weight: 300; color: rgba(242,200,224,0.75); line-height: 1.5; position: relative; transition: all 0.22s ease; letter-spacing: 0.01em; }
   .choice-btn::before { content: attr(data-num); position: absolute; left: 1.1rem; top: 50%; transform: translateY(-50%); font-family: 'Playfair Display', serif; font-size: 0.8rem; color: var(--amber); opacity: 0.6; transition: opacity 0.2s; }
   .choice-btn::after { content: '→'; position: absolute; right: 1.2rem; top: 50%; transform: translateY(-50%) translateX(-4px); opacity: 0; color: var(--amber-glow); font-size: 1rem; transition: all 0.22s ease; }
   .choice-btn:hover { background: var(--choice-hover); border-color: rgba(224,111,160,0.5); color: var(--parchment); transform: translateX(4px); }
   .choice-btn:hover::before { opacity: 1; }
-  .choice-btn:hover::after  { opacity: 1; transform: translateY(-50%) translateX(0); }
-
+  .choice-btn:hover::after { opacity: 1; transform: translateY(-50%) translateX(0); }
   .ending-badge { display: inline-block; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--amber); border: 1px solid var(--border); padding: 0.3em 0.8em; border-radius: 1px; margin-bottom: 1.4rem; }
-
   .nav-buttons { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
-
-  .nav-btn {
-    background: transparent; border: 1px solid rgba(224,111,160,0.22); border-radius: 2px;
-    padding: 0.6rem 1.2rem; font-family: 'Crimson Pro', serif; font-size: 0.85rem;
-    letter-spacing: 0.08em; text-transform: uppercase; color: rgba(242,200,224,0.5); cursor: pointer; transition: all 0.2s;
-  }
+  .nav-btn { background: transparent; border: 1px solid rgba(224,111,160,0.22); border-radius: 2px; padding: 0.6rem 1.2rem; font-family: 'Crimson Pro', serif; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(242,200,224,0.5); cursor: pointer; transition: all 0.2s; }
   .nav-btn:hover:not(:disabled) { border-color: var(--amber); color: var(--amber-glow); }
   .nav-btn:disabled { opacity: 0.2; cursor: default; }
   .nav-btn.restart { border-color: rgba(184,77,122,0.35); color: rgba(224,111,160,0.6); }
@@ -227,26 +99,22 @@
   .nav-btn.home-back { border-color: rgba(240,122,184,0.22); color: rgba(242,200,224,0.45); }
   .nav-btn.home-back:hover { border-color: var(--amber); color: var(--amber-glow); }
 
-  /* ════════ SIMPLE STORY ════════ */
-  #simpleStoryScreen { display: none; position: relative; z-index: 1; width: 100%; max-width: 720px; padding: 0 1.5rem; }
-
   footer { padding: 3rem 0 2rem; text-align: center; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(242,200,224,0.18); position: relative; z-index: 1; }
-
   ::-webkit-scrollbar { width: 10px; }
   ::-webkit-scrollbar-track { background: #2e2e35; }
   ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #f07ab8, #c94d8a); border-radius: 6px; border: 2px solid #2e2e35; }
   ::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #ff99cc, #e0609a); }
 
-  /* ════════ ADMIN ════════ */
+  /* ADMIN */
   #adminOverlay { display: none; position: fixed; inset: 0; background: rgba(10,10,14,0.85); backdrop-filter: blur(6px); z-index: 1000; align-items: center; justify-content: center; }
   #adminOverlay.open { display: flex; }
-  .admin-box { background: #242429; border: 1px solid rgba(240,122,184,0.35); border-radius: 4px; width: min(92vw, 820px); max-height: 88vh; display: flex; flex-direction: column; box-shadow: 0 20px 60px rgba(0,0,0,0.7), 0 0 40px rgba(240,122,184,0.08); overflow: hidden; }
+  .admin-box { background: #242429; border: 1px solid rgba(240,122,184,0.35); border-radius: 4px; width: min(92vw, 860px); max-height: 88vh; display: flex; flex-direction: column; box-shadow: 0 20px 60px rgba(0,0,0,0.7), 0 0 40px rgba(240,122,184,0.08); overflow: hidden; }
   .admin-header { display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 1.6rem; border-bottom: 1px solid rgba(240,122,184,0.18); flex-shrink: 0; }
   .admin-header h2 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--amber-glow); letter-spacing: 0.05em; }
   .admin-close { background: none; border: 1px solid rgba(240,122,184,0.25); border-radius: 2px; color: rgba(240,180,220,0.6); font-size: 1rem; width: 2rem; height: 2rem; cursor: pointer; transition: all 0.2s; }
   .admin-close:hover { border-color: var(--amber); color: var(--amber-glow); }
-  .admin-tabs { display: flex; border-bottom: 1px solid rgba(240,122,184,0.18); flex-shrink: 0; }
-  .admin-tab { background: none; border: none; border-bottom: 2px solid transparent; padding: 0.75rem 1.4rem; font-family: 'Crimson Pro', serif; font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(240,180,220,0.45); cursor: pointer; transition: all 0.2s; margin-bottom: -1px; }
+  .admin-tabs { display: flex; border-bottom: 1px solid rgba(240,122,184,0.18); flex-shrink: 0; overflow-x: auto; }
+  .admin-tab { background: none; border: none; border-bottom: 2px solid transparent; padding: 0.75rem 1.2rem; font-family: 'Crimson Pro', serif; font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(240,180,220,0.45); cursor: pointer; transition: all 0.2s; margin-bottom: -1px; white-space: nowrap; }
   .admin-tab.active, .admin-tab:hover { color: var(--amber-glow); border-bottom-color: var(--amber); }
   .admin-body { overflow-y: auto; padding: 1.4rem 1.6rem; flex: 1; }
   .admin-stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 0.8rem; margin-bottom: 1.6rem; }
@@ -260,7 +128,7 @@
   .choice-bar-fill { height: 100%; background: linear-gradient(90deg, #f07ab8, #ff99cc); border-radius: 3px; transition: width 0.5s ease; }
   .choice-bar-count { width: 2rem; text-align: right; color: var(--amber); font-size: 0.85rem; flex-shrink: 0; }
   .session-item { background: rgba(240,122,184,0.05); border: 1px solid rgba(240,122,184,0.14); border-radius: 3px; padding: 0.9rem 1rem; margin-bottom: 0.6rem; }
-  .session-meta { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(240,122,184,0.5); margin-bottom: 0.5rem; display: flex; justify-content: space-between; }
+  .session-meta { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(240,122,184,0.5); margin-bottom: 0.5rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.3rem; }
   .session-path { display: flex; flex-wrap: wrap; gap: 0.3rem; align-items: center; }
   .path-node { font-size: 0.8rem; background: rgba(240,122,184,0.1); border: 1px solid rgba(240,122,184,0.2); border-radius: 2px; padding: 0.15em 0.5em; color: rgba(253,240,248,0.7); }
   .path-node.ending { background: rgba(240,122,184,0.2); border-color: rgba(240,122,184,0.4); color: var(--amber-glow); }
@@ -274,6 +142,32 @@
   .admin-login button { background: rgba(240,122,184,0.12); border: 1px solid rgba(240,122,184,0.35); border-radius: 2px; color: var(--amber-glow); font-family: 'Crimson Pro', serif; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.55rem 1.5rem; cursor: pointer; transition: all 0.2s; }
   .admin-login button:hover { background: rgba(240,122,184,0.22); }
   .admin-login .error { color: #c94d8a; font-size: 0.85rem; font-style: italic; }
+
+  /* STORY MANAGEMENT TAB */
+  .story-mgmt-row { display: flex; align-items: flex-start; gap: 1rem; padding: 0.9rem 0; border-bottom: 1px solid rgba(240,122,184,0.08); }
+  .story-mgmt-row:last-child { border-bottom: none; }
+  .story-mgmt-info { flex: 1; }
+  .story-mgmt-title { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--amber-glow); margin-bottom: 0.2rem; }
+  .story-mgmt-note-input { background: rgba(240,122,184,0.07); border: 1px solid rgba(240,122,184,0.2); border-radius: 2px; padding: 0.35rem 0.7rem; color: var(--parchment); font-family: 'Crimson Pro', serif; font-size: 0.85rem; width: 100%; outline: none; margin-top: 0.4rem; transition: border-color 0.2s; }
+  .story-mgmt-note-input:focus { border-color: var(--amber); }
+  .story-mgmt-note-input::placeholder { color: rgba(240,180,220,0.3); }
+  .story-mgmt-controls { display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem; flex-shrink: 0; }
+  .lock-toggle { background: none; border: 1px solid rgba(240,122,184,0.25); border-radius: 2px; padding: 0.35rem 0.8rem; font-family: 'Crimson Pro', serif; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+  .lock-toggle.unlocked { color: rgba(240,122,184,0.7); border-color: rgba(240,122,184,0.3); }
+  .lock-toggle.unlocked:hover { border-color: var(--ember); color: var(--ember); }
+  .lock-toggle.is-locked { color: rgba(180,180,200,0.6); border-color: rgba(180,180,200,0.2); }
+  .lock-toggle.is-locked:hover { border-color: var(--amber); color: var(--amber); }
+  .note-save-btn { background: rgba(240,122,184,0.1); border: 1px solid rgba(240,122,184,0.25); border-radius: 2px; padding: 0.3rem 0.7rem; font-family: 'Crimson Pro', serif; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(240,122,184,0.7); cursor: pointer; transition: all 0.2s; }
+  .note-save-btn:hover { background: rgba(240,122,184,0.2); color: var(--amber-glow); }
+
+  /* ACTIVITY LOG TAB */
+  .activity-item { background: rgba(240,122,184,0.04); border: 1px solid rgba(240,122,184,0.1); border-radius: 3px; padding: 0.7rem 1rem; margin-bottom: 0.5rem; display: flex; align-items: baseline; gap: 0.8rem; flex-wrap: wrap; }
+  .activity-time { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(240,122,184,0.45); white-space: nowrap; flex-shrink: 0; }
+  .activity-user { font-family: 'Playfair Display', serif; font-size: 0.9rem; color: var(--amber-glow); flex-shrink: 0; }
+  .activity-action { font-size: 0.88rem; color: rgba(242,200,224,0.65); flex: 1; }
+  .activity-duration { font-size: 0.75rem; color: rgba(240,122,184,0.5); flex-shrink: 0; font-style: italic; }
+  .activity-type-login { border-left: 2px solid rgba(100,200,150,0.4); }
+  .activity-type-view { border-left: 2px solid rgba(240,122,184,0.3); }
 </style>
 </head>
 <body>
@@ -285,13 +179,11 @@
     <div class="login-ornament">✦ ✦ ✦</div>
     <div class="login-field">
       <label>Uživatelské jméno</label>
-      <input type="text" id="loginUser" placeholder="jméno" autocomplete="username"
-             onkeydown="if(event.key==='Enter') document.getElementById('loginPass').focus()">
+      <input type="text" id="loginUser" placeholder="jméno" autocomplete="username" onkeydown="if(event.key==='Enter') document.getElementById('loginPass').focus()">
     </div>
     <div class="login-field">
       <label>Heslo</label>
-      <input type="password" id="loginPass" placeholder="heslo" autocomplete="current-password"
-             onkeydown="if(event.key==='Enter') doLogin()">
+      <input type="password" id="loginPass" placeholder="heslo" autocomplete="current-password" onkeydown="if(event.key==='Enter') doLogin()">
     </div>
     <div class="login-error" id="loginError"></div>
     <button class="login-btn" onclick="doLogin()">Vstoupit →</button>
@@ -327,19 +219,14 @@
     <div class="ornament">✦ ✦ ✦</div>
   </header>
   <div id="simpleStoryContent"></div>
-  <div class="nav-buttons" style="margin-bottom: 3rem;">
+  <div class="nav-buttons" style="margin-bottom:3rem;">
     <button class="nav-btn home-back" onclick="showHome()">⌂ Zpět na úvodní stránku</button>
   </div>
 </div>
 
 <footer id="mainFooter" style="display:none;">Povídky pro Míšu · Vytvořeno s láskou</footer>
 
-<!-- Skryté tlačítko admin (pravý dolní roh) -->
-<button id="adminTrigger" onclick="openAdmin()" title="Admin" style="
-  position:fixed; bottom:1rem; right:1rem; width:2rem; height:2rem;
-  background:none; border:none; opacity:0.08; cursor:pointer;
-  font-size:1.1rem; color:#f07ab8; transition:opacity 0.3s; z-index:500; display:none;
-" onmouseenter="this.style.opacity='0.5'" onmouseleave="this.style.opacity='0.08'">⚙</button>
+<button id="adminTrigger" onclick="openAdmin()" title="Admin" style="position:fixed;bottom:1rem;right:1rem;width:2rem;height:2rem;background:none;border:none;opacity:0.08;cursor:pointer;font-size:1.1rem;color:#f07ab8;transition:opacity 0.3s;z-index:500;display:none;" onmouseenter="this.style.opacity='0.5'" onmouseleave="this.style.opacity='0.08'">⚙</button>
 
 <!-- Admin overlay -->
 <div id="adminOverlay">
@@ -351,21 +238,25 @@
       <span id="adminErr" class="error" style="display:none">Špatné heslo</span>
       <button onclick="closeAdmin()" style="background:none;border:none;color:rgba(240,180,220,0.3);font-family:inherit;cursor:pointer;font-size:0.85rem;margin-top:0.5rem">Zrušit</button>
     </div>
-    <div id="adminDash" style="display:none; flex-direction:column; flex:1; overflow:hidden;">
+    <div id="adminDash" style="display:none;flex-direction:column;flex:1;overflow:hidden;">
       <div class="admin-header">
-        <h2>📊 Admin — Statistiky</h2>
+        <h2>📊 Admin</h2>
         <button class="admin-close" onclick="closeAdmin()">✕</button>
       </div>
       <div class="admin-tabs">
-        <button class="admin-tab active" onclick="showTab('overview', this)">Přehled</button>
-        <button class="admin-tab" onclick="showTab('choices', this)">Volby</button>
-        <button class="admin-tab" onclick="showTab('sessions', this)">Průchody</button>
+        <button class="admin-tab active" onclick="showTab('overview',this)">Přehled</button>
+        <button class="admin-tab" onclick="showTab('choices',this)">Volby</button>
+        <button class="admin-tab" onclick="showTab('sessions',this)">Průchody</button>
+        <button class="admin-tab" onclick="showTab('stories',this)">Příběhy</button>
+        <button class="admin-tab" onclick="showTab('activity',this)">Aktivita</button>
       </div>
       <div class="admin-body">
         <div id="tab-overview"><div class="admin-stat-grid" id="statGrid"></div><div class="admin-section-title">Nejpopulárnější volby</div><div id="topChoices"></div></div>
         <div id="tab-choices" style="display:none"><div class="admin-section-title">Všechny volby a počty kliknutí</div><div id="allChoices"></div></div>
         <div id="tab-sessions" style="display:none"><div class="admin-section-title">Historie průchodů příběhem</div><div id="sessionsList"></div></div>
-        <button class="admin-clear-btn" onclick="clearLog()">🗑 Smazat všechna data</button>
+        <div id="tab-stories" style="display:none"><div class="admin-section-title">Správa příběhů — zamykání a komentáře</div><div id="storiesMgmt"></div></div>
+        <div id="tab-activity" style="display:none"><div class="admin-section-title">Log přihlášení a čtení</div><div id="activityList"></div><button class="admin-clear-btn" onclick="clearActivity()">🗑 Smazat log aktivity</button></div>
+        <button class="admin-clear-btn" id="clearStatsBtn" onclick="clearLog()" style="display:none">🗑 Smazat statistiky voleb</button>
       </div>
     </div>
   </div>
@@ -373,624 +264,28 @@
 
 <script>
 // ═══════════════════════════════════════════════════════════
-//  SEZNAM PŘÍBĚHŮ
-//  type "branching" = interaktivní s větvením (vždy jen jeden)
-//  type "simple"    = jen text, bez voleb
-//
-//  Pro jednoduché příběhy vyplň:
-//    title       — název zobrazený na kartě i v hlavičce
-//    description — krátký popis pod názvem na kartě
-//    content     — HTML text příběhu (odstavce v <p>...</p>)
-// ═══════════════════════════════════════════════════════════
-const STORY_LIST = [
-  {
-    id: "wellness",
-    type: "branching",
-    title: "Wellness se zápletkou",
-    description: "Interaktivní příběh — každé rozhodnutí vede jinam."
-  },
-  {
-    id: "simple_1",
-    type: "simple",
-    title: "Valentýnská povídka",            // ← ZDE ZMĚŇ
-    description: "S partou na chalupě", // ← ZDE ZMĚŇ
-    content: `
-<p>Tak jako už hodněkrát jsme společně s partou vyrazili na chalupu. Byly to divoké večírky plné alkoholu a nespoutané zábavy, ale tentokrát to bylo úplně jiné, než bych si kdy dřív uměla v divokých snech představit. Ale začnu hezky od začátku ….</p>
-</p>Hned při příjezdu na nás čekal pan domácí s uvítacím drinkem a jedním malým překvapením pro pánské osazenstvo večírku. Přijela za ním sestřenice z Itálie a on se těšil, jak se se svou krásnou sestřenicí pochlubí všem přátelům. Byla opravdu nádherná, krásné tmavé vlasy do půli zad, obrovské černé oči plné vášně a divokosti. Světlé džíny krásně zvýraznily její dokonalý zadeček, krátké tílko jí odhalovalo ploché opálené bříško a pod bílým tílkem se jí rýsovaly úžasně pevné čtyřky. Byla to radost pohledět a já hned věděla, že tahle dívka bude celý večer středem pozornosti. A nemýlila jsem se. Celý večer ji všichni kamarádi obletovali a předháněli se v získání její pozornosti.</p>
-</p>Byla to koketa a náramně si tuto pozornost užívala. Každou chvíli to vypadalo, že zmizí v nedalekém lesíku s některým z kamarádů. Během večera jsem ji opakovaně viděla, jak několika kamarádům šeptá do ucha. Pokaždé se k němu přitiskla, pohrávala si s jeho vlasy, její rozkrok se třel o jeho stehno a něco mu šuškala do ucha. Muselo to být něco opravdu nemravného, protože všichni se po setkání s ní vzrušili. Ale nikdy s nikým v lesíku nezmizela.</p>
-</p>Večer ubíhal dál, přibylo množství vypitého alkoholu. Jak postupně všichni odpadávali zmoženi alkoholem, tak ubylo i nápadníků se kterými by mohla koketovat. Až jsme v jednu chvíli zůstali jen samy dvě. Seděly jsme na betonovém stole na ping-pong naproti sobě a popíjely broskvovou jako kdyby to byla limonáda. Byla opravdu legrace, jako bychom se znaly odjakživa. Jen mi pořád vrtalo hlavou, co těm chlapům špitala do ucha, že byli pokaždé tak vzrušení.</p>
-</p>Sebrala jsem odvahu a zeptala se. Ona se jen usmála, přisedla si vedle mě, rukou mi zajela do vlasů a potichu mi do ucha pošeptala „Celý večer jsem tvým kamarádům popisovala, co bych chtěla dělat nemravného s tebou“. Podívala se na mě a už nahlas se zeptala „Chceš mé představy popsat nebo zažít?“</p>
-</p>Nezmohla jsem se na žádnou odpověď, jen jsem se začervenala. V ten okamžik jsem ale věděla, že  odpovídat nemusím, že stačí přikývnout.</p>
-</p>Ona můj signál pochopila a hned se ke mně přitiskla a začala mě vášnivě líbat.</p>
-</p>Nebyly to něžné dívčí polibky, byly nádherně divoké. Očividně už měla zkušenost se ženou, protože mi velmi rychle sundala tričko a začala líbat prsa. Její polibky byly vlhké a postupně jimi zahrnula celá má prsa.</p>
-</p>Moje bradavky byly ztuhlé, vystouplé, možná trochu zimou, možná vzrušením. Užívala jsem si, když mi jazykem kroužila kolem bradavek a rukou hladila prsa. Chvíli mi jednou rukou mi pročechrávala vlasy a druhou něžně hladila prsa. V druhý okamžik se ke mně těsně přitiskla a vášnivě mě líbala na rty. Pevně se ke mně tiskla svými prsy. Moje hebká kůže se dotýkala jejího vzrušeného těla, naše prsa od sebe dělilo jen její lehounké bílé tílko. Hladila jsem ji ve vlasech, dotýkala se jejích holých ramen a pomalu rukou zajížděla pod její tílko, abych se mohla dotknout jejích nádherných pevných čtyřek. Jemné vzrušivé doteky jsme si vzájemně opětovaly, hladily si prsa, vášnivě se líbaly a třely se klínem o sebe. Byla jsem neuvěřitelně vzrušená a chtěla jsem víc. Obratně jsem ji rozepla knoflíček u kalhot a chtěla ji svléknout, ale ona mé ruce zarazila.</p>
-</p>Položila mě na chladný betonový stůl, klekla si nade mě a začala mě znovu líbat na rty, jazykem pomalu sjížděla od krku, přes prsa, kolem pupíku stále níž a níž. Pomalu mi rozepla kalhoty, ale nesundala mi je. Začala mě líbat přes kalhotky přímo na pošťěváčku. Sténala jsem vzrušením a cítila jak rychle vlhnu. Zeptala se, zda může pokračovat. Já jen slastně vzdychla. Bylo to vzrušující, záda jsem měla na studeném stole, ale celé mé tělo bylo zalité horkem z vzrušení. Sundala mi kalhoty a stále mě něžně líbala přes mé krajkové kalhotky na prcince. Pomalinku začala prsty zajíždět pod kalhotky. Vždy jen prsty lehce brnkla o můj vzrušený klitoris a bez ustání mě líbala poštěváček. Chtěla jsem víc. Byla jsem nesmírně vzrušená. Pomalu mi začala stahovat kalhotky. Celá jsem se chvěla vzrušením a očekáváním něčeho nového. Kalhotky mi pomalu sundavala a přitom se její rty stále dotýkaly mé kůže. Když jsem před ní ležela zcela nahá, prohlédla si mě a mlsně se olízla. Položila mi hlavu do klína a začala mě něžně lízat. Nejdříve jazykem lehce kroužila kolem poštváčku, pak zajížděla hluboko do kundičky. Poznala jsem, že mi na klitoris píše jazykem vzkaz. Každým písmenkem jsem byla víc a víc vzrušená. Sténala jsem slastí a přála si, aby mě stále dál lízala prcinku a přitom zabořila prsty do kundičky. Jako by mi četla myšlenky. Velmi něžně mi zasunula do kundičky dva prsty a začala jimi jemně kroužit uvnitř mě. U to ho mi stále lízala prcinku. Bylo to nádherné. Chtěla jsem jí náklonost opětovat, ale nenechala mě se ani pohnout a užívala si jazykem vlhkost mé kundičky. Prsty postupně přirážela víc a víc a já cítila, že se blížím k vrcholu. Chvílemi mi pošťeváček něžně lízala, chvílemi sála a občas mě lehounce kousla. Bylo to nádherné. Vůbec netuším, jak dlouho to trvalo, ale bylo to nádherné, vzrušující. Nechtěla jsem aby přestala. Když jsem s výkřikem prožila třetí orgasmus, jen se usmála a naposledy mě políbila na prcinku. Podala mi mé krajkové kalhotky, políbila na rozloučenou na tvář a odešla do tmavé noci. V šeru jsem viděla jen její nádherný zadeček a splývavé vlasy na zádech.</p>
-</p>Měla jsem se obléknout a jít za ní, ale neměla jsem sílu se pohnout. Ležela jsem na chladném stole a zhluboka oddychovala. Byla jsem ještě celá vzrušená a rozechvělá ale také strašně unavená na to, abych se vrátila zpět do chalupy za ostatními.</p>
-
-</p>Na stole jsem usnula. Schoulená do klubíčka, jen s přehozenou bundičkou přes tělo.</p>
-</p>Náhle mě něco probudilo. Zaslechla jsem kroky, zvuk zipu, hluboké oddechování. Náhle jsem se nemohla nadechnout. Nic jsem v té tmě neviděla, jen jsem cítila, jak mě někdo drží pod krkem a cpe mi do pusy svůj tvrdý penis. Nemohla jsem se bránit, byla jsem celá promrzlá a zkřehlá, navíc mě pevně držel pod krkem a hlavu jsem měla zakloněnou dolů ze stolu. Stál u mě a hned tvrdě přirážel do pusy. Chtěla jsem křičet, ať mě pustí, ale pusu mi zacpal svým velkým ptákem a já byla ráda, že se můžu alespoň občas nadechnout.</p>
-</p>Naříkala jsem, ale nebylo mi to nic platné. Stále dál mi přirážel hluboko do krku a dávil mě svým mohutným penisem. Přirážel stále dál a dál, hlouběji a hlouběji.</p>
-</p>V jeden okamžik se mi povedlo se mu vysmeknout a chtěla jsem utéct. Ale on mě hned chytil, dal mi ruce za záda a svázal mi je mojí bundou. Donutil mě si kleknout a znovu mi ho nacpal do pusy, kterou mi hned zase začal tvrdě šukat. Nemohla jsem se bránit a tak jsem nakonec pokorně začala kouřit. Musím přiznat, že se mi to nakonec začalo i líbit a přestala jsem s ním bojovat. S chutí jsem ho kouřila, lízala mu koule, jazykem kroužila okolo žaludu, nechala si ho nacpat až do krku.</p>
-</p>Bylo vidět, že se mu to líbí, protože slastně vzdychal a říkal „Vidíš, jaká jsi šikovná kurvička, jestli mě hezky vykouříš tak tě pustím a neublížím ti“</p>
-</p>Poznala jsem, že se blíží k vrcholu. Jeho obrovský penis najednou začal pulzovat. V ten okamžik mi ho vyndal z pusy a postříkal mi obličej mohutnými výstřiky. Jeho semeno jsem měla po celém obličeji.</p>
-</p>Podíval se na mě, uvolnil mi pouta, otřel mikinou pocákaný obličej a řekl, že takhle dlouho už ho do huby žádné kurvičce nenacpal, že jsem byla opravdu dobrá děvka a ráno si mě najde znovu, abych mu znova vykouřila péro.</p>
-</p>Stejně rychle jako přišel tak zase rychle zmizel ve tmě a já do dnešního dne nevím, kdo to byl, kdo mi rozšukal pusinku a postříkal celý obličej.</p>
-</p>Na jednu stranu jsem se cítila zneužitá, na druhou stranu jsem z toho zážitku byla celá vzrušená.</p>
-
-</p>A to jsem ještě nevěděla, že se večer ani zdaleka neblíží ke konci.</p>
-</p>Bylo už k ránu, začínalo se pomalu rozednívat a já se celá zmačkaná, zmrzlá a opilá vracela zpátky k chatě. Po paměti jsem došla do svého pokoje a padla úplně vyřízená na postel.</p>
-</p>V pokoji vedle na posteli ležela Italka, ale nebyla tam sama. Chvíli mi trvalo, než mi došlo, co se na té na posteli děje.</p>
-</p>Poodkryla peřinu a šeptla „Chceš se přidat?“</p>
-</p>Dnes v noci jsem zažila lesbické lízání s krásnou ženou, drsné kouření s cizím mužem, ale nebyla jsem nikým pořádně vyšukaná.</p>
-</p>V ten okamžik jsem měla obrovskou chuť vlézt si k nim pod peřinu a pořádně si zašukat ve třech.</p>
-</p>Tentokrát jsem ji chtěla oplatit její lízání, ale jaké bylo moje překvapení, že pod peřinou s ní nebyl jeden muž. Měla tam dva chlapy a oba dva jí tvrdě šukali.</p></p>
-</p>Chvíli jsem se na ně s úžasem dívala, byla jsem hned vzrušená a cítila jak mi vlhne kundička.</p>
-</p>Neměla jsem ale odvahu se k nim přidat. Začala jsem si zlehka hladit kozičky, pak jsem pomalu sjela dlaní po mé holé kůži níž až jsem nahmatala můj zvlhlý poštěváček a začala si ho prsty jemně masírovat. Druhou rukou jsem si sundala kalhoty a přes kalhotky si dál dráždila svojí kundičku.</p>
-</p>V ten okamžik si mě všiml jeden z mužů. Hned se ke mně přisunul, poodhrnul mé krajkové kalhotky a bez jakéhokoliv zaváhání ho do mě rovnou strčil. </p>
-</p>Vykřikla jsem bolestí, ale on nebral ohledy a tvrdě mi začal šukat kundičku. Přirážel tak tvrdě a tak hluboko.</p>
-</p>Úplně stejný scénář se odehrával i vedle nás, kdy druhý muž stejně tvrdě šukal do kundičky Italku. I ona sténala bolestí, ale ani jeden z nich nepřestával a obě nás tvrdě šukali a slastně vzdychali.</p>
-</p>S Italkou jsme se na sebe dívaly a bylo vidět, že i přes bolest si to obě užíváme, ale zároveň toužíme i po sobě navzájem. Moc jsem ji chtěla lízat, moc jsem chtěla ochutnat její kundičku a jazykem jí napsat vzkaz na pošťěváček. Moc jsem chtěla hladit její pevná prsa, jazykem kroužit kolem bradavek, prsty si pohrávat s jejím klitorisem a jazýčkem dráždit kundičku. Přála jsem si pohrát si i s jejím pevným zadečkem, hladit půlky, něžně líbat prdelku a lehce prstíčky dráždit její análek. Chtěla jsem jí jedním prstem vyplnit zadeček a druhým kundičku. Chtěla jsem jazykem kroužit kolem jejího zvlhlého klína a jemně laskat prcinku, rukama hladit prsa, tisknout je k sobě a vášnivě ji líbat.</p>
-</p>Ale to mi už toho večera nebylo umožněno. Celou dobu jsme se na sebe jen dívaly a držely pevným a drsným přírazům do kundičky. Šukání to bylo opravdu drsné, ani jeden se s námi moc nemazlil.</p>
-</p>Otočil mě zády k sobě, na všechny čtyři, jednou rukou pevně chytil za vlasy a druhou rukou chytil za rameno. Přirazil do mě hluboko, a přirážel znovu a znovu. Viděl, že se mi to líbí, a dopřál mi ještě kousek rozkoše navíc. Stále mě držel pevně za vlasy a ruku ramene posunul k zadečku. Dvakrát mě plácl na holou a pak velmi pomalu zasunul prst přímo do análku. Viděl, že se mi to líbí. Viděl, že mám ráda mrdání prdelky. Přestal přirážet do kundičky a obratem mi zasunul celý svůj penis do zadečku. A zase začal tvrdě přirážet a mrdal mě do prdelky. Mrdal a mrdal. Tak hluboko. Křičela jsem slastí a blížila se k vrcholu.</p>
-</p>Pak mě pustil. Celou rozšukanou.Únavou jsem padla na postel. Ale to zdaleka nebyl konec. Lehl si na záda a mě si přitáhl k sobě. Položil mě na sebe. Zvedl mi nohy, chytil mě pod kolenama a nacpal mi ho zase do zadečku. Šlo to krásně hladce a krásně hluboko. Pokračoval v drsném šukání zadečku. V tom se ke mně přisunul i druhý muž, klekl si před nás a díval se, jak mi jeho kamarád šuká prdelku. Asi se mu to hodně líbilo, protože si u toho začal honit svoje péro. I Italka se zaujetím pozorovala, jak mě šuká do zadečku. Dívala se ale jen chvilku, pak se naklonila přímo k mojí prcince a začala mě zase náruživě lízat. Jak mě lízala, ani jsem si nevšimla, že druhý muž si přestal honit a už se chystal vrazit ho do mě. Italka se jen kousek posunula, aby mu nepřekážela hlavou, dál pokračovala v hlubokém lízání mojí prcinky a v ten okamžik jsem zažila největší slast. Jeden muž mě tvrdě šukal do zadečku, druhý muž mě hluboce prcal kundičku a můj poštěváček se nechal slastně lízat od Italky.</p>
-</p>Zhluboka jsem dýchala a užívala si tohle luxusní šukání. Nevím jak dlouho to trvalo, ale bylo to úžasné, intenzivní, hluboké, drsné i něžné zároveň.</p>
-</p>Zažila jsem nejintenzivnější orgasmus současně v prdelce, kundičce i prcince.</p>
-</p>`
-
-  },
-  {
-    id: "simple_2",
-    type: "simple",
-    title: "Hotel s překvapením na pokoji",
-    description: "Drsné překvapení na pokoji po večeři",
-    content: 
-`<p>Zase jednou po dlouhé době jsme se rozhodli si udělat hezky víkend a zajet někam bez dětí na wellness víkend. Jako vždy jsi vše zařídila a v pátek večer jsme dorazili na pokoj. Jak máme ve zvyku, byl to krásný hotel s prostorným pokojem, koupelna byla také super, podobna tě v Antonii – prosklená sprcha, do kterého bylo vidět z celého pokoje. V pokoji bylo také velké zrcadlo, hned naproti posteli. Už jsem tě nějakou dobu zanedbával, tak ses těšila, že v tomhle prostředí zase trochu popustíme uzdu fantazii.</p>
-</p>Večer se nám už nikam nechtělo, zašli jsme na večeři do hotelové restaurace, bylo celkem plno, vesměs páry v podobném věku, někteří z nic s dětmi, většina ale bez, protože hotel vybízel k romantickému víkendu ve dvou. Složení osazenstva narušovala jen nějaká parta chlápků, která postávala na baru, vypadalo to na nějaký team, co měl v hotelu soustředění.</p>
-</p>Večer příjemné ubíhal, dali jsme si láhev prosecca, první jsme vypili dost rychle, objednali druhou začali být v té správné náladě, vzhledem k tomu, že jsem dostal chuť na svůj “dezert”, zašel jsem na bar objednat si skotskou. Samozřejmě nezůstalo u jedné a vzhledem k tomu, že jsem tam chodil, co chvíli, dal jsem se vždy při čekání na drink do řeči s tou bandičkou típků na baru. Byla s nimi celkem sranda, a vypadlo z nich, že je to tým volejbalistů ve věku 30-40, co si hrají nějakou druhou nebo třetí ligu a vyrazili na “soustředěni”.</p>
-</p>Dal jsem si takhle pár koleček a ty jsi začala být taky v náladě a chtěla jsi jít na pokoj. Souhlasil jsem, odběhl si dat na bar poslední rundu a zaplatit. Dorazili jsme na pokoj, hned jak zaklaply dveře, vrhli jsme se na sebe, já tě drsně přitiskl na stěnu, líbali jsme se a já ti masírovat přes tričko prsa. Chvílemi jsem zajel přes kalhoty i do tvého klína a masíroval ti poštěváček. Po těch letech už přesně vím, kam sáhnout, tak jsi byla za chvíli pěkné vzrušená a nadržená. Chtěla sis to ale užít tak, jak to máš ráda, takže jsi chtěla nahodit prádélko. Za chvilku ses převlekla a já už na tebe čekal s pouty a šátkem na oči.</p>
-</p>To tě ještě víc rozrajcovalo, přikázal jsem ti, aby sis klekla, dala ruce za záda a já ti je spoutal. Přidělal jsem ti je rovnou k noze od stolu. Pak jsem ti dal šátek přes oči. Slyšela jsi, jak se svlékám, za chvíli jsem tě přitáhl za vlasy a nařídil ti otevřít pusu, jakmile jsi poslechla narval jsem ti do pusy svoje péro. Chvíli jsem ti šukal pusinku, protože vím, jak se ti to libí. Po par minutách jsem přestal a řekl, že vím, jak se ti líbí být jako kurvička, tak jsem se rozhodl ti to dopřát.</p>
-</p>Slyšíš, jak odcházím a pak klapnutí dveří, dál slyšíš jen tlumené kroky a tušíš, že už v pokoji nejsme jen my dva. Hlavou ti běží, co to provádím a říkáš, ať ti sundám šátek a oddělám tě. Najednou tě zase popadnu drsně za vlasy a cítíš, jak ti cpu ptáka do pusy, nechce se ti, ale podvolíš se a v tom okamžiku ti to dochází, nejsem to já, máš plnou pusu cizího kuřáka, který je o něco větší, než mám já a ten někdo se s tebou moc nemaže, pěkně tvrdě ti šuká pusu a ty nemůžeš nic, než tiše sténat a držet.</p> 
-</p>Najednou cítíš další pár rukou, který ti tvrdě začne masírovat prsa, následně jedou ruce níž a přes kalhotky zajedou až na kundičku. Chvíli jí masírují, nevíš, co se vlastně děje, protože nic nevidíš a obavy se mísí se vzrušením. Někdo z tebe začne sundávat prádlo, stáhne ti vršek a vyndá prsa, chvíli masíruje, pak začne sát bradavky, rozepne ti kalhotky a projíždí prcinku, sem tam zajede až k análku a taky ho trochu promasíruje. Slyšíš cizí hlas: „Výměna“, chvilku se nic neděje, pak cítíš jak ti někdo oddělává ruce. Říkáš si, že konečně ucukneš, sundáš si šátek a zjistíš, co se děje, ale bohužel tě drží dost pevně, kousek tě odtáhnou bokem a ty vzápětí poznáváš, že tě táhnou k posteli, kde tě svalí na záda přes roh postele, jeden ti da zpět pouta a přišlápne je na zemi, máš na jedné straně hlavu zvracenou z postele a na druhé straně ti někdo drží nohy na posteli.</p>
-</p>Cítíš jak tě někdo chytá pod krkem a cpe ti pěkně naběhlého ptáka do pusy, k tvému údivu hned zjišťuješ, že to zase nejsem já, tenhle je ještě větší, skoro se ti ani nevejde do pusy, tenhle pták je hrozne široký, jakmile tě začne šukat, máš doslova plnou pusu, ale nemůžeš dělat vůbec nic. Cítíš jak ti ten druhý roztahuje silou nohy a líže ti kundičku. Chvílemi tě nevybíravě prstí a přitom saje poštěváček. Sice jsi pořád dost zmatená a vlastně nevíš, co se přesně děje, ale vzrušení začíná převládat a ty pěkně tečeš. Cítíš, že za chvilku poprvé budeš, jeden ti šuká dost drsně pusu, druhý prstí a líže tvou krásnou kundičku. Navíc teď vyndá prsty a sjíždí k tvé prdelce, prsty má úplně mokré, takže do prdelky se dostane snadno, během pár vteřin cítíš výbuch vzrušení a je tu tvůj první orgasmus. Slyšíš, jak jsou ti dva spokojeni a pochvalují si, jaká jsi dobrá děvka. Chvíli vysíleně oddechuješ, protože tě nechávají.
-</p>Pak tě otáčí na posteli, jeden tě pořád drží za ruce a druhý ti drží nohy, každou rukou drží jednu, roztahuje je a zvedá nahoru, je ti jasné, že se tě chystá šukat, druhý si ti kleká na ruce a přesouvá se nad tebe cítíš na obličeji jeho koule, je ti jasné, co máš dělat, otevíráš pusu a pěkně je lížeš a saješ. Najednou ti druhý vrazí do kundičky čůráka až po koule, je to dost hluboko, až to trochu bolí, ale víc tě to vzrušuje, začíná rychle přirážet a šuká tě jak o život. Za chvíli vystřídá rychlost a šuká tě dlouhými tvrdými přírazy. Jsi úplně bez sebe, saješ koule jak o život a cítíš, jak se blíží další orgasmus. Svíjíš se v dalším ještě intenzivnějším orgasmu.</p>
-</p>Když dozní, slyšíš, jak někdo říká, že tě chce taky pořádně vyšukat, ale že chce zezadu. Otočí tě, nastaví tak, aby měl ideální přístup k tvé kundičce a přehodí si pozice, klečíš na posteli s vystrčenou prdelkou a čekáš, co bude dál, i když už začínáš být celkem vyšukaná. V tom okamžiku cítíš ruce na prdelce, jak si tě štelují a do tvé kundičky se cpe ten mohutnější pták, je opravdu velký, ale tečeš jak o život a už jsi docela roztažená, takže se do tebe dostává bez větších problémů. Cítíš, jak ti vyplňuje celou prcinu a začíná přirážet, chce se ti hlasitě sténat ale v tu chvíli ti ho vrazi ten druhy do pusy a ty musíš zase kouřit. Ten zezadu si to začíná poradně užívat, takže začíná přirážet tvrději a tvrději, aby mu to šlo lépe a dostal se co nejhlouběji, tak si tě ještě přitáhne za vlasy, připadáš si jak děvka, ale můžeš jen držet, vepředu ti klečí na spoutaných rukou, šuká ti pusu a zezadu ti drží hlavu nahoru za vlasy a drtí ti kundičku svým mohutným pérem. Zdá se ti to nekonečné, ale pořád tě to extrémně vzrušuje a další orgasmus je tady.</p>
-</p>Jsi fakt dobrá kurva, takovou jsme dlouho nešukali, ale než tě pustíme, ještě musíme otestovat tvoji prdelku. Zase tě otáčí na záda, jeden si tě pokládá na sebe a snaží se ti dostat do prdelky, druhý mu ji trochu protáhne prstem šťávou z tvé kundičky, za chvilku se mu podaří dostat do tvé prdelky a ty cítíš jak ti zajíždí hlouběji a hlouběji, chvíli ti ji projíždí zlehka, ale pořad přitvrzuje, když tě takhle chvíli píchá, cítíš jak se najednou ten druhy dostava do tvoji kundičky - je to ten vetší, cítíš se naprosto plná, připadá ti, že tě snad roztrhnou, oba se s tebou moc nemažou a zejména ten v kundičce tě šuká dost tvrdě. Najednou ti sundají šátek a ty po chvíli rozkoukání vidíš, jak tě dva chlápci, kteří byli dole u baru šukají a já sedím vedle v křesle a honím si svoje péro. Sice jsi už hodně rozšukaná, ale vše, co se teď děje okolo tebe tě vzrušuje tolik, že se opět uděláš. Slyšíš, jak ten, co ti šuká prdelku, začíná zhluboka oddychovat a najednou cítíš, ze tě plní pěknou dávkou. Během okamžiku vytáhne ptáka ten druhý a začne mohutně stříkat na tvé břicho a pohupující se kozičky. Když se dodělají a vyklepou si své ptáky, jsi celá postříkaná a mas i plnou prdelku, nakonec ještě přikročím já narvu ti ho do pusy a po chvilce šukání ti vystříkám celou dávku až do krku. Chlapi se seberou, poděkují mi, že jsem je nechal zašukat a vytratí se.</p>
-</p>Ležíš na posteli úplně rozsukana, sperma máš snad všude a cítíš se jako pořádná kurvička, neuvěřitelně sis to užila.
-</p>`
-  },
-  
-  {
-    id: "simple_3",
-    type: "simple",
-    title: "Maximus",
-    description: "Neměla jsi usnout a zůstat po zavíračce",
-    content: 
-`<p>Po dalším prokaleném večeru jste vyrazily podruhé do Maxima. Vstávaly jste dost pozdě a rozhodly jste se proflákat dopoledne a do wellness vyrazit až po pozdním obědě. Měly jste to načasované akorát do zavíračky. I tak jsi byla dost nevyspalá, takže jsi byla ráda, že můžeš relaxovat a podřimovat vždy mezi saunami v odpočívárnách. Tři hodinky celkem utíkaly a lidí ve wellness dnes moc nebylo. Přiblížil se čas, kdy už vám personál říkal, abyste pomalu končily a odebraly se do šaten. Zrovna jste dokončily poslední saunu a zalezly ještě do odpočívárny bokem. Šel na tebe dost spánek, takže sis zdřímla, po chvilce tě probudily holky, že odcházíte, řekla jsi jim, že jdeš hned za nimi, ale zase tě přemohla únava a usnula jsi. Připadala ti to jako chvilka, ale z hlubokého spánku tě probudil personál. Okolo už bylo víceméně pozhasínáno a chlápek, který tě přišel vzbudit, říká, že už tě tam opravdu nechat nemůže, že je 15 min po zavíračce a že musíš jít.</p>
-</p>Rozespalá ses zvedla a šla za ním, vedl tě přes část, kde dávají masáže, protože průchod šatnami, už je prý uzavřený. Šla jsi za ním a pomalu se v přítmí rozkoukávala. Procházeli jste koridorem, až jste došli do místnosti s masážním lehátkem. Najednou za tebou zavřel dveře a zamkl. Začala sis uvědomovat, že asi všechno není úplně v pořádku. Rozčarovaně říkáš, co se děje a co si to dovoluje. Chlápek jen odsekne, abys radši držela hubu a byla povolná, pak se možná dostaneš pryč bez větších šrámů. Nechápala jsi ještě pořád co se děje. Naproti v místnosti byly ještě jedny dveře – ty se otevřely a vešli další dva chlápci, byli celkem vysocí, jeden z nich trochu při těle, druhý vypadal docela nabušeně. V tu chvíli ti začlo docházet, v jakém jsi asi maléru.</p>
-</p>Začala jsi prosit, ať tě nechají a co vlastně chtějí, že tě ještě můžou pustit a nikomu nic neřekneš. To si piš, že nic neřekneš ty kurvo, odvětil chlápek, co tě přivedl, budeš dělat bez ceknutí, co ti řekneme a budeme na tebe celkem hodný. Chtěla jsi na ně začít křičet, ale hned jsi dostala facku, vzápětí ti jeden strhl župan, pod ním už jsi byla nahá, bylo to tak rychlé, že jsi ani nestihla zareagovat a stála před nimi úplně nahá. Jeden z nich si začal pochvalovat, že tentokrát přivedl slušnou kurvu s pořádnýma kozama a hned se k tobě sápal a skoro bolestivě ti chytil prsa a začal je mačkat, chtěla jsi křičet, ale zezadu tě chytil další za pusu a zkroutil ti ruce za záda. Nemohla jsi moc dělat, jen snášet bolestivou masáž koziček, chvílemi ti i drsně sál bradavky a sem tam tě do nich kousl. Periferně vidíš, jak se další už svléká a honí si naběhlého čuráka, byl to pořádný macek, byl to ten nabušený chlápek, byl skoro o hlavu větší než ty a velikost ptáka odpovídala postavě, musel mít aspoň 20 cenťáků, na jednu stranu ses bála, že ho do tebe tvrdě vrazí, na druhou stranu tě to bohužel začlo i vzrušovat, vzhledem k tomu, že tvrdost máš ráda. Mezitím, ti chlápek před tebou přestal drtit prsa a sjel rukou mezi nohy, nechtěla jsi ho pustit a držela nohy u sebe, ale měl dost sílu a začal ti tvrdě masírovat poštěváček a sem tam zajel prstem do kundičky.</p>
-</p>Je čas se trochu posunout ty čubko, klekni si a drž hubu. Bázlivě jsi poslechla a čekala, co se bude dít. Všichni se svlékli a vytáhli ptáky, nevěděla jsi, jestli se začít bát nebo těšit, měli je všichni pořádné, nejvíc ses bála toho lehce obtloustlého, možná nebyl o moc větší než u toho nabušence, ale musel mít v průměru přes pět centimetrů. Všichni si před tebe stoupli, vědělas, co chtějí, ale moc se ti do toho nechtělo. Ten vysoký tě najednou popadl za vlasy a narval ti ho do pusy, nebral si servítky a snažil se ti ho tam nacpat, co to šlo, zvládla jsi asi do dvou třetin a začala se dávit, ještě pár sekund ti ho nechal v puse a pak ho vytáhl. Sotva jsi stihla vydechnout a hned ti ho do pusy narval ten co tě přivedl, tomu se to povedlo až po kořen a hned ti tvrdě začal šukat pusu, snažila ses bránit, ale neměla jsi moc šancí, drsně ti šukal pusu a nedovolil ti uhnout ani o kousek, vypadal, že se mu to dost líbí, ale už ho odstrčil poslední, že chce taky vykouřit. Dal ti pro jistotu facku a narval ti tam toho macka, měla jsi plnou pusu, víc už nešla otevřít a on se nevybíravě pořád cpal dál, narval ti ho tam asi do půlky a začal přirážet, evidentně se mu to líbilo. Pak ho najednou vyndal a dal ti s ním ránu přes pusu. Kouříš dobře kurvo, teď se ohni přes lehátko, podíváme se ti na kundičku a pořádně jí protáhneme.</p>
-</p>Nechtělo se ti něco takového podstoupit, a zůstala jsi klečet. Tak ty nebudeš poslouchat? Dva tě tvrdě vzali za ruce a přitáhli k lehátku. Jeden zatím sáhl pro něco do šuplíku. Přitlačili tě kozičkama kolmo na lehátko a roztáhly ruce do stran, tam ti nějakými pásky ruce přidělali. Stála jsi prsama položená na lehátku, ruce přidělané, takže ses nemohla skoro ani pohnout a prdelku jsi měla vystrčenou – přesně tak jak potřebovali, aby si s tebou mohli dělat, co budou chtít. Ucítila jsi prsty v kundičce, byli minimálně dva a nevybíravě se ti prodírali dovnitř. Pánové je docela mokrá, za chvilku můžeme začít šukat, ještě jí trochu protáhnu. Ačkoliv tě to moc netěšilo, byla jsi dost vzrušená a začala pěkně téct. Nabušenec přistoupil před tebe s ptákem ve výšce tvého obličeje. Otevři hubu děvko, ještě ti jí trochu ošukám. Zase se ti moc nechce, ale chytí tě bolestivě za vlasy, přizvedne hlavu a vrazí ti ho do pusy. V tu chvíli jsi přestala cítit v kundičce prsty, bohužel hned vzápětí cítíš, jak se ti do kundičky dere první čurák, nedával si moc na čas a během pár vteřin začal tvrdě přirážet. Cítila ses jako naprostá kurva, jeden klacek zaražený v puse, druhý v kundičce a ještě tě to vzrušovalo, cítila jsi, že tohle dlouho nevydržíš a asi se poprvé uděláš.</p>
-</p>Synchronizovaně tě proti sobě tvrdě šukali jak dva písty, vzrušení se zvyšuje a najednou přišel první orgazmus, chlápci to poznali a pochvalně se začali vyjadřovat, že jsi dobrá děvka. Zezadu cítíš na chvíli uvolnění, ale hned se do tebe začal rvát největší pták, i když jsi byla dost vlhká a už roztažená, cítila jsi tlak a skoro až mírnou bolest, jak se do tebe cpe. Nemilosrdně se ale do tebe dostal a začal šukat jak smyslu zbavený. Chvílemi to bolelo, protahoval tě neuvěřitelně hluboko. U toho ti ještě začal strkat prst do prdelky. Bolest se změnila v rozkoš, začínalo to na tebe zase přicházet. Začala jsi v extázi sát i ptáka před sebou jak smyslu zbavená. Asi jsi byla dost dobrá, protože jsi najednou cítila, jak mu v něm cuká a začal ti pumpovat sperma do pusy. Téměř ve stejný okamžik dorazil druhý orgazmus a ty jsi kvílela rozkoší a přitom polykala dávky spermatu, protože ho z tvé pusu ani na chvilku nevytáhl a pumpoval ti to přímo do krku. Chlápek za tebou prohlásil, že takovou kurvu už dlouho neměl a ten vepředu jen přitakával, když vytahoval mírně zvadlého ptáka z tvé pusy. Já si teď chvíli odpočinu, přehodíme ji na záda a vy jí ještě pořádně došukejte.</p>
-</p>Povolují ti ruce, přetočí na záda a položí šikmo přes lehátko. Jeden ti hned roztáhne nohy a začne tě šukat zepředu. Druhý obejde lehátko, zvrátí ti hlavu dolu a vrazí ti svého velkého ptáka do pusy. Už nemůžeš, ale zase začínáš kouřit a do toho dostáváš tvrdě ošukáno do kundičky. Po chvilce tě ale přestává šukat a přizvedává ti prdelku. Chvilinku tvrdě prstí kundičku, ale vzápětí zarazí mokrý prst do prdelky. Chvíli to střídá a pak prohlásí, že jde na análek. Trochu se zhrozíš, ale vzhledem k tomu, že máš ucpanou pusu velkým ptákem a nemůžeš se moc bránit, nezbývá, než se tomu poddat. Cítíš tlak v prdelce, jak se do ní snaží dostat, bohudík to jde celkem dobře a cítíš, jak se dostává dál a dál. Ten co mu kouříš, vyndává ptáka a chvilku kouká, jak ti ten druhý tvrdě šuká prdelku. Dost se ti to začíná líbit, vzhledem k tomu, že máš jeho ptáka položeného na obličeji, začínáš ho v návalu vzrušení lízat. Neunikne mu, že si to užíváš a narve ti do pusy koule, víš co máš dělat a saješ jak o život, vypadá to, že se zase uděláš, protože ti prdelku šuká hodně tvrdými přírazy. Dáme jí sendvič, ať si to ta kurva pořádně užije.</p>
-</p>Ještě než se uděláš, tak ti přestane prdelku šukat, vytáhne ptáka a táhnou tě na podlahu, kde mají položenou deku. Ten s velkým pérem si bohudík lehne dolu a říká ti, ať mu nasedneš na ptáka. Poslušně to uděláš a narveš do sebe celý jeho klacek. Zezadu si přiklekne nabušenec, který už ho má zase v pozoru a nacpe ti ho do análku. Připadá ti, že tě musí roztrhnout, ale po chvilce se mu to podaří a cítíš, jak se jeho klacek cpe hluboko do tvé prdelky. Trochu to bolí, máš v sobě nacpaná dvě velká péra a obě začínají přirážet. Během pár vteřin se zase uděláš a úplně tečeš, začínáš sténat vzrušením, přistupuje před tebe třetí, bez váhání ho začneš vášnivě kouřit a ještě mu rukou masírovat koule. Drtí tě dva klacky a v puse máš další, vzrušení vrcholí a asi se znovu uděláš. Nejsi sama komu se to líbí, první se udělá ten, co ti šuká prdelku, začíná zhluboka oddechovat a cítíš, jak ti plní prdelku, následně ho vyndá a pár horkých dávek dopadne na tvůj zadeček. Ten dole pokračuje v šukání a cítíš, jak to jde na toho, kterého kouříš, vytáhne ti ho z pusy a začne ti stříkat na obličej a prsa. Pořád tě tvrdě šuká ten spodní a ty se nakonec zase uděláš. Vypadá to, že už bude i ten poslední, přikáže ti, ať sesedneš a lehneš si. Stoupá si nad tebe a ještě si chvíli honí svého velkého ptáka. Začíná stříkat a pokrývá tvůj obličej, prsa a břicho velkými dávkami spermatu.</p>
-</p>Ležíš na zemi a oddychuješ, nevěříš, co se stalo, jsi celá postříkaná, po krku a prsou ti stéká sperma, vytéká i ze zadečku, jsi celá rozšukaná, pálí tě kundička i prdelka. Chlápci se obléknou a řeknou ti, že až se umeješ, tak ať vypadneš a jestli někomu něco řekneš, tak si tě najdou. Pak se vytratí.
-</p>`
-  },
-  {
-    id: "simple_4",
-    type: "simple",
-    title: "Špatný pokoj",
-    description: "Krátký popis příběhu.",
-    content: 
-`<p>Vrátili jste se po zavíračce baru zpátky na hotel, ale vzhledem k tomu, že se vám ještě nechtělo spát, tak jste na pokoji dopíjely zásoby.  Hodina už trochu pokročila, bylo už kolem půl druhé a vypily jste všechny tři láhve proseca, co vám zbyly. Pořád se vám ale nechtělo spát, chopila ses iniciativy a že zkusíš dojít na recepci, jestli není něco k dispozici. Hotel byl na takové situaci připraven a tak ses vítězoslavně vracela s další lahví zpět do pokoje. Zřejmě za to mohla slušná nálada nebo tvoje špatná orientace, nicméně jsi rozrazila dveře, vběhla do pokoje a jásavě prohlásila, že máš. Jen co ses rozkoukala, uvědomila sis, že jsi ve špatném pokoji. Na postelích seděli čtyři mladí kluci, tak kolem dvaceti, taky popíjeli a trochu překvapeně na tebe koukali.</p>
-</p>Aha, zajíčci, prohlásila jsi, pardon jsem na špatné adrese. Nene, prohlásil jeden z nich, jestli neseš alkohol, tak jsi tu správně. Pardon pánové, musím vedle za kamarádkami, hezky se bavte. Počkej, dej si s náma panáka, když už jsi tady a můžeš pokračovat. Řekla sis proč ne, panák tě nezabije. Počkala jsi chvilinku, než nalili rum a kopla jsi ho do sebe. V tu chvíli se otáčíš a máš namířeno ke dveřím. Ani sis nevšimla, ale u dveří stojí jeden z nich a těsně před tebou je zabuchuje. Trochu tě to zarazí a odvětíš, ať neblbne, že mizíš.</p>
-</p>V ten okamžik cítíš nějaké ruce na zadku. Vzhledem k tomu, že jsi jen v krátkých šatech nad kolena, všetečné ruce hned zajedou pod ně a pořádně ti zmáčknou zadeček. Rychle se otočíš a mladíkovi za tebou vlepíš facku. V okamžiku tě ovšem chytá zezadu ten ode dveří a drží ti ruce za zády. Dostáváš facku na oplátku a nevěříš, co se děje. Zbylí tři k tobě přistupují a hned ti začnou hmatat na prsa. Jeden naprosto klidně zajíždí pod šaty a masíruje ti přes kalhotky kundičku, chceš křičet, ale hned ti zacpou pusu. Drž hubu ty kurvo, nic hroznýho se ti neděje. Tři páry rukou ti prohmatávají tělo a vyhrnují šaty, dostáváš pro jistotu ještě jednu facku, než se vzpamatuješ, rvou ti šaty přes hlavu a najednou tam stojíš jen ve spodním prádle. Všechno jde hrozně rychle. Chyťte mi jí, dva tě chytí za ruce, třetí ti sundává podprsenku a hned ti začne okusovat bradavky. Přes oči ti dá někdo zezadu šátek, pak ti na moment pustí ruce, stáhnou podprsenku a hned ti svazují ruce za záda.</p>
-</p>Strčí tě na podlahu a ty spadneš na kolena. Co jako chcete dělat vy idioti. Neboj, to hned zjistíš. Slyšíš, jak chrastí pásky a jak si sundávají kalhoty. Nechte toho, pusťte mě. V okamžiku cítíš, jak tě někdo popadl za vlasy a táhne tě nahoru do kleku, jakmile se trochu přizvedneš, ucítíš, jak se ti něco pokouší nacpat do pusy, okamžitě poznáváš, že je to žalud a cpou ti do pusy ptáka, chvíli držíš, pak ale dostáváš pořádnou facku a ptáka máš v puse a hned až v krku, chvíli přiráží, pak ho vyndá a hned se ti tam cpe další a nemilosrdně ti šuká pusu. U toho ti někdo zezadu projíždí přes kalhotky zadečkem až ke kundičce a zase zpátky, bohužel začínáš vlhnout. Další střídačka v puse, třetí pták ti šuká pusu a ty můžeš jen držet jako nějaká rozkuřovačka. Semtam ti někdo strčí prsty pod kalhotkami do kundičky a prstí tě, tvoje vzrušení začíná stoupat, v puse se ti střídá jeden pták za druhým a kundičku začínáš mít od prstění pěkně nažhavenou. Cítíš, jak se z kundičky přesunuje k prdelce a i tu ti začne nevybíravě prstit. Vypadá to, že i když jsou to mladý kluci, tak vědí, co dělají, tvoje prdelka začíná být taky trochu roztažená a tobě se to dost líbí. Najednou slyšíš, jak jeden říká: Pánové, už budu. Budu se jí muset vystříkat do huby. Nejsi z toho moc odvázaná, ale už cítíš, jak mu v něm pulzuje a začíná ti stříkat do pusy. Všechno to spolykej a pořádně mi ho očisti jazykem, ty čubko, nebo dostaneš další facku. Poslušně ho dokouříš a očistíš. </p>
-</p>Já už chci šukat, prohlásí jeden, opřete mi jí o postel. Cítíš, jak tě dva někam táhnout, hodí tě přes postel a dál ti drží ruce. Cítíš, jak ti zezadu někdo odhrnuje kalhotky a naráží ti ptáka do tvé tekoucí kundičky. Dostává do ní dost rychle a dost hluboko a hned začíná prudce přirážet. Chvíli tě šuká a pochvaluje si, jak krásně tečeš. Uhni, vystřídáme se, chci jí taky zkusit. Ten zezadu vytahuje ptáka, vzápětí v sobě cítíš dalšího, je docela jemný a šuká tě pomalými zásuny. Ti dva, co ti drží ruce, ho povzbuzují, ať tě nešetří a pořádně šuká. Mění tempo a začíná vyburcovaně šukat jak zběsilý, až to trochu bolí, ale vzápětí se pocit mění ve stoupající rozkoš a uděláš se. No vidíš ty debile, hned se udělala. Pusťte mě na tu čubku taky, další střídání. Tenhle se s tebou nemaže, narve ti do kundičky svůj klacek a pár vteřin šuká. Hmm, je dobrá, ale ošukám jí prdel, do mě baví víc. V okamžiku vyndavá ptáka z kundičky a cpe ti ho do zadečku. Bolí to jen trochu a ty cítíš, jak tam zajíždí. Začne ti šukat tvrdě prdel a u toho dostáváš dost ran přes zadek, jsou na hraně, kdy už to je skoro i bolestivé. Zase cítíš, jak ti někdo za vlasy zvedá hlavu a rukou tě drží za pusu tak, abys jí musela držet otevřenou. Vráží ti do pusy čuráka a šuká i pusinku. Sice se ti hnusí, v jaké jsi situaci, ale tělu neporučíš, tvrdé šukání pusy a zároveň prdelky se ti prostě líbí a jde na tebe další orgazmus. Tentokrát je dost mohutný a přímo kvílíš slastí. Vzadu na chvíli přestává šukání, ale hned cítíš dalšího ptáka v prdelce. Po několika minutách tvrdého šukání už začínáš mít prdelku celkem rozšukanou, pusa tě bolí od nepřetržitého kouření, ale nemůžeš nic dělat. Tenhle drží slušné tempo a drtí ti prdelku už aspoň 5 minut. Skoro to vypadá, že se chce udělat a taky jo, už začíná oddychovat a plní ti prdelku dávkami. Tomu říkám slušnej anál, šuká se dobře. Jde ještě někdo? Poslední odvětí, že tě taky zkusí a šukání análku pokračuje, už tě začíná fakt pálit, ale tvrdé přírazy nepřestávají.</p>
-</p>Po chvíli se ozve: Tak co, už to s tou kurvou zkoncujeme, pojďte jí postříkat. Stahují tě z postele a přitlačí tě v kleče ke stěně. Sundávají ti šátek. Před tebou stojí tři a všichni si honí ptáky přímo před tvým obličejem. Máš honění ráda, takže tě to dost vzrušuje. Všichni se ti cpou do pusy a střídá se ti v puse jeden čurák za druhým. Začínáš si honit kundičku, protože cítíš, že se ještě jednou uděláš. Chvílemi máš v puse i dva ptáky a máš pocit, že ti jí roztrhnou. Jeden, co ho máš zrovna v puse, začíná stříkat, odstrkuješ ho a pokračuje ve stříkání na obličej. Vzápětí začíná stříkat i druhý. Drž otevřenou hubu ty děvko, stříká ti všude po obličeji, něco skončí v puse a část kape na prsa. Pořád pokračuješ v honění kundičky a už to na tebe taky jde. Přichází orgazmus a v tu chvíli začíná na obličej a prsa stříkat i poslední. Po tom co dostříká, dostaneš příkaz, abys je všechny dokouřila. Uděláš, co ti přikázali. Když to dokončíš, chytí tě, dají šaty a podprsenku do ruky a vystrčí tě za dveře.</p>
-</p>Tak díky kurvo, dveře se zabouchnou a ty stojíš v kalhotkách na chodbě, máš všude sperma a přemýšlíš, co se to vlastně stalo a kde máte pokoj.
-</p>`
-  },
-  
-  {
-    id: "simple_5",
-    type: "simple",
-    title: "Název příběhu 6",
-    description: "Krátký popis příběhu.",
-    content: 
-`<p>Už dlouho se o tom bavíme a konečně jsme se rozhodli, že zkusíme navštívit swingers party. Oba od toho
-tak trochu čekáme, že dorazíme na místo, všichni budou vypadat divně, nebo nám bude prostředí
-nepříjemné, čili se při nejhorším otočíme a zase odejdeme. Nicméně vzhledem k tomu, že nás to oba dost
-láká a tak to jdeme zkusit.</p>
-
-</p>Vybrali jsme si pražský klub, který má dobré recenze a zároveň dává možnost vrátit vstupné, pokud se
-krátce po příchodu rozhodneme odejít. Vše je naplánováno na páteční večer, hotel jsme zarezervovali
-poblíž. Zároveň je vedle pěkná restaurace, kde se můžeme případně i trochu posilnit alkoholem, abychom
-vůbec sebrali odvahu.</p>
-
-</p>Dorazili jsme v podvečer do hotelu a ubytovali se. Nebylo moc na co čekat, čili jsme se osprchovali, nalíčila
-jsi se, vzala sis své oblíbené prádelko, které se dá případně poměrně rychle rozepnout a trochu s rozpaky
-co očekávat od dnešního večera jsme vyrazili do restaurace. Bylo nám oběma jasné, že bez alkoholu se tam
-zřejmě asi ani neodhodláme. Já jsem si dál klasicky pár pivek a ty sis dala pár oblíbených prosec. Potom
-jsme si dali ještě lahev ryzlinku a byli už poměrně v náladě. Vypadalo to na správný okamžik vyrazit, oba
-jsme na sebe odhodlaně kývli, zaplatili a vyrazili.</p>
-
-</p>Bylo to pár stovek metrů, takže jsme tam byli asi za 5 minut. Z venku to vypadalo opravdu nenápadně, že
-se jedná o klub, bylo poznat v podstatě jen díky nápisu na zvonku a našli jsme to jen proto, že jsme přesně
-věděli, kde to je. Poslední odsouhlasení, že jdeme do toho a zazvonili. Otevřel chlápek, který se nás zeptal,
-jestli jdeme na párty a máme rezervaci, po odsouhlasení, že jsme na seznamu jsme byli vpuštěni dovnitř.
-V šatně hned za dveřmi jsme si odložili. Já měl na sobě klasicky džíny a tričko s límečkem, ty jsi měla krátké
-černé minišaty. Chlápek u vstupu nám řekl základní pravidla a vybídl nás, ať se jdeme porozhlédnout po
-klubu. Zatím údajně moc lidí není, většinou lidi začínají chodit až tak za hodinku. To jsme uvítali, protože si
-alespoň prostředí prohlédneme a uvidíme, jestli tu chceme vůbec zůstat. Klub byl celkem prostorný, byl tu
-i malý bazén cca 10x4m s hloubkou asi metr třicet – ideální na osvěžení i hrátky, dál tu bylo několik
-místností s tlumeným světlem a dokonce i sauna se prostornými sprchami. V každé místnosti byla alespoň
-jedna prostorná postel a pár fatboyů. Nakonec jsme zabloudili ještě do místnosti, která byla připravená na
-tvrdší zábavu – na zdi bylo několik kruhů, ke kterým se dalo připoutat, na některých byla rovnou připravena
-i pouta, byla tu postel, na které byla také přiravena pouta ve všech rozích, nakonec tu bylo i závěsné
-zařízení, které může sloužit i jako houpačka. Tahle místnost tě evidentně zaujala, bylo vidět, jak ti září oči,
-když sis vše prohlížela.</p>
-
-</p>Došli jsme zpět k baru a začali se rozhlížet po lidech, byla tu asi jedna skupinka asi šesti lidí – tři páry cca
-v našem věku, dál tu byli asi tři páry, dvě dost mladé holky (kolem dvaceti), které už vypadaly docela
-posilněné alkoholem, protože koukaly okolo a evidentně komentovaly okolní dění, následně se vždycky
-dost smály. Ještě tu byli asi tři nebo čtyři samotní chlápci, ti si museli určitě připlatit, protože standardně
-pouštěli jen páry nebo samotné ženy. Nicméně k našemu překvapení všichni vypadali celkem normálně,
-mezi 25 a 45 a nikdo na první pohled nechutný, byl tam jen jeden silnější chlápek, ale žádný slizoun, aspoň
-je dost vysoký, poznamenala jsi. No nic sedli jsme si na bar a pokračovali v popíjení, naštěstí měli celkem
-slušný výběr alkoholu, čili pro mě i pár skotských a pro tebe dokonce i růžový gin, byli jsme celkem
-spokojeni a taky čím dál víc posilněni. Poměrně živě jsme konverzovali a rozhlíželi se po přítomných a
-příchozích, zatím se nikdo do ničeho nepouštěl, ale noc byla ještě mladá. Asi do hodiny přišlo ještě přibližně
-20-25 lidí a klub byl tak nějak přiměřeně zaplněn. Celkově byla asi převaha párů, ale bylo tam i pár skupinek
-pouze žen a pak možná 8 samotných chlápků, co většinou popíjeli na baru.</p>
-
-</p>Vzhledem k tomu, že už byli všichni celkem v náladě, tak se začínali pomalu odvazovat, někteří si odložili a
-šli do sauny, nebo do bazénu, některé skupinky už to začínali celkem rozjíždět a tak jsme po očku
-pozorovali, jak si například asi tři páry začínají užívat, chlápci v pozoru na gauči a holky u nich klečely, všem
-kouřily nebo honily, vždycky po chvíli se vystřídaly. Chlápci si to dost vychutnávali, jeden se zvedl a lehl si
-pod jednu kouřící holku a začal jí lízat, ta se hned přesunula k druhému chlápkovi a spolu s druhou ho
-střídavě kouřily a lízaly. Moc dlouho to nevydržel, za pár minut začal holkám stříkat do pusy, pěkně ho
-dokouřily a očistily mu ptáka. Pak se ta, co jí lízal chlápek na zemi, jen na jeho obličeji otočila, druhá si mu
-nasedla na ptáka, kterého měl v pozoru a začala rychle přirážet, přitom se líbala s druhou a navzájem si
-masírovaly prsa.</p>
-
-</p>Začínalo nás to oba dost vzrušovat a byly jsme už dost nadržení, rozhodli jsme se, že se přesuneme do
-nějaké místnosti bokem a rozdáme si to. Vzal jsem tě za ruku a odvedl do jedné z místností, nikdo tam
-nebyl, což nám vyhovovalo, rychle jsem tě začal svlíkat, sundal jsem ti šatičky, ty jsi mi rozepla poklopec a
-sundala kalhoty, viděla jsi, že jsem dost vzrušený, takže jsi mi hned stáhla i trenky a začala kouřit mého
-ptáka, který byl hned v pozoru. Chytil jsem si tě za vlasy a začal ti pořádně šukat pusu, tak jak to máš ráda.
-Periferně jsme viděli, jak do místnosti přišel další pár a ještě ty dvě holky, co byly v klubu hned od začátku.
-Musím říct, že mě celkem vzrušovalo, jak nás pozorují a nepřestával jsem ti šukat pusu, je to evidentně
-taky dost rajcovalo a začaly se spolu mazlit, druhý pár si to mezitím začal rozdávat v posteli a holky nevěděli
-kam koukat dřív. Už jsi cítila, že jsi dost vlhká a chtěla jsi šukat. Bylo to na tobě vidět, takže jsem tě zvedl,
-přirazil ke stěně, strhl kalhotky na stranu a hned natvrdo přirazil do tvé kundičky. Natlačil jsem tě pořádně
-na zeď a začal tvrdě přirážet, šukal jsem tě tvrdě až ti nadskakovaly kozičky, netrvalo to tak dlouho a byl tu
-tvůj první orgasmus, já jsem byl naštěstí vyváženě připitý, takže to nevypadalo, že bych se měl hned udělat.
-V rychlosti jsme koukli po místnosti, holky si to už moc pěkně rozdávaly, navzájem se lízaly, mačkaly si prsa,
-viděl jsem na tobě, jak tě pohled na ně vzrušuje. Nechceš se k nim zkusit přidat? Já můžu jen koukat.
-Jedna se ti dost líbila – celkem vysoká tmavovláska, postava akorát, krásná pevná prsa – minimálně trojky.
-Přitom, co jí ta druhá vášnivě lízala, tak mě zřejmě zaslechla a koukla na tebe, kousala se do rtu a naznačila
-hlavou, ať se k nim přidáš. Nabrala jsi odvahu, svlékla sis prádélko a přišla k nim. Nejdřív ses s ní začala
-líbat, chutnala moc pěkně, dlouho jsi to ale nevydržela, do ucha jsi jí zašeptala, že bys už chtěla cítit její
-jazyk v tvojí kundičce, mrkla na tebe a naznačila, že si můžeš dělat, co chceš. Pomalu sis klekla nad její
-obličej a celá rozechvělá očekávala, až se tě začne dotýkat. Neváhala ani chvilinku a začala ti jazykem
-kroužit kolem poštěváčku, projelo tebou vzrušení a skoro jsi začala sténat slastí. Chvíli lízala nebo sála tvůj
-poštěváček a sem tam zasténala, protože si zároveň užívala lízání od své kamarádky. Když zajela jazykem
-pořádné hluboko do tvé štěrbinky, málem ses udělala, byla jsi úplně rozpálená, nechtěla jsi přestávat, ale
-zároveň jsi ji chtěla taky ochutnat. Najednou začala těžce dýchat a viděla jsi na ní, že se blíží k vrcholu,
-v souladu s jejím stoupajícím vzrušením tě začala vášnivě sát, po chvilce se celkem hlučně udělala a tobě
-to trvalo jen o pár vteřin déle, obě jste se svíjely v orgasmu. Lehly jste si vedle sebe a oddechovaly.
-Kamarádku ovšem mazlení dost bavilo, klekla si nad vás a každé strčila dva prsty do kundičky a začala vás
-obě prstit. Jak jste ležely vedle sebe, tak jste se začaly vášnivě líbat a navzájem si masírovat prsa. Její byly
-nádherné skoro akorát do ruky. Byla to nádhera, kamarádka to dost uměla, obě vás prstila a přitom sem
-tam olízla na střídačku poštěváček, netrvalo vám to dlouho a obě jste se udělaly. Kamarádka se vytratila a
-vy dvě jste ležely blaženě nahé na posteli. V ten okamžik jsem přišel já a vzhledem k tomu, že jsi ležela na
-zádech na kraji postele, jen jsem si tě malinko posunul a vrazil ti ptáka z ostra do kundičky. Trochu tě to
-překvapilo, takže jsi trochu vyjekla, ale byla jsi pořád hrozně vzrušená a dost jsi tekla, takže jsem tě mohl
-hned tvrdě začít šukat. Tmavovláska moc dlouho neváhala a tentokrát si klekla nad tebe ona, okamžitě jsi
-jí začala líbat její kundičku, která byla skoro celá vyholená až na malou čárku. Lízala jsi jí jak o život a
-vychutnávala sis její šťávu, zatímco já tě tvrdě šukal, byl to božský pohled, jak ti lítají kozičky při tvrdých
-přírazech a vidět, jak při tom lížeš tu krásnou tmavovlásku s pevnými kozičkami, které si sama dost mačká
-a drtí. Ten pohled mě doháněl k šílenství a zároveň mě hrozně vzrušoval, cítil jsem, že bych se za chvíli
-udělal. Chtěl jsem ti to ale nastříkat do pusinky, takže jsem ti řekl, ať si klekneš, abych ti mohl ještě chvíli
-šukat pusinku. Poslechla jsi a tmavovláska taky pochopila, co má dělat. Klekla sis přede mě na zem, ona si
-klekla vedle tebe, jednou rukou ti chytila pusu a držela ti jí u mého ptáka, druhou rukou mě začala honit.
-Chvíli mě honila a pomalu přesouvala ruku tak, aby tě chytla za vlasy, následně tě natlačila na mého ptáka
-a nechala mě šukat ti pusu, u toho mi masírovala koule. Bylo to nádherné, po chvíli tě zatáhla za vlasy a i
-ona olízla mého ptáka, střídavě mě kouřila ona a ty, přitom si tě pořád řídila rukou a dávala ti najevo, že
-můžeš kouřit, jen když ti to dovolí. Po chvíli jsem měl opravdu na krajíčku, poznala to, začalo mi v něm
-cukat a začal jsem stříkat. Držela ti hlavu před mým stříkajícím ptákem, tak, abych ti stříkal přímo do pusy.
-Všechno jsi poslušně spolykala, následně ti navedla ptáka do pusy, abys mě ještě dokouřila a očistila. Byl
-jsem v sedmém nebi a musel si na chvíli sednout. Tmavovláska tě políbila a odešla.</p>
-
-</p>Oba jsme chvíli odechovali, ale všiml jsem si, že opodál stojí dva chlápci a při scéně, kterou viděli před
-chvílí, si honí naběhlé ptáky. Trochu nás překvapili, protože se celkem bez okolků zeptali, jestli by tě mohli
-ošukat, protože to vypadá, že jsi dost šikovná. Podívali jsme se na sebe a viděl jsem na tobě, že nejsi
-zásadně proti, nebyli to žádní kdovíjací krasavci, nicméně měli postavu podobnou jako já, byli celkem
-vysocí a měli poměrné velké ptáky. Přišli až k nám a téměř pár centimetrů od tebe pokračovali v honění.
-Znovu jsme se na sebe podívali, viděl jsem, jak ti jiskří v očích a jen na tebe kývl a řekl, OK pánové, tak tu
-kurvičku pořádně ošukejte, moc se s ní nemazlete, má to ráda tvrdě. Vylekaně jsi na mě koukla, co to říkám,
-ale na víc už jsi čas neměla. Jeden ti strčil svoje tvrdé péro do pusy, lekla ses a trochu ztuhla, ale chlápek
-měl asi zkušenosti, chytil tě za hlavu a nacpal ti skoro celého ptáka až do krku. Následně začal přirážet a ty
-jsi začínala být vzrušená, periferně jsi viděla, že já si začínám honit ptáka a koukám na vás. To tě ještě víc
-vzrušilo a začala jsi ho vášnivě kouřit a lízat. Za chvilku si tě přitáhl za vlasy ten druhý a začal ti taky šukat
-pusu. Druhý ovšem nechtěl jen tak koukat a postavil si tě a vrazil ti dva prsty do kundičky, která úplně tekla.
-Tvrdě ti jí začal prstit a ty jsi cítila, že se za chvilku uděláš, na jednu stranu ses cítila jako kurvička na druhou
-stranu jsi neudržela vzrušení, zároveň jsi toho nemohla moc dělat, ten co tě zezadu tvrdě tvrdě šukal dvěma
-prsty, ti zkroutil ruku za záda a druhý, co ti šukal pusu si tě přidržoval za vlasy. Neubránila ses a udělala se.
-Chlapi si tě dost chválili a pokračovali v akci, přitlačili tě k zemi a ten co tě předtím prstil, ti vrazil svoje
-mohutné péro do kundičky a začal přirážet. Druhý chlápek si užíval, jak dobře kouříš, chvílemi ti šukal pusu,
-semtam ti ho narval až do krku až ses začla dávit, na chvíli ho vyndal a hned ti ho tam zase vrazil. Pak ho
-vyndal a honil si ho před tvým obličejem a chtěl, abys mu lízala žalud. Nicméně už si tě chtěl taky vyzkoušet,
-kývli na sebe, oba najednou přestali a vzali tě k posteli, přehnuli tě přes kraj, vyměnili se, ten cos ho kouřila
-si tě jen našteloval, chytil ti nohy a vrazil ti naběhlej klacek do tvojí už malinko rozšukaný kundičky, byla už
-dost roztažená, takže s tím neměl moc problém, prudkými tvrdými pohyby přirážel, až jeho koule pleskali
-o tvůj zadek. Bylo to přesně to, co miluješ, do toho ti najednou ten druhý zase vrazil ptáka do pusy, hlavu
-jsi měla zvrácenou přes postel, takže se ti lehce dostal dost hluboko, nemohla jsi v podstatě nic dělat, jen
-si to užívat. Zase sis uvědomila, že jsi jak kurvička dva chlápci tě tvrdě mrdají a ty jen držíš a ještě se ti to
-dost líbí. Po chvíli tvrdého šukání, si tě zase otočí, jeden si lehá pod tebe a hned ti ho vrazí do kundičky a
-pomalu přiráží, druhý si kleká za tebe a začne ti roztahovat prdelku prsty, které má úplně mokré z tvé
-kundičky. Prdelku máš trochu protaženou a začne ti tam cpát toho velkýho ptáka, máš trochu strach, ale
-vzhledem k tomu, že druhý tě už pomalu mrdá do kundičky, což tě dost vzrušuje, podléháš a jdeš mu
-naproti. Cítíš jak tě pomalu plní a dostává se dál a dál, cítíš, jak najednou naráží a je v tobě až po koule,
-v tom okamžiku začne přirážet a celým pohybem ti šuká prdelku. Dostáváš se do extáze, máš v sobě dva
-velké čuráky a oba tě tvrdě šukají, na chvilku otevíráš oči a vidíš jak před tebou stojím s naběhlým pérem.
-Instinktivně otevřeš pusu a já ti ho tam hned vrazím a šukám ti ještě pusu. Jsi úplně plná, šukáme tě všude
-kam to jde a ty se svíjíš v orgasmu. Nikdo z nás ale nepřestává a šukáme dál, tvoje prdelka je pro velkého
-čuráka dost těsná, takže cítíš, jak začíná oddechovat a plní ti prdelku dávkami spermatu. Chlápek zespodu,
-tě odstrkuje a ještě si kleká k tobě zezadu, vrazí ti ho zase do kundičky, chce se pořádně došukat. Po chvilce
-se znovu uděláš, ale jsi pořád strašně nadržená. Já ho vyndavám a honím si ho těsně před tvojí pusinkou,
-vypadá to, že konečně budeme oba, dostáváš povel, aby sis lehla na postel. My si nad tebe klekáme a
-vzápětí na tebe začínáme stříkat naše dávky. Cítíš, jak ti horké sperma dopadá všude od kundičky, přes
-prsa a krk, pár dávek skončí i na tvém obličeji. Jsi dost rozšukaná, ležíš na poseli pokrytá spermatem a
-přemýšlíš, jaké to je, být za kurvičku.</p>`
-  },
-  
-  {
-    id: "simple_6",
-    type: "simple",
-    title: "Název příběhu 7",
-    description: "Krátký popis příběhu.",
-    content: `<p>Text příběhu č. 7...</p>`
-  },
-  {
-    id: "simple_7",
-    type: "simple",
-    title: "Název příběhu 8",
-    description: "Krátký popis příběhu.",
-    content: `<p>Text příběhu č. 8...</p>`
-  },
-  {
-    id: "simple_8",
-    type: "simple",
-    title: "Název příběhu 9",
-    description: "Krátký popis příběhu.",
-    content: `<p>Text příběhu č. 9...</p>`
-  }
-];
-
-// ═══════════════════════════════════════════════════════════
-//  INTERAKTIVNÍ PŘÍBĚH — scény
-// ═══════════════════════════════════════════════════════════
-const STORY = {
-  title: "Wellness se zápletkou",
-  scenes: {
-
-    "start": {
-      title: "Úvod",
-      text: `<p>Už nějaký čas se bavíme o tom, že zajdeme do soukromého wellnessu, konečně je tu víkend, kdy
-                si naši odvezli děti do Děčína a my máme před sebou tři hodiny pohody. V duchu si říkáš, že by možná byla lepší sauna,
-                protože v soukromí se budu o něco pokoušet, ale už jsme si dlouho pořádně nezašukali, tak si říkáš, že to přežiješ a wellness je dobrý bonus.</p>
-             <p>Přecejen bude pohoda, ujistil jsem tě, že máme raději dvě láhve prosecca a něco na zub a užijeme si relax.
-             Nevíš přesně kam jedeme, wellness jsem objednával já. Takže jsi příjemně překvapená, že jsme zastavili u wellness Fenix,
-             pod Ještědem, kam jsi se chtěla už dlouho podívat.</p>`,
-      choices: [
-        { text: "Máme čas, takže si nejdřív jdeme sednout ještě na bar.", next: "Posezení u baru" },
-        { text: "Jdeme rovnou do wellness, už se těšíš, až se prohřeješ a dáš si k tomu prosecco.", next: "Rovnou do wellness" }
-      ]
-    },
-
-    "Posezení u baru": {
-      title: "Pár skleniček a trochu provokace",
-      text: `<p>Nakonec jsme dorazili dost brzy, takže jsme měli dost času, abychom poseděli a dali si pár skleniček.</p>
-             <p>Prosecco ti celkem dost zachutnalo, tak jsi dala rychle po sobě 3 sklenice a výjimečně jsi byla celkem v dobré připité náladě.</p>
-             <p>Rozhlížíš se po baru a vidíš hned několik fešáků kolem 30–35. Vidíš, že jeden tě pozoruje, i když se to snaží skrývat.</p>
-             <p>Vzhledem k tomu, že jdeme do sauny, oblékla jsi se dost nalehko, jsi bez podprsenky, máš halenku s rozepnutým knoflíčkem tak,
-             že máš decentně odhalený výstřih. Dál máš růžovou sukni nad kolena.</p>
-             <p>Napadlo tě, že si trochu zaflirtuješ, rozepnula sis knoflíček a tvoje krásná prsa poodhalíš tak akorát, aby ještě nebylo nic vidět,
-             ale bylo jasné, co skrýváš.</p>`,
-      choices: [
-        { text: "Chlapík se chytne a vidíš, jak nemůže od tvého výstřihu odtrhnout oči.", next: "Flirt bar pokračování" },
-        { text: "Bohužel dotyčný už se zvedá a odchází. Máš chuť se ohřát a jdeme do wellness.", next: "Do wellness z baru" }
-      ]
-    },
-
-    "Rovnou do wellness": {
-      title: "Rychle svléknout a šup do sauny",
-      text: `<p>V šatně moc času nestrávíme, rychle se svlékneme, vezmeme prostěradla a jdem do sauny.</p>
-             <p>Já vytahuju dvě skleničky a nalévám prosecco. Venku je celkem zima, takže je dobře vychlazené.
-             Chvíli popíjíme a povídáme. Ani nevíš jak, a vypili jsme první sklenku. Nalévám další.</p>
-             <p>„Jdeme s tím už dovnitř, nebo chceš ještě popíjet?"</p>
-             <p>Sauna je vytopená akorát, rozkládáš prostěradlo a leháš si na něj, prosecco máme s sebou a pomalu popíjíme.</p>`,
-      choices: [
-        { text: "Máš chuť se ohřát, jdeme na první kolečko sauny.", next: "První sauna" },
-        { text: "Chvíli popíjíme, uklidňuju tě, že nakonec máme zaplacené 4 hodiny, čili času máme dost.", next: "Rozpíjení před saunou" }
-      ]
-    },
-
-    "První sauna": {
-      title: "Příjemné první kolečko",
-      text: `<p>Celkem ti zachutná, nicméně jdeme na první kolečko. Dávám lahev do ledničky a hurá do sauny.</p>
-             <p>Sauna je vytopená akorát, rozkládáš prostěradlo a leháš si na něj, prosecco máme s sebou a pomalu popíjíme.</p>
-             <p>Povídáme, je ti jasné, že po tobě pořád pokukuju, ale zatím se držím.</p>
-             <p>Přemýšlíš, jestli mě chceš trochu provokovat nebo ne.</p>`,
-      choices: [
-        { text: "Ne, v klidu dopijeme a jdeme se zchladit.", next: "Sprcha první kolečko" },
-        { text: "Jo, trochu si se mnou pohraješ, ale k ničemu mě nepustíš.", next: "Hrátky v prvním kolečku" }
-      ]
-    },
-
-    "Sprcha první kolečko": {
-      title: "Ven a první zchlazení",
-      text: `<p>Vydrželi jsme 15 min a je čas na první ochlazení. Sklenky s sebou a jdem se sprchnout.</p>
-             <p>Vzhledem ke studené vodě se do ničeho nepouštím, ale pozoruju tvoje krásné kozičky a úhledně upravený klín.</p>
-             <p>Oblékáme ručník a jdeme popíjet. Ve wellnes je postel, takže si leháme na ní, relaxujeme a popíjíme.</p>
-             <p>Čas celkem utíká, zvládli jsme jednou dolít a jdeme na druhé kolečko.</p>`,
-      choices: [
-        { text: "Začínáš mít chuť na trochu provokace.", next: "Provokace druhé kolečko" },
-        { text: "Přemýšlíš, jaké by to bylo, kdybychom v sauně nebyli sami.", next: "Alternativy společnost v sauně" }
-      ]
-    },
-
-    "Hrátky v prvním kolečku":        { title: "Trochu si hraješ",              text: `<p>— tato scéna ještě čeká na dopsání —</p>`, choices: [{ text: "Pokračovat →", next: "Sprcha první kolečko" }] },
-    "Provokace druhé kolečko":         { title: "Druhé kolečko s provokací",     text: `<p>— tato scéna ještě čeká na dopsání —</p>`, choices: [{ text: "Pokračovat →", next: "Sprcha první kolečko" }] },
-    "Alternativy společnost v sauně":  { title: "Co kdybychom nebyli sami?",     text: `<p>— tato scéna ještě čeká na dopsání —</p>`, choices: [{ text: "Pokračovat →", next: "Sprcha první kolečko" }] },
-    "Sauna po flirtu":                 { title: "Do sauny po flirtu",            text: `<p>— tato scéna ještě čeká na dopsání —</p>`, choices: [{ text: "Pokračovat →", next: "První sauna" }] },
-    "Sauna po flirtu 2":               { title: "Do sauny nabitá vzrušením",     text: `<p>— tato scéna ještě čeká na dopsání —</p>`, choices: [{ text: "Pokračovat →", next: "První sauna" }] },
-    "Pokračujeme do sauny ve 3?":      { title: "Odvážná nabídka",               text: `<p>— tato scéna ještě čeká na dopsání —</p>`, choices: [{ text: "Pokračovat →", next: "První sauna" }] },
-    "Rozpíjení před saunou":           { title: "Času je dost a prosecco chutná!", text: `<p>— tato scéna ještě čeká na dopsání —</p>`, choices: [{ text: "Pokračovat →", next: "První sauna" }] },
-
-    "Flirt bar pokračování": {
-      title: "Pokračuješ v laškování",
-      text: `<p>Vidíš, že se chytil a má pohled zabodnutý v tvém výstřihu.</p>
-             <p>Děláš, že se potřebuješ podrbat na lýtku a nakláníš se naproti němu, tvoje kozičky se snaží dostat ven, ale halenka je zatím drží.
-             Zaujatě tě pozoruju a trochu se mi dělá boule v kalhotech.
-             Otáčíš se proti muži u stolu. Trošičku roztáhneš nohy a pak pomalu přehazuješ nohu přes nohu.</p>
-             <p>Vzrušeně prohazuji: „Zlato, jsi strašně sexy, co kdyby sis šla na záchod sundat kalhotky?"</p>`,
-      choices: [
-        { text: "Jsi trochu vzrušená, ale flirtování bylo dost, je čas jít do sauny.", next: "Sauna po flirtu" },
-        { text: "Tak jo, jdeš se upravit na toaletu, dost tě to baví.", next: "Flirt pokračuje" }
-      ]
-    },
-
-    "Flirt pokračuje": {
-      title: "Trochu to okořeníme",
-      text: `<p>Vracíš nohu přes nohu zpět, necháváš zase mírně roztažené nohy a pokračuješ v provokaci.</p>
-             <p>Zvedneš se a odejdeš na toaletu. Po cestě si uvědomuješ, že jsi celkem vzrušená.</p>
-             <p>Na toaletě rychle sundáš kalhotky, hodíš je do kabelky. Rychlá kontrola v zrcadle, upravíš výstřih — jeden knoflíček by to ještě sneslo.
-             Jdeš zpět, při příchodu se na mě šibalsky usmíváš, je mi jasné, že se ti to líbí.
-             Sedáš si zase tak, že máš kolena nasměrována k muži, se kterým flirtuješ. Sedáš si s mírně roztaženými stehny a čekáš, jestli si všimne.
-             Po chvíli, kdy těká očima sem a tam, zabloudí jeho pohled do tvého klína a nedokáže zakrýt překvapení. Evidentně chvíli nedokáže koukat jinam.
-             Otáčíš se směrem ke mě a stehna dáváš od sebe o něco víc, abych se také tím krásným pohledem pokochal.</p>`,
-      choices: [
-        { text: "Jsi dost vzrušená, odcházíme do sauny a já jsem evidentně nadšený.", next: "Sauna po flirtu 2" },
-        { text: "Půjdeš k muži a zeptáš se ho, jestli by se k nám nechtěl přidat.", next: "Pokračujeme do sauny ve 3?" }
-      ]
-    },
-
-    "Do wellness z baru": {
-      title: "Hezky rozpito a pokračujeme v sauně",
-      text: `<p>Už při svlékání se trochu motáš, ale zatím jsi v příjemné náladě.</p>
-             <p>Otevíráme první prosecco — vzal jsem i hezké skleničky.</p>`,
-      choices: [
-        { text: "První kolečko proběhlo skvěle, ochlazení a jdem relaxovat a popíjet.", next: "Sprcha první kolečko" },
-        { text: "Máš trochu laškovnou náladu, v sauně ses rozhodla mě trochu provokovat.", next: "Hrátky v prvním kolečku" }
-      ]
-    }
-  }
-};
-
-// ═══════════════════════════════════════════════════════════
-//  NAVIGACE
-// ═══════════════════════════════════════════════════════════
-function showHome() {
-  document.getElementById('storyScreen').style.display = 'none';
-  document.getElementById('simpleStoryScreen').style.display = 'none';
-  document.getElementById('homeScreen').style.display = 'block';
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function openStory(id) {
-  const entry = STORY_LIST.find(s => s.id === id);
-  if (!entry) return;
-
-  if (entry.type === 'branching') {
-    document.getElementById('homeScreen').style.display = 'none';
-    document.getElementById('simpleStoryScreen').style.display = 'none';
-    document.getElementById('storyScreen').style.display = 'block';
-    storyHistory = [];
-    activeSession = { start: new Date().toISOString(), steps: [] };
-    renderScene('start');
-  } else {
-    document.getElementById('homeScreen').style.display = 'none';
-    document.getElementById('storyScreen').style.display = 'none';
-    document.getElementById('simpleStoryTitle').textContent = entry.title;
-    document.getElementById('simpleStorySubtitle').textContent = entry.description;
-    document.getElementById('simpleStoryContent').innerHTML = `
-      <div class="scene-card" style="margin-bottom:2rem;">
-        <div class="scene-text">${entry.content}</div>
-      </div>`;
-    document.getElementById('simpleStoryScreen').style.display = 'block';
-  }
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function buildHomeGrid() {
-  document.getElementById('homeGrid').innerHTML = STORY_LIST.map(s => `
-    <div class="story-card" onclick="openStory('${s.id}')">
-      <div class="story-card-tag">
-        ${s.type === 'branching' ? '<span class="tag-branch">✦ Interaktivní</span>' : 'Povídka'}
-      </div>
-      <div class="story-card-title">${s.title}</div>
-      <div class="story-card-desc">${s.description}</div>
-      <span class="story-card-arrow">→</span>
-    </div>`).join('');
-}
-
-// ═══════════════════════════════════════════════════════════
-//  INTERAKTIVNÍ PŘÍBĚH — renderování
-// ═══════════════════════════════════════════════════════════
-let storyHistory = [];
-let currentScene = "start";
-
-function renderScene(sceneId) {
-  const scene = STORY.scenes[sceneId];
-  if (!scene) return;
-  currentScene = sceneId;
-  document.getElementById('storyTitle').textContent = STORY.title;
-  renderBreadcrumb();
-
-  let choicesHTML = '';
-  if (scene.ending) {
-    choicesHTML = `<div style="margin-top:2rem;text-align:center;"><div class="ending-badge">${scene.ending}</div><p style="font-style:italic;color:rgba(240,122,184,0.7);margin-top:0.5rem;">${scene.ending_note||''}</p></div>`;
-  } else if (scene.choices && scene.choices.length) {
-    const btns = scene.choices.map((c,i) => `<button class="choice-btn" data-num="${i+1}." onclick="chooseOption('${c.next}')">${c.text}</button>`).join('');
-    choicesHTML = `<div class="choices-divider"><span class="choices-label">Co uděláš?</span></div><div class="choices-list">${btns}</div>`;
-  }
-
-  document.getElementById('sceneContainer').innerHTML = `
-    <div class="scene-card">
-      <div class="scene-id">${scene.title || sceneId}</div>
-      <div class="scene-text">${scene.text}</div>
-      ${choicesHTML}
-    </div>
-    <div class="nav-buttons">
-      <button class="nav-btn" onclick="goBack()" ${storyHistory.length === 0 ? 'disabled' : ''}>← Zpět</button>
-      <button class="nav-btn restart" onclick="restartBranching()">↺ Začít znovu</button>
-      <button class="nav-btn home-back" onclick="showHome()">⌂ Zpět na úvodní stránku</button>
-    </div>`;
-}
-
-function renderBreadcrumb() {
-  const bc = document.getElementById('breadcrumb');
-  if (storyHistory.length === 0) { bc.innerHTML = ''; return; }
-  const items = storyHistory.map((id,i) => {
-    const sc = STORY.scenes[id];
-    return `<span onclick="jumpToHistory(${i})">${sc ? sc.title : id}</span><span class="sep">›</span>`;
-  });
-  const cur = STORY.scenes[currentScene];
-  items.push(`<span class="current">${cur ? cur.title : currentScene}</span>`);
-  bc.innerHTML = items.join('');
-}
-
-function chooseOption(nextId) {
-  storyHistory.push(currentScene);
-  renderScene(nextId);
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function goBack() {
-  if (storyHistory.length === 0) return;
-  renderScene(storyHistory.pop());
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function jumpToHistory(index) {
-  const targetId = storyHistory[index];
-  storyHistory = storyHistory.slice(0, index);
-  renderScene(targetId);
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function restartBranching() {
-  storyHistory = [];
-  activeSession = { start: new Date().toISOString(), steps: [] };
-  renderScene('start');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-// ═══════════════════════════════════════════════════════════
-//  LOGOVÁNÍ
-// ═══════════════════════════════════════════════════════════
-const LOG_KEY = 'story_log_v1';
-function getLog() { try { return JSON.parse(localStorage.getItem(LOG_KEY)) || { choices:{}, sessions:[] }; } catch { return { choices:{}, sessions:[] }; } }
-function saveLog(d) { localStorage.setItem(LOG_KEY, JSON.stringify(d)); }
-let activeSession = { start: new Date().toISOString(), steps: [] };
-
-const _origChoose = chooseOption;
-window.chooseOption = function(nextId) {
-  const scene = STORY.scenes[currentScene];
-  const choiceObj = scene?.choices?.find(c => c.next === nextId);
-  const step = { from: currentScene, fromTitle: scene?.title||currentScene, choiceText: choiceObj?.text||nextId, to: nextId, toTitle: STORY.scenes[nextId]?.title||nextId, time: new Date().toISOString() };
-  activeSession.steps.push(step);
-  const log = getLog();
-  const key = `${currentScene}→${nextId}`;
-  log.choices[key] = log.choices[key] || { fromTitle: step.fromTitle, toTitle: step.toTitle, text: step.choiceText, count: 0 };
-  log.choices[key].count++;
-  saveLog(log);
-  _origChoose(nextId);
-  const nextScene = STORY.scenes[nextId];
-  if (nextScene?.ending) {
-    activeSession.end = new Date().toISOString();
-    activeSession.endTitle = nextScene.ending;
-    const log2 = getLog();
-    log2.sessions.unshift({...activeSession});
-    if (log2.sessions.length > 200) log2.sessions = log2.sessions.slice(0,200);
-    saveLog(log2);
-    activeSession = { start: new Date().toISOString(), steps: [] };
-  }
-};
-
-// ═══════════════════════════════════════════════════════════
-//  ADMIN
-// ═══════════════════════════════════════════════════════════
-const ADMIN_PASSWORD = 'admin123'; // ← ZDE ZMĚŇ HESLO
-
-function openAdmin() { document.getElementById('adminOverlay').classList.add('open'); document.getElementById('adminLogin').style.display='flex'; document.getElementById('adminDash').style.display='none'; document.getElementById('adminPwdInput').value=''; document.getElementById('adminErr').style.display='none'; setTimeout(()=>document.getElementById('adminPwdInput').focus(),100); }
-function closeAdmin() { document.getElementById('adminOverlay').classList.remove('open'); }
-function adminLogin() {
-  if (document.getElementById('adminPwdInput').value === ADMIN_PASSWORD) { document.getElementById('adminLogin').style.display='none'; document.getElementById('adminDash').style.display='flex'; renderAdminDash(); }
-  else { document.getElementById('adminErr').style.display='block'; document.getElementById('adminPwdInput').value=''; }
-}
-function showTab(name, btn) {
-  ['overview','choices','sessions'].forEach(t => document.getElementById('tab-'+t).style.display = t===name?'block':'none');
-  document.querySelectorAll('.admin-tab').forEach(b=>b.classList.remove('active')); btn.classList.add('active');
-}
-function fmtDate(iso) { const d=new Date(iso); return d.toLocaleDateString('cs-CZ')+' '+d.toLocaleTimeString('cs-CZ',{hour:'2-digit',minute:'2-digit'}); }
-function renderAdminDash() {
-  const log=getLog(), choices=Object.values(log.choices), sessions=log.sessions;
-  const totalClicks=choices.reduce((s,c)=>s+c.count,0), completed=sessions.filter(s=>s.endTitle).length;
-  document.getElementById('statGrid').innerHTML=`<div class="stat-card"><div class="stat-num">${totalClicks}</div><div class="stat-label">Celkem rozhodnutí</div></div><div class="stat-card"><div class="stat-num">${sessions.length}</div><div class="stat-label">Průchodů příběhem</div></div><div class="stat-card"><div class="stat-num">${completed}</div><div class="stat-label">Dokončených konců</div></div><div class="stat-card"><div class="stat-num">${choices.length}</div><div class="stat-label">Různých voleb</div></div>`;
-  const sorted=[...choices].sort((a,b)=>b.count-a.count).slice(0,6), maxC=sorted[0]?.count||1;
-  document.getElementById('topChoices').innerHTML=sorted.length?sorted.map(c=>`<div class="choice-bar-row"><div class="choice-bar-label">${c.text}</div><div class="choice-bar-wrap"><div class="choice-bar-fill" style="width:${Math.round(c.count/maxC*100)}%"></div></div><div class="choice-bar-count">${c.count}×</div></div>`).join(''):'<div class="admin-empty">Zatím žádná data.</div>';
-  const all=[...choices].sort((a,b)=>b.count-a.count), maxA=all[0]?.count||1;
-  document.getElementById('allChoices').innerHTML=all.length?all.map(c=>`<div class="choice-bar-row"><div class="choice-bar-label" style="font-size:0.84rem"><span style="color:rgba(240,122,184,0.5);font-size:0.75rem">${c.fromTitle} → ${c.toTitle}</span><br>${c.text}</div><div class="choice-bar-wrap"><div class="choice-bar-fill" style="width:${Math.round(c.count/maxA*100)}%"></div></div><div class="choice-bar-count">${c.count}×</div></div>`).join(''):'<div class="admin-empty">Zatím žádná data.</div>';
-  document.getElementById('sessionsList').innerHTML=sessions.length?sessions.map((s,i)=>{
-    const nodes=s.steps.map(st=>`<span class="path-node">${st.fromTitle}</span><span style="color:rgba(240,122,184,0.35);font-size:0.75rem"> › </span>`).join('');
-    const last=s.steps[s.steps.length-1];
-    const end=s.endTitle?`<span class="path-node ending">${s.endTitle}</span>`:(last?`<span class="path-node">${last.toTitle}</span><span style="color:rgba(240,122,184,0.3);font-size:0.75rem"> (nedokončeno)</span>`:'');
-    return `<div class="session-item"><div class="session-meta"><span>Průchod #${sessions.length-i} · ${fmtDate(s.start)}</span><span>${s.steps.length} rozhodnutí</span></div><div class="session-path">${nodes}${end}</div></div>`;
-  }).join(''):'<div class="admin-empty">Zatím žádné průchody.</div>';
-}
-function clearLog() { if(confirm('Opravdu smazat všechna statistická data?')){ localStorage.removeItem(LOG_KEY); renderAdminDash(); } }
-document.addEventListener('keydown', e => { if(e.ctrlKey && e.shiftKey && e.key==='A') openAdmin(); });
-
-// ═══════════════════════════════════════════════════════════
-//  UŽIVATELÉ  ← přidávej sem nové uživatele
+//  UŽIVATELÉ
 // ═══════════════════════════════════════════════════════════
 const USERS = [
   { user: "Misa",  pass: "ruzovysvet" },
-  { user: "Tomas", pass: "tajneheslo" }
+  { user: "Tomas", pass: "tajneheslo" },
+  { user: "admin", pass: "admin" }
+  // ← přidej další uživatele stejným způsobem
 ];
 
-const SESSION_KEY = 'story_auth';
+const SESSION_KEY  = 'story_auth';
+const SESSION_USER = 'story_user';
+let currentUser = null;
 
 function doLogin() {
   const u = document.getElementById('loginUser').value.trim().toLowerCase();
   const p = document.getElementById('loginPass').value;
   const match = USERS.find(x => x.user.toLowerCase() === u && x.pass === p);
   if (match) {
-    sessionStorage.setItem(SESSION_KEY, u);
+    currentUser = match.user;
+    sessionStorage.setItem(SESSION_KEY, '1');
+    sessionStorage.setItem(SESSION_USER, currentUser);
+    logActivity({ type: 'login', user: currentUser, time: new Date().toISOString() });
     const screen = document.getElementById('loginScreen');
     screen.style.transition = 'opacity 0.4s ease';
     screen.style.opacity = '0';
@@ -1010,6 +305,7 @@ function doLogin() {
 
 function checkAuth() {
   if (sessionStorage.getItem(SESSION_KEY)) {
+    currentUser = sessionStorage.getItem(SESSION_USER) || '?';
     document.getElementById('loginScreen').remove();
     document.getElementById('adminTrigger').style.display = 'block';
     document.getElementById('mainFooter').style.display = 'block';
@@ -1017,6 +313,326 @@ function checkAuth() {
     setTimeout(() => document.getElementById('loginUser').focus(), 100);
   }
 }
+
+// ═══════════════════════════════════════════════════════════
+//  STORY LIST
+// ═══════════════════════════════════════════════════════════
+const STORY_LIST = [
+  { id: "wellness", type: "branching", title: "Wellness se zápletkou", description: "Interaktivní příběh — každé rozhodnutí vede jinam." },
+  { id: "simple_1", type: "simple", title: "Valentýnská povídka", description: "S partou na chalupě",
+    content: `<p>Tak jako už hodněkrát jsme společně s partou vyrazili na chalupu. Byly to divoké večírky plné alkoholu a nespoutané zábavy, ale tentokrát to bylo úplně jiné, než bych si kdy dřív uměla v divokých snech představit. Ale začnu hezky od začátku ….</p><p>Hned při příjezdu na nás čekal pan domácí s uvítacím drinkem a jedním malým překvapením pro pánské osazenstvo večírku. Přijela za ním sestřenice z Itálie a on se těšil, jak se se svou krásnou sestřenicí pochlubí všem přátelům. Byla opravdu nádherná, krásné tmavé vlasy do půli zad, obrovské černé oči plné vášně a divokosti. Světlé džíny krásně zvýraznily její dokonalý zadeček, krátké tílko jí odhalovalo ploché opálené bříško a pod bílým tílkem se jí rýsovaly úžasně pevné čtyřky. Byla to radost pohledět a já hned věděla, že tahle dívka bude celý večer středem pozornosti. A nemýlila jsem se. Celý večer ji všichni kamarádi obletovali a předháněli se v získání její pozornosti.</p><p>Byla to koketa a náramně si tuto pozornost užívala. Každou chvíli to vypadalo, že zmizí v nedalekém lesíku s některým z kamarádů. Během večera jsem ji opakovaně viděla, jak několika kamarádům šeptá do ucha. Pokaždé se k němu přitiskla, pohrávala si s jeho vlasy, její rozkrok se třel o jeho stehno a něco mu šuškala do ucha. Muselo to být něco opravdu nemravného, protože všichni se po setkání s ní vzrušili. Ale nikdy s nikým v lesíku nezmizela.</p><p>Večer ubíhal dál, přibylo množství vypitého alkoholu. Jak postupně všichni odpadávali zmoženi alkoholem, tak ubylo i nápadníků se kterými by mohla koketovat. Až jsme v jednu chvíli zůstaly jen samy dvě. Seděly jsme na betonovém stole na ping-pong naproti sobě a popíjely broskvovou jako kdyby to byla limonáda. Byla opravdu legrace, jako bychom se znaly odjakživa. Jen mi pořád vrtalo hlavou, co těm chlapům špitala do ucha, že byli pokaždé tak vzrušení.</p><p>Sebrala jsem odvahu a zeptala se. Ona se jen usmála, přisedla si vedle mě, rukou mi zajela do vlasů a potichu mi do ucha pošeptala „Celý večer jsem tvým kamarádům popisovala, co bych chtěla dělat nemravného s tebou". Podívala se na mě a už nahlas se zeptala „Chceš mé představy popsat nebo zažít?"</p><p>Nezmohla jsem se na žádnou odpověď, jen jsem se začervenala. V ten okamžiku jsem ale věděla, že odpovídat nemusím, že stačí přikývnout.</p><p>Ona můj signál pochopila a hned se ke mně přitiskla a začala mě vášnivě líbat.</p><p>Nebyly to něžné dívčí polibky, byly nádherně divoké. Očividně už měla zkušenost se ženou, protože mi velmi rychle sundala tričko a začala líbat prsa. Její polibky byly vlhké a postupně jimi zahrnula celá má prsa.</p><p>Moje bradavky byly ztuhlé, vystouplé, možná trochu zimou, možná vzrušením. Užívala jsem si, když mi jazykem kroužila kolem bradavek a rukou hladila prsa. Chvíli mi jednou rukou mi pročechrávala vlasy a druhou něžně hladila prsa. V druhý okamžik se ke mně těsně přitiskla a vášnivě mě líbala na rty. Pevně se ke mně tiskla svými prsy. Moje hebká kůže se dotýkala jejího vzrušeného těla, naše prsa od sebe dělilo jen její lehounké bílé tílko. Hladila jsem ji ve vlasech, dotýkala se jejích holých ramen a pomalu rukou zajížděla pod její tílko, abych se mohla dotknout jejích nádherných pevných čtyřek. Jemné vzrušivé doteky jsme si vzájemně opětovaly, hladily si prsa, vášnivě se líbaly a třely se klínem o sebe. Byla jsem neuvěřitelně vzrušená a chtěla jsem víc. Obratně jsem ji rozepla knoflíček u kalhot a chtěla ji svléknout, ale ona mé ruce zarazila.</p><p>Položila mě na chladný betonový stůl, klekla si nade mě a začala mě znovu líbat na rty, jazykem pomalu sjížděla od krku, přes prsa, kolem pupíku stále níž a níž. Pomalu mi rozepla kalhoty, ale nesundala mi je. Začala mě líbat přes kalhotky přímo na pošťěváčku. Sténala jsem vzrušením a cítila jak rychle vlhnu. Zeptala se, zda může pokračovat. Já jen slastně vzdychla. Bylo to vzrušující, záda jsem měla na studeném stole, ale celé mé tělo bylo zalité horkem z vzrušení. Sundala mi kalhoty a stále mě něžně líbala přes mé krajkové kalhotky na prcince. Pomalinku začala prsty zajíždět pod kalhotky. Vždy jen prsty lehce brnkla o můj vzrušený klitoris a bez ustání mě líbala poštěváček. Chtěla jsem víc. Byla jsem nesmírně vzrušená. Pomalu mi začala stahovat kalhotky. Celá jsem se chvěla vzrušením a očekáváním něčeho nového. Kalhotky mi pomalu sundavala a přitom se její rty stále dotýkaly mé kůže. Když jsem před ní ležela zcela nahá, prohlédla si mě a mlsně se olízla. Položila mi hlavu do klína a začala mě něžně lízat. Nejdříve jazykem lehce kroužila kolem poštváčku, pak zajížděla hluboko do kundičky. Poznala jsem, že mi na klitoris píše jazykem vzkaz. Každým písmenkem jsem byla víc a víc vzrušená. Sténala jsem slastí a přála si, aby mě stále dál lízala prcinku a přitom zabořila prsty do kundičky. Jako by mi četla myšlenky. Velmi něžně mi zasunula do kundičky dva prsty a začala jimi jemně kroužit uvnitř mě. U toho mi stále lízala prcinku. Bylo to nádherné. Chtěla jsem jí náklonost opětovat, ale nenechala mě se ani pohnout a užívala si jazykem vlhkost mé kundičky. Prsty postupně přirážela víc a víc a já cítila, že se blížím k vrcholu. Chvílemi mi pošťeváček něžně lízala, chvílemi sála a občas mě lehounce kousla. Bylo to nádherné. Vůbec netuším, jak dlouho to trvalo, ale bylo to nádherné, vzrušující. Nechtěla jsem aby přestala. Když jsem s výkřikem prožila třetí orgasmus, jen se usmála a naposledy mě políbila na prcinku. Podala mi mé krajkové kalhotky, políbila na rozloučenou na tvář a odešla do tmavé noci. V šeru jsem viděla jen její nádherný zadeček a splývavé vlasy na zádech.</p><p>Měla jsem se obléknout a jít za ní, ale neměla jsem sílu se pohnout. Ležela jsem na chladném stole a zhluboka oddychovala. Byla jsem ještě celá vzrušená a rozechvělá ale také strašně unavená na to, abych se vrátila zpět do chalupy za ostatními.</p><p>Na stole jsem usnula. Schoulená do klubíčka, jen s přehozenou bundičkou přes tělo.</p><p>Náhle mě něco probudilo. Zaslechla jsem kroky, zvuk zipu, hluboké oddechování. Náhle jsem se nemohla nadechnout. Nic jsem v té tmě neviděla, jen jsem cítila, jak mě někdo drží pod krkem a cpe mi do pusy svůj tvrdý penis. Nemohla jsem se bránit, byla jsem celá promrzlá a zkřehlá, navíc mě pevně držel pod krkem a hlavu jsem měla zakloněnou dolů ze stolu. Stál u mě a hned tvrdě přirážel do pusy. Chtěla jsem křičet, ať mě pustí, ale pusu mi zacpal svým velkým ptákem a já byla ráda, že se můžu alespoň občas nadechnout.</p><p>Naříkala jsem, ale nebylo mi to nic platné. Stále dál mi přirážel hluboko do krku a dávil mě svým mohutným penisem. Přirážel stále dál a dál, hlouběji a hlouběji.</p><p>V jeden okamžik se mi povedlo se mu vysmeknout a chtěla jsem utéct. Ale on mě hned chytil, dal mi ruce za záda a svázal mi je mojí bundou. Donutil mě si kleknout a znovu mi ho nacpal do pusy, kterou mi hned zase začal tvrdě šukat. Nemohla jsem se bránit a tak jsem nakonec pokorně začala kouřit. Musím přiznat, že se mi to nakonec začalo i líbit a přestala jsem s ním bojovat. S chutí jsem ho kouřila, lízala mu koule, jazykem kroužila okolo žaludu, nechala si ho nacpat až do krku.</p><p>Bylo vidět, že se mu to líbí, protože slastně vzdychal a říkal „Vidíš, jaká jsi šikovná kurvička, jestli mě hezky vykouříš tak tě pustím a neublížím ti"</p><p>Poznala jsem, že se blíží k vrcholu. Jeho obrovský penis najednou začal pulzovat. V ten okamžik mi ho vyndal z pusy a postříkal mi obličej mohutnými výstřiky. Jeho semeno jsem měla po celém obličeji.</p><p>Podíval se na mě, uvolnil mi pouta, otřel mikinou pocákaný obličej a řekl, že takhle dlouho už ho do huby žádné kurvičce nenacpal, že jsem byla opravdu dobrá děvka a ráno si mě najde znovu, abych mu znova vykouřila péro.</p><p>Stejně rychle jako přišel tak zase rychle zmizel ve tmě a já do dnešního dne nevím, kdo to byl, kdo mi rozšukal pusinku a postříkal celý obličej.</p><p>Na jednu stranu jsem se cítila zneužitá, na druhou stranu jsem z toho zážitku byla celá vzrušená.</p><p>A to jsem ještě nevěděla, že se večer ani zdaleka neblíží ke konci.</p><p>Bylo už k ránu, začínalo se pomalu rozednívat a já se celá zmačkaná, zmrzlá a opilá vracela zpátky k chatě. Po paměti jsem došla do svého pokoje a padla úplně vyřízená na postel.</p><p>V pokoji vedle na posteli ležela Italka, ale nebyla tam sama. Chvíli mi trvalo, než mi došlo, co se na té na posteli děje.</p><p>Poodkryla peřinu a šeptla „Chceš se přidat?"</p><p>Dnes v noci jsem zažila lesbické lízání s krásnou ženou, drsné kouření s cizím mužem, ale nebyla jsem nikým pořádně vyšukaná.</p><p>V ten okamžik jsem měla obrovskou chuť vlézt si k nim pod peřinu a pořádně si zašukat ve třech.</p><p>Tentokrát jsem ji chtěla oplatit její lízání, ale jaké bylo moje překvapení, že pod peřinou s ní nebyl jeden muž. Měla tam dva chlapy a oba dva jí tvrdě šukali.</p><p>Chvíli jsem se na ně s úžasem dívala, byla jsem hned vzrušená a cítila jak mi vlhne kundička.</p><p>Neměla jsem ale odvahu se k nim přidat. Začala jsem si zlehka hladit kozičky, pak jsem pomalu sjela dlaní po mé holé kůži níž až jsem nahmatala můj zvlhlý poštěváček a začala si ho prsty jemně masírovat. Druhou rukou jsem si sundala kalhoty a přes kalhotky si dál dráždila svojí kundičku.</p><p>V ten okamžik si mě všiml jeden z mužů. Hned se ke mně přisunul, poodhrnul mé krajkové kalhotky a bez jakéhokoliv zaváhání ho do mě rovnou strčil.</p><p>Vykřikla jsem bolestí, ale on nebral ohledy a tvrdě mi začal šukat kundičku. Přirážel tak tvrdě a tak hluboko.</p><p>Úplně stejný scénář se odehrával i vedle nás, kdy druhý muž stejně tvrdě šukal do kundičky Italku. I ona sténala bolestí, ale ani jeden z nich nepřestával a obě nás tvrdě šukali a slastně vzdychali.</p><p>S Italkou jsme se na sebe dívaly a bylo vidět, že i přes bolest si to obě užíváme, ale zároveň toužíme i po sobě navzájem. Moc jsem ji chtěla lízat, moc jsem chtěla ochutnat její kundičku a jazykem jí napsat vzkaz na pošťěváček. Moc jsem chtěla hladit její pevná prsa, jazykem kroužit kolem bradavek, prsty si pohrávat s jejím klitorisem a jazýčkem dráždit kundičku. Přála jsem si pohrát si i s jejím pevným zadečkem, hladit půlky, něžně líbat prdelku a lehce prstíčky dráždit její análek. Chtěla jsem jí jedním prstem vyplnit zadeček a druhým kundičku. Chtěla jsem jazykem kroužit kolem jejího zvlhlého klína a jemně laskat prcinku, rukama hladit prsa, tisknout je k sobě a vášnivě ji líbat.</p><p>Ale to mi už toho večera nebylo umožněno. Celou dobu jsme se na sebe jen dívaly a držely pevným a drsným přírazům do kundičky. Šukání to bylo opravdu drsné, ani jeden se s námi moc nemazlil.</p><p>Otočil mě zády k sobě, na všechny čtyři, jednou rukou pevně chytil za vlasy a druhou rukou chytil za rameno. Přirazil do mě hluboko, a přirážel znovu a znovu. Viděl, že se mi to líbí, a dopřál mi ještě kousek rozkoše navíc. Stále mě držel pevně za vlasy a ruku ramene posunul k zadečku. Dvakrát mě plácl na holou a pak velmi pomalu zasunul prst přímo do análku. Viděl, že se mi to líbí. Viděl, že mám ráda mrdání prdelky. Přestal přirážet do kundičky a obratem mi zasunul celý svůj penis do zadečku. A zase začal tvrdě přirážet a mrdal mě do prdelky. Mrdal a mrdal. Tak hluboko. Křičela jsem slastí a blížila se k vrcholu.</p><p>Pak mě pustil. Celou rozšukanou. Únavou jsem padla na postel. Ale to zdaleka nebyl konec. Lehl si na záda a mě si přitáhl k sobě. Položil mě na sebe. Zvedl mi nohy, chytil mě pod kolenama a nacpal mi ho zase do zadečku. Šlo to krásně hladce a krásně hluboko. Pokračoval v drsném šukání zadečku. V tom se ke mně přisunul i druhý muž, klekl si před nás a díval se, jak mi jeho kamarád šuká prdelku. Asi se mu to hodně líbilo, protože si u toho začal honit svoje péro. I Italka se zaujetím pozorovala, jak mě šuká do zadečku. Dívala se ale jen chvilku, pak se naklonila přímo k mojí prcince a začala mě zase náruživě lízat. Jak mě lízala, ani jsem si nevšimla, že druhý muž si přestal honit a už se chystal vrazit ho do mě. Italka se jen kousek posunula, aby mu nepřekážela hlavou, dál pokračovala v hlubokém lízání mojí prcinky a v ten okamžik jsem zažila největší slast. Jeden muž mě tvrdě šukal do zadečku, druhý muž mě hluboce prcal kundičku a můj poštěváček se nechal slastně lízat od Italky.</p><p>Zhluboka jsem dýchala a užívala si tohle luxusní šukání. Nevím jak dlouho to trvalo, ale bylo to úžasné, intenzivní, hluboké, drsné i něžné zároveň.</p><p>Zažila jsem nejintenzivnější orgasmus současně v prdelce, kundičce i prcince.</p>`
+  },
+  { id: "simple_2", type: "simple", title: "Hotel s překvapením na pokoji", description: "Drsné překvapení na pokoji po večeři",
+    content: `<p>Zase jednou po dlouhé době jsme se rozhodli si udělat hezky víkend a zajet někam bez dětí na wellness víkend. Jako vždy jsi vše zařídila a v pátek večer jsme dorazili na pokoj. Jak máme ve zvyku, byl to krásný hotel s prostorným pokojem, koupelna byla také super, podobna tě v Antonii – prosklená sprcha, do kterého bylo vidět z celého pokoje. V pokoji bylo také velké zrcadlo, hned naproti posteli. Už jsem tě nějakou dobu zanedbával, tak ses těšila, že v tomhle prostředí zase trochu popustíme uzdu fantazii.</p><p>Večer se nám už nikam nechtělo, zašli jsme na večeři do hotelové restaurace, bylo celkem plno, vesměs páry v podobném věku, někteří z nic s dětmi, většina ale bez, protože hotel vybízel k romantickému víkendu ve dvou. Složení osazenstva narušovala jen nějaká parta chlápků, která postávala na baru, vypadalo to na nějaký team, co měl v hotelu soustředění.</p><p>Večer příjemné ubíhal, dali jsme si láhev prosecca, první jsme vypili dost rychle, objednali druhou začali být v té správné náladě, vzhledem k tomu, že jsem dostal chuť na svůj "dezert", zašel jsem na bar objednat si skotskou. Samozřejmě nezůstalo u jedné a vzhledem k tomu, že jsem tam chodil, co chvíli, dal jsem se vždy při čekání na drink do řeči s tou bandičkou típků na baru. Byla s nimi celkem sranda, a vypadlo z nich, že je to tým volejbalistů ve věku 30-40, co si hrají nějakou druhou nebo třetí ligu a vyrazili na "soustředěni".</p><p>Dal jsem si takhle pár koleček a ty jsi začala být taky v náladě a chtěla jsi jít na pokoj. Souhlasil jsem, odběhl si dat na bar poslední rundu a zaplatit. Dorazili jsme na pokoj, hned jak zaklaply dveře, vrhli jsme se na sebe, já tě drsně přitiskl na stěnu, líbali jsme se a já ti masírovat přes tričko prsa. Chvílemi jsem zajel přes kalhoty i do tvého klína a masíroval ti poštěváček. Po těch letech už přesně vím, kam sáhnout, tak jsi byla za chvíli pěkné vzrušená a nadržená. Chtěla sis to ale užít tak, jak to máš ráda, takže jsi chtěla nahodit prádélko. Za chvilku ses převlekla a já už na tebe čekal s pouty a šátkem na oči.</p><p>To tě ještě víc rozrajcovalo, přikázal jsem ti, aby sis klekla, dala ruce za záda a já ti je spoutal. Přidělal jsem ti je rovnou k noze od stolu. Pak jsem ti dal šátek přes oči. Slyšela jsi, jak se svlékám, za chvíli jsem tě přitáhl za vlasy a nařídil ti otevřít pusu, jakmile jsi poslechla narval jsem ti do pusy svoje péro. Chvíli jsem ti šukal pusinku, protože vím, jak se ti to libí. Po par minutách jsem přestal a řekl, že vím, jak se ti líbí být jako kurvička, tak jsem se rozhodl ti to dopřát.</p><p>Slyšíš, jak odcházím a pak klapnutí dveří, dál slyšíš jen tlumené kroky a tušíš, že už v pokoji nejsme jen my dva. Hlavou ti běží, co to provádím a říkáš, ať ti sundám šátek a oddělám tě. Najednou tě zase popadnu drsně za vlasy a cítíš, jak ti cpu ptáka do pusy, nechce se ti, ale podvolíš se a v tom okamžiku ti to dochází, nejsem to já, máš plnou pusu cizího kuřáka, který je o něco větší, než mám já a ten někdo se s tebou moc nemaže, pěkně tvrdě ti šuká pusu a ty nemůžeš nic, než tiše sténat a držet.</p><p>Najednou cítíš další pár rukou, který ti tvrdě začne masírovat prsa, následně jedou ruce níž a přes kalhotky zajedou až na kundičku. Chvíli jí masírují, nevíš, co se vlastně děje, protože nic nevidíš a obavy se mísí se vzrušením. Někdo z tebe začne sundávat prádlo, stáhne ti vršek a vyndá prsa, chvíli masíruje, pak začne sát bradavky, rozepne ti kalhotky a projíždí prcinku, sem tam zajede až k análku a taky ho trochu promasíruje. Slyšíš cizí hlas: „Výměna", chvilku se nic neděje, pak cítíš jak ti někdo oddělává ruce. Říkáš si, že konečně ucukneš, sundáš si šátek a zjistíš, co se děje, ale bohužel tě drží dost pevně, kousek tě odtáhnou bokem a ty vzápětí poznáváš, že tě táhnou k posteli, kde tě svalí na záda přes roh postele, jeden ti da zpět pouta a přišlápne je na zemi, máš na jedné straně hlavu zvracenou z postele a na druhé straně ti někdo drží nohy na posteli.</p><p>Cítíš jak tě někdo chytá pod krkem a cpe ti pěkně naběhlého ptáka do pusy, k tvému údivu hned zjišťuješ, že to zase nejsem já, tenhle je ještě větší, skoro se ti ani nevejde do pusy, tenhle pták je hrozne široký, jakmile tě začne šukat, máš doslova plnou pusu, ale nemůžeš dělat vůbec nic. Cítíš jak ti ten druhý roztahuje silou nohy a líže ti kundičku. Chvílemi tě nevybíravě prstí a přitom saje poštěváček. Sice jsi pořád dost zmatená a vlastně nevíš, co se přesně děje, ale vzrušení začíná převládat a ty pěkně tečeš. Cítíš, že za chvilku poprvé budeš, jeden ti šuká dost drsně pusu, druhý prstí a líže tvou krásnou kundičku. Navíc teď vyndá prsty a sjíždí k tvé prdelce, prsty má úplně mokré, takže do prdelky se dostane snadno, během pár vteřin cítíš výbuch vzrušení a je tu tvůj první orgasmus. Slyšíš, jak jsou ti dva spokojeni a pochvalují si, jaká jsi dobrá děvka. Chvíli vysíleně oddechuješ, protože tě nechávají.</p><p>Pak tě otáčí na posteli, jeden tě pořád drží za ruce a druhý ti drží nohy, každou rukou drží jednu, roztahuje je a zvedá nahoru, je ti jasné, že se tě chystá šukat, druhý si ti kleká na ruce a přesouvá se nad tebe cítíš na obličeji jeho koule, je ti jasné, co máš dělat, otevíráš pusu a pěkně je lížeš a saješ. Najednou ti druhý vrazí do kundičky čůráka až po koule, je to dost hluboko, až to trochu bolí, ale víc tě to vzrušuje, začíná rychle přirážet a šuká tě jak o život. Za chvíli vystřídá rychlost a šuká tě dlouhými tvrdými přírazy. Jsi úplně bez sebe, saješ koule jak o život a cítíš, jak se blíží další orgasmus. Svíjíš se v dalším ještě intenzivnějším orgasmu.</p><p>Když dozní, slyšíš, jak někdo říká, že tě chce taky pořádně vyšukat, ale že chce zezadu. Otočí tě, nastaví tak, aby měl ideální přístup k tvé kundičce a přehodí si pozice, klečíš na posteli s vystrčenou prdelkou a čekáš, co bude dál, i když už začínáš být celkem vyšukaná. V tom okamžiku cítíš ruce na prdelce, jak si tě štelují a do tvé kundičky se cpe ten mohutnější pták, je opravdu velký, ale tečeš jak o život a už jsi docela roztažená, takže se do tebe dostává bez větších problémů. Cítíš, jak ti vyplňuje celou prcinu a začíná přirážet, chce se ti hlasitě sténat ale v tu chvíli ti ho vrazi ten druhy do pusy a ty musíš zase kouřit. Ten zezadu si to začíná poradně užívat, takže začíná přirážet tvrději a tvrději, aby mu to šlo lépe a dostal se co nejhlouběji, tak si tě ještě přitáhne za vlasy, připadáš si jak děvka, ale můžeš jen držet, vepředu ti klečí na spoutaných rukou, šuká ti pusu a zezadu ti drží hlavu nahoru za vlasy a drtí ti kundičku svým mohutným pérem. Zdá se ti to nekonečné, ale pořád tě to extrémně vzrušuje a další orgasmus je tady.</p><p>Jsi fakt dobrá kurva, takovou jsme dlouho nešukali, ale než tě pustíme, ještě musíme otestovat tvoji prdelku. Zase tě otáčí na záda, jeden si tě pokládá na sebe a snaží se ti dostat do prdelky, druhý mu ji trochu protáhne prstem šťávou z tvé kundičky, za chvilku se mu podaří dostat do tvé prdelky a ty cítíš jak ti zajíždí hlouběji a hlouběji, chvíli ti ji projíždí zlehka, ale pořad přitvrzuje, když tě takhle chvíli píchá, cítíš jak se najednou ten druhy dostava do tvoji kundičky - je to ten vetší, cítíš se naprosto plná, připadá ti, že tě snad roztrhnou, oba se s tebou moc nemažou a zejména ten v kundičce tě šuká dost tvrdě. Najednou ti sundají šátek a ty po chvíli rozkoukání vidíš, jak tě dva chlápci, kteří byli dole u baru šukají a já sedím vedle v křesle a honím si svoje péro. Sice jsi už hodně rozšukaná, ale vše, co se teď děje okolo tebe tě vzrušuje tolik, že se opět uděláš. Slyšíš, jak ten, co ti šuká prdelku, začíná zhluboka oddychovat a najednou cítíš, ze tě plní pěknou dávkou. Během okamžiku vytáhne ptáka ten druhý a začne mohutně stříkat na tvé břicho a pohupující se kozičky. Když se dodělají a vyklepou si své ptáky, jsi celá postříkaná a mas i plnou prdelku, nakonec ještě přikročím já narvu ti ho do pusy a po chvilce šukání ti vystříkám celou dávku až do krku. Chlapi se seberou, poděkují mi, že jsem je nechal zašukat a vytratí se.</p><p>Ležíš na posteli úplně rozsukana, sperma máš snad všude a cítíš se jako pořádná kurvička, neuvěřitelně sis to užila.</p>`
+  },
+  { id: "simple_3", type: "simple", title: "Maximus", description: "Neměla jsi usnout a zůstat po zavíračce",
+    content: `<p>Po dalším prokaleném večeru jste vyrazily podruhé do Maxima. Vstávaly jste dost pozdě a rozhodly jste se proflákat dopoledne a do wellness vyrazit až po pozdním obědě. Měly jste to načasované akorát do zavíračky. I tak jsi byla dost nevyspalá, takže jsi byla ráda, že můžeš relaxovat a podřimovat vždy mezi saunami v odpočívárnách. Tři hodinky celkem utíkaly a lidí ve wellness dnes moc nebylo. Přiblížil se čas, kdy už vám personál říkal, abyste pomalu končily a odebraly se do šaten. Zrovna jste dokončily poslední saunu a zalezly ještě do odpočívárny bokem. Šel na tebe dost spánek, takže sis zdřímla, po chvilce tě probudily holky, že odcházíte, řekla jsi jim, že jdeš hned za nimi, ale zase tě přemohla únava a usnula jsi. Připadala ti to jako chvilka, ale z hlubokého spánku tě probudil personál. Okolo už bylo víceméně pozhasínáno a chlápek, který tě přišel vzbudit, říká, že už tě tam opravdu nechat nemůže, že je 15 min po zavíračce a že musíš jít.</p><p>Rozespalá ses zvedla a šla za ním, vedl tě přes část, kde dávají masáže, protože průchod šatnami, už je prý uzavřený. Šla jsi za ním a pomalu se v přítmí rozkoukávala. Procházeli jste koridorem, až jste došli do místnosti s masážním lehátkem. Najednou za tebou zavřel dveře a zamkl. Začala sis uvědomovat, že asi všechno není úplně v pořádku. Rozčarovaně říkáš, co se děje a co si to dovoluje. Chlápek jen odsekne, abys radši držela hubu a byla povolná, pak se možná dostaneš pryč bez větších šrámů. Nechápala jsi ještě pořád co se děje. Naproti v místnosti byly ještě jedny dveře – ty se otevřely a vešli další dva chlápci, byli celkem vysocí, jeden z nich trochu při těle, druhý vypadal docela nabušeně. V tu chvíli ti začlo docházet, v jakém jsi asi maléru.</p><p>Začala jsi prosit, ať tě nechají a co vlastně chtějí, že tě ještě můžou pustit a nikomu nic neřekneš. To si piš, že nic neřekneš ty kurvo, odvětil chlápek, co tě přivedl, budeš dělat bez ceknutí, co ti řekneme a budeme na tebe celkem hodný. Chtěla jsi na ně začít křičet, ale hned jsi dostala facku, vzápětí ti jeden strhl župan, pod ním už jsi byla nahá, bylo to tak rychlé, že jsi ani nestihla zareagovat a stála před nimi úplně nahá. Jeden z nich si začal pochvalovat, že tentokrát přivedl slušnou kurvu s pořádnýma kozama a hned se k tobě sápal a skoro bolestivě ti chytil prsa a začal je mačkat, chtěla jsi křičet, ale zezadu tě chytil další za pusu a zkroutil ti ruce za záda. Nemohla jsi moc dělat, jen snášet bolestivou masáž koziček, chvílemi ti i drsně sál bradavky a sem tam tě do nich kousl. Periferně vidíš, jak se další už svléká a honí si naběhlého čuráka, byl to pořádný macek, byl to ten nabušený chlápek, byl skoro o hlavu větší než ty a velikost ptáka odpovídala postavě, musel mít aspoň 20 cenťáků, na jednu stranu ses bála, že ho do tebe tvrdě vrazí, na druhou stranu tě to bohužel začlo i vzrušovat, vzhledem k tomu, že tvrdost máš ráda. Mezitím, ti chlápek před tebou přestal drtit prsa a sjel rukou mezi nohy, nechtěla jsi ho pustit a držela nohy u sebe, ale měl dost sílu a začal ti tvrdě masírovat poštěváček a sem tam zajel prstem do kundičky.</p><p>Je čas se trochu posunout ty čubko, klekni si a drž hubu. Bázlivě jsi poslechla a čekala, co se bude dít. Všichni se svlékli a vytáhli ptáky, nevěděla jsi, jestli se začít bát nebo těšit, měli je všichni pořádné, nejvíc ses bála toho lehce obtloustlého, možná nebyl o moc větší než u toho nabušence, ale musel mít v průměru přes pět centimetrů. Všichni si před tebe stoupli, vědělas, co chtějí, ale moc se ti do toho nechtělo. Ten vysoký tě najednou popadl za vlasy a narval ti ho do pusy, nebral si servítky a snažil se ti ho tam nacpat, co to šlo, zvládla jsi asi do dvou třetin a začala se dávit, ještě pár sekund ti ho nechal v puse a pak ho vytáhl. Sotva jsi stihla vydechnout a hned ti ho do pusy narval ten co tě přivedl, tomu se to povedlo až po kořen a hned ti tvrdě začal šukat pusu, snažila ses bránit, ale neměla jsi moc šancí, drsně ti šukal pusu a nedovolil ti uhnout ani o kousek, vypadal, že se mu to dost líbí, ale už ho odstrčil poslední, že chce taky vykouřit. Dal ti pro jistotu facku a narval ti tam toho macka, měla jsi plnou pusu, víc už nešla otevřít a on se nevybíravě pořád cpal dál, narval ti ho tam asi do půlky a začal přirážet, evidentně se mu to líbilo. Pak ho najednou vyndal a dal ti s ním ránu přes pusu. Kouříš dobře kurvo, teď se ohni přes lehátko, podíváme se ti na kundičku a pořádně jí protáhneme.</p><p>Nechtělo se ti něco takového podstoupit, a zůstala jsi klečet. Tak ty nebudeš poslouchat? Dva tě tvrdě vzali za ruce a přitáhli k lehátku. Jeden zatím sáhl pro něco do šuplíku. Přitlačili tě kozičkama kolmo na lehátko a roztáhly ruce do stran, tam ti nějakými pásky ruce přidělali. Stála jsi prsama položená na lehátku, ruce přidělané, takže ses nemohla skoro ani pohnout a prdelku jsi měla vystrčenou – přesně tak jak potřebovali, aby si s tebou mohli dělat, co budou chtít. Ucítila jsi prsty v kundičce, byli minimálně dva a nevybíravě se ti prodírali dovnitř. Pánové je docela mokrá, za chvíli můžeme začít šukat, ještě jí trochu protáhnu. Ačkoliv tě to moc netěšilo, byla jsi dost vzrušená a začala pěkně téct. Nabušenec přistoupil před tebe s ptákem ve výšce tvého obličeje. Otevři hubu děvko, ještě ti jí trochu ošukám. Zase se ti moc nechce, ale chytí tě bolestivě za vlasy, přizvedne hlavu a vrazí ti ho do pusy. V tu chvíli jsi přestala cítit v kundičce prsty, bohužel hned vzápětí cítíš, jak se ti do kundičky dere první čurák, nedával si moc na čas a během pár vteřin začal tvrdě přirážet. Cítila ses jako naprostá kurva, jeden klacek zaražený v puse, druhý v kundičce a ještě tě to vzrušovalo, cítila jsi, že tohle dlouho nevydržíš a asi se poprvé uděláš.</p><p>Synchronizovaně tě proti sobě tvrdě šukali jak dva písty, vzrušení se zvyšuje a najednou přišel první orgazmus, chlápci to poznali a pochvalně se začali vyjadřovat, že jsi dobrá děvka. Zezadu cítíš na chvíli uvolnění, ale hned se do tebe začal rvát největší pták, i když jsi byla dost vlhká a už roztažená, cítila jsi tlak a skoro až mírnou bolest, jak se do tebe cpe. Nemilosrdně se ale do tebe dostal a začal šukat jak smyslu zbavený. Chvílemi to bolelo, protahoval tě neuvěřitelně hluboko. U toho ti ještě začal strkat prst do prdelky. Bolest se změnila v rozkoš, začínalo to na tebe zase přicházet. Začala jsi v extázi sát i ptáka před sebou jak smyslu zbavená. Asi jsi byla dost dobrá, protože jsi najednou cítila, jak mu v něm cuká a začal ti pumpovat sperma do pusy. Téměř ve stejný okamžik dorazil druhý orgazmus a ty jsi kvílela rozkoší a přitom polykala dávky spermatu, protože ho z tvé pusu ani na chvilku nevytáhl a pumpoval ti to přímo do krku. Chlápek za tebou prohlásil, že takovou kurvu už dlouho neměl a ten vepředu jen přitakával, když vytahoval mírně zvadlého ptáka z tvé pusy. Já si teď chvíli odpočinu, přehodíme ji na záda a vy jí ještě pořádně došukejte.</p><p>Povolují ti ruce, přetočí na záda a položí šikmo přes lehátko. Jeden ti hned roztáhne nohy a začne tě šukat zepředu. Druhý obejde lehátko, zvrátí ti hlavu dolu a vrazí ti svého velkého ptáka do pusy. Už nemůžeš, ale zase začínáš kouřit a do toho dostáváš tvrdě ošukáno do kundičky. Po chvilce tě ale přestává šukat a přizvedává ti prdelku. Chvilinku tvrdě prstí kundičku, ale vzápětí zarazí mokrý prst do prdelky. Chvíli to střídá a pak prohlásí, že jde na análek. Trochu se zhrozíš, ale vzhledem k tomu, že máš ucpanou pusu velkým ptákem a nemůžeš se moc bránit, nezbývá, než se tomu poddat. Cítíš tlak v prdelce, jak se do ní snaží dostat, bohudík to jde celkem dobře a cítíš, jak se dostává dál a dál. Ten co mu kouříš, vyndává ptáka a chvilku kouká, jak ti ten druhý tvrdě šuká prdelku. Dost se ti to začíná líbit, vzhledem k tomu, že máš jeho ptáka položeného na obličeji, začínáš ho v návalu vzrušení lízat. Neunikne mu, že si to užíváš a narve ti do pusy koule, víš co máš dělat a saješ jak o život, vypadá to, že se zase uděláš, protože ti prdelku šuká hodně tvrdými přírazy. Dáme jí sendvič, ať si to ta kurva pořádně užije.</p><p>Ještě než se uděláš, tak ti přestane prdelku šukat, vytáhne ptáka a táhnou tě na podlahu, kde mají položenou deku. Ten s velkým pérem si bohudík lehne dolu a říká ti, ať mu nasedneš na ptáka. Poslušně to uděláš a narveš do sebe celý jeho klacek. Zezadu si přiklekne nabušenec, který už ho má zase v pozoru a nacpe ti ho do análku. Připadá ti, že tě musí roztrhnout, ale po chvilce se mu to podaří a cítíš, jak se jeho klacek cpe hluboko do tvé prdelky. Trochu to bolí, máš v sobě nacpaná dvě velká péra a obě začínají přirážet. Během pár vteřin se zase uděláš a úplně tečeš, začínáš sténat vzrušením, přistupuje před tebe třetí, bez váhání ho začneš vášnivě kouřit a ještě mu rukou masírovat koule. Drtí tě dva klacky a v puse máš další, vzrušení vrcholí a asi se znovu uděláš. Nejsi sama komu se to líbí, první se udělá ten, co ti šuká prdelku, začíná zhluboka oddechovat a cítíš, jak ti plní prdelku, následně ho vyndá a pár horkých dávek dopadne na tvůj zadeček. Ten dole pokračuje v šukání a cítíš, jak to jde na toho, kterého kouříš, vytáhne ti ho z pusy a začne ti stříkat na obličej a prsa. Pořád tě tvrdě šuká ten spodní a ty se nakonec zase uděláš. Vypadá to, že už bude i ten poslední, přikáže ti, ať sesedneš a lehneš si. Stoupá si nad tebe a ještě si chvíli honí svého velkého ptáka. Začíná stříkat a pokrývá tvůj obličej, prsa a břicho velkými dávkami spermatu.</p><p>Ležíš na zemi a oddychuješ, nevěříš, co se stalo, jsi celá postříkaná, po krku a prsou ti stéká sperma, vytéká i ze zadečku, jsi celá rozšukaná, pálí tě kundička i prdelka. Chlápci se obléknou a řeknou ti, že až se umeješ, tak ať vypadneš a jestli někomu něco řekneš, tak si tě najdou. Pak se vytratí.</p>`
+  },
+  { id: "simple_4", type: "simple", title: "Špatný pokoj", description: "Přišla jsi do špatného pokoje",
+    content: `<p>Vrátili jste se po zavíračce baru zpátky na hotel, ale vzhledem k tomu, že se vám ještě nechtělo spát, tak jste na pokoji dopíjely zásoby. Hodina už trochu pokročila, bylo už kolem půl druhé a vypily jste všechny tři láhve proseca, co vám zbyly. Pořád se vám ale nechtělo spát, chopila ses iniciativy a že zkusíš dojít na recepci, jestli není něco k dispozici. Hotel byl na takové situaci připraven a tak ses vítězoslavně vracela s další lahví zpět do pokoje. Zřejmě za to mohla slušná nálada nebo tvoje špatná orientace, nicméně jsi rozrazila dveře, vběhla do pokoje a jásavě prohlásila, že máš. Jen co ses rozkoukala, uvědomila sis, že jsi ve špatném pokoji. Na postelích seděli čtyři mladí kluci, tak kolem dvaceti, taky popíjeli a trochu překvapeně na tebe koukali.</p><p>Aha, zajíčci, prohlásila jsi, pardon jsem na špatné adrese. Nene, prohlásil jeden z nich, jestli neseš alkohol, tak jsi tu správně. Pardon pánové, musím vedle za kamarádkami, hezky se bavte. Počkej, dej si s náma panáka, když už jsi tady a můžeš pokračovat. Řekla sis proč ne, panák tě nezabije. Počkala jsi chvilinku, než nalili rum a kopla jsi ho do sebe. V tu chvíli se otočíš a máš namířeno ke dveřím. Ani sis nevšimla, ale u dveří stojí jeden z nich a těsně před tebou je zabuchuje. Trochu tě to zarazí a odvětíš, ať neblbne, že mizíš.</p><p>V ten okamžik cítíš nějaké ruce na zadku. Vzhledem k tomu, že jsi jen v krátkých šatech nad kolena, všetečné ruce hned zajedou pod ně a pořádně ti zmáčknou zadeček. Rychle se otočíš a mladíkovi za tebou vlepíš facku. V okamžiku tě ovšem chytá zezadu ten ode dveří a drží ti ruce za zády. Dostáváš facku na oplátku a nevěříš, co se děje. Zbylí tři k tobě přistupují a hned ti začnou hmatat na prsa. Jeden naprosto klidně zajíždí pod šaty a masíruje ti přes kalhotky kundičku, chceš křičet, ale hned ti zacpou pusu. Drž hubu ty kurvo, nic hroznýho se ti neděje. Tři páry rukou ti prohmatávají tělo a vyhrnují šaty, dostáváš pro jistotu ještě jednu facku, než se vzpamatuješ, rvou ti šaty přes hlavu a najednou tam stojíš jen ve spodním prádle. Všechno jde hrozně rychle. Chyťte mi jí, dva tě chytí za ruce, třetí ti sundává podprsenku a hned ti začne okusovat bradavky. Přes oči ti dá někdo zezadu šátek, pak ti na moment pustí ruce, stáhnou podprsenku a hned ti svazují ruce za záda.</p><p>Strčí tě na podlahu a ty spadneš na kolena. Co jako chcete dělat vy idioti. Neboj, to hned zjistíš. Slyšíš, jak chrastí pásky a jak si sundávají kalhoty. Nechte toho, pusťte mě. V okamžiku cítíš, jak tě někdo popadl za vlasy a táhne tě nahoru do kleku, jakmile se trochu přizvedneš, ucítíš, jak se ti něco pokouší nacpat do pusy, okamžitě poznáváš, že je to žalud a cpou ti do pusy ptáka, chvíli držíš, pak ale dostáváš pořádnou facku a ptáka máš v puse a hned až v krku, chvíli přiráží, pak ho vyndá a hned se ti tam cpe další a nemilosrdně ti šuká pusu. U toho ti někdo zezadu projíždí přes kalhotky zadečkem až ke kundičce a zase zpátky, bohužel začínáš vlhnout. Další střídačka v puse, třetí pták ti šuká pusu a ty můžeš jen držet jako nějaká rozkuřovačka. Semtam ti někdo strčí prsty pod kalhotkami do kundičky a prstí tě, tvoje vzrušení začíná stoupat, v puse se ti střídá jeden pták za druhým a kundičku začínáš mít od prstění pěkně nažhavenou. Cítíš, jak se z kundičky přesunuje k prdelce a i tu ti začne nevybíravě prstit. Vypadá to, že i když jsou to mladý kluci, tak vědí, co dělají, tvoje prdelka začíná být taky trochu roztažená a tobě se to dost líbí. Najednou slyšíš, jak jeden říká: Pánové, už budu. Budu se jí muset vystříkat do huby. Nejsi z toho moc odvázaná, ale už cítíš, jak mu v něm pulzuje a začíná ti stříkat do pusy. Všechno to spolykej a pořádně mi ho očisti jazykem, ty čubko, nebo dostaneš další facku. Poslušně ho dokouříš a očistíš.</p><p>Já už chci šukat, prohlásí jeden, opřete mi jí o postel. Cítíš, jak tě dva někam táhnout, hodí tě přes postel a dál ti drží ruce. Cítíš, jak ti zezadu někdo odhrnuje kalhotky a naráží ti ptáka do tvé tekoucí kundičky. Dostává do ní dost rychle a dost hluboko a hned začíná prudce přirážet. Chvíli tě šuká a pochvaluje si, jak krásně tečeš. Uhni, vystřídáme se, chci jí taky zkusit. Ten zezadu vytahuje ptáka, vzápětí v sobě cítíš dalšího, je docela jemný a šuká tě pomalými zásuny. Ti dva, co ti drží ruce, ho povzbuzují, ať tě nešetří a pořádně šuká. Mění tempo a začíná vyburcovaně šukat jak zběsilý, až to trochu bolí, ale vzápětí se pocit mění ve stoupající rozkoš a uděláš se. No vidíš ty debile, hned se udělala. Pusťte mě na tu čubku taky, další střídání. Tenhle se s tebou nemaže, narve ti do kundičky svůj klacek a pár vteřin šuká. Hmm, je dobrá, ale ošukám jí prdel, do mě baví víc. V okamžiku vyndavá ptáka z kundičky a cpe ti ho do zadečku. Bolí to jen trochu a ty cítíš, jak tam zajíždí. Začne ti šukat tvrdě prdel a u toho dostáváš dost ran přes zadek, jsou na hraně, kdy už to je skoro i bolestivé. Zase cítíš, jak ti někdo za vlasy zvedá hlavu a rukou tě drží za pusu tak, abys jí musela držet otevřenou. Vráží ti do pusy čuráka a šuká i pusinku. Sice se ti hnusí, v jaké jsi situaci, ale tělu neporučíš, tvrdé šukání pusy a zároveň prdelky se ti prostě líbí a jde na tebe další orgazmus. Tentokrát je dost mohutný a přímo kvílíš slastí. Vzadu na chvíli přestává šukání, ale hned cítíš dalšího ptáka v prdelce. Po několika minutách tvrdého šukání už začínáš mít prdelku celkem rozšukanou, pusa tě bolí od nepřetržitého kouření, ale nemůžeš nic dělat. Tenhle drží slušné tempo a drtí ti prdelku už aspoň 5 minut. Skoro to vypadá, že se chce udělat a taky jo, už začíná oddychovat a plní ti prdelku dávkami. Tomu říkám slušnej anál, šuká se dobře. Jde ještě někdo? Poslední odvětí, že tě taky zkusí a šukání análku pokračuje, už tě začíná fakt pálit, ale tvrdé přírazy nepřestávají.</p><p>Po chvíli se ozve: Tak co, už to s tou kurvou zkoncujeme, pojďte jí postříkat. Stahují tě z postele a přitlačí tě v kleče ke stěně. Sundávají ti šátek. Před tebou stojí tři a všichni si honí ptáky přímo před tvým obličejem. Máš honění ráda, takže tě to dost vzrušuje. Všichni se ti cpou do pusy a střídá se ti v puse jeden čurák za druhým. Začínáš si honit kundičku, protože cítíš, že se ještě jednou uděláš. Chvílemi máš v puse i dva ptáky a máš pocit, že ti jí roztrhnou. Jeden, co ho máš zrovna v puse, začíná stříkat, odstrkuješ ho a pokračuje ve stříkání na obličej. Vzápětí začíná stříkat i druhý. Drž otevřenou hubu ty děvko, stříká ti všude po obličeji, něco skončí v puse a část kape na prsa. Pořád pokračuješ v honění kundičky a už to na tebe taky jde. Přichází orgazmus a v tu chvíli začíná na obličej a prsa stříkat i poslední. Po tom co dostříká, dostaneš příkaz, abys je všechny dokouřila. Uděláš, co ti přikázali. Když to dokončíš, chytí tě, dají šaty a podprsenku do ruky a vystrčí tě za dveře.</p><p>Tak díky kurvo, dveře se zabouchnou a ty stojíš v kalhotkách na chodbě, máš všude sperma a přemýšlíš, co se to vlastně stalo a kde máte pokoj.</p>`
+  },
+  { id: "simple_5", type: "simple", title: "Swingers párty", description: "Poprvé na swingers párty",
+    content: `<p>Už dlouho se o tom bavíme a konečně jsme se rozhodli, že zkusíme navštívit swingers party. Oba od toho tak trochu čekáme, že dorazíme na místo, všichni budou vypadat divně, nebo nám bude prostředí nepříjemné, čili se při nejhorším otočíme a zase odejdeme. Nicméně vzhledem k tomu, že nás to oba dost láká a tak to jdeme zkusit.</p><p>Vybrali jsme si pražský klub, který má dobré recenze a zároveň dává možnost vrátit vstupné, pokud se krátce po příchodu rozhodneme odejít. Vše je naplánováno na páteční večer, hotel jsme zarezervovali poblíž. Zároveň je vedle pěkná restaurace, kde se můžeme případně i trochu posilnit alkoholem, abychom vůbec sebrali odvahu.</p><p>Dorazili jsme v podvečer do hotelu a ubytovali se. Nebylo moc na co čekat, čili jsme se osprchovali, nalíčila jsi se, vzala sis své oblíbené prádelko, které se dá případně poměrně rychle rozepnout a trochu s rozpaky co očekávat od dnešního večera jsme vyrazili do restaurace. Bylo nám oběma jasné, že bez alkoholu se tam zřejmě asi ani neodhodláme. Já jsem si dál klasicky pár pivek a ty sis dala pár oblíbených prosec. Potom jsme si dali ještě lahev ryzlinku a byli už poměrně v náladě. Vypadalo to na správný okamžik vyrazit, oba jsme na sebe odhodlaně kývli, zaplatili a vyrazili.</p><p>Bylo to pár stovek metrů, takže jsme tam byli asi za 5 minut. Z venku to vypadalo opravdu nenápadně, že se jedná o klub, bylo poznat v podstatě jen díky nápisu na zvonku a našli jsme to jen proto, že jsme přesně věděli, kde to je. Poslední odsouhlasení, že jdeme do toho a zazvonili. Otevřel chlápek, který se nás zeptal, jestli jdeme na párty a máme rezervaci, po odsouhlasení, že jsme na seznamu jsme byli vpuštěni dovnitř. V šatně hned za dveřmi jsme si odložili. Já měl na sobě klasicky džíny a tričko s límečkem, ty jsi měla krátké černé minišaty. Chlápek u vstupu nám řekl základní pravidla a vybídl nás, ať se jdeme porozhlédnout po klubu. Zatím údajně moc lidí není, většinou lidi začínají chodit až tak za hodinku. To jsme uvítali, protože si alespoň prostředí prohlédneme a uvidíme, jestli tu chceme vůbec zůstat. Klub byl celkem prostorný, byl tu i malý bazén cca 10x4m s hloubkou asi metr třicet – ideální na osvěžení i hrátky, dál tu bylo několik místností s tlumeným světlem a dokonce i sauna se prostornými sprchami. V každé místnosti byla alespoň jedna prostorná postel a pár fatboyů. Nakonec jsme zabloudili ještě do místnosti, která byla připravená na tvrdší zábavu – na zdi bylo několik kruhů, ke kterým se dalo připoutat, na některých byla rovnou připravena i pouta, byla tu postel, na které byla také přiravena pouta ve všech rozích, nakonec tu bylo i závěsné zařízení, které může sloužit i jako houpačka. Tahle místnost tě evidentně zaujala, bylo vidět, jak ti září oči, když sis vše prohlížela.</p><p>Došli jsme zpět k baru a začali se rozhlížet po lidech, byla tu asi jedna skupinka asi šesti lidí – tři páry cca v našem věku, dál tu byli asi tři páry, dvě dost mladé holky (kolem dvaceti), které už vypadaly docela posilněné alkoholem, protože koukaly okolo a evidentně komentovaly okolní dění, následně se vždycky dost smály. Ještě tu byli asi tři nebo čtyři samotní chlápci, ti si museli určitě připlatit, protože standardně pouštěli jen páry nebo samotné ženy. Nicméně k našemu překvapení všichni vypadali celkem normálně, mezi 25 a 45 a nikdo na první pohled nechutný, byl tam jen jeden silnější chlápek, ale žádný slizoun, aspoň je dost vysoký, poznamenala jsi. No nic sedli jsme si na bar a pokračovali v popíjení, naštěstí měli celkem slušný výběr alkoholu, čili pro mě i pár skotských a pro tebe dokonce i růžový gin, byli jsme celkem spokojeni a taky čím dál víc posilněni. Poměrně živě jsme konverzovali a rozhlíželi se po přítomných a příchozích, zatím se nikdo do ničeho nepouštěl, ale noc byla ještě mladá. Asi do hodiny přišlo ještě přibližně 20-25 lidí a klub byl tak nějak přiměřeně zaplněn. Celkově byla asi převaha párů, ale bylo tam i pár skupinek pouze žen a pak možná 8 samotných chlápků, co většinou popíjeli na baru.</p><p>Vzhledem k tomu, že už byli všichni celkem v náladě, tak se začínali pomalu odvazovat, někteří si odložili a šli do sauny, nebo do bazénu, některé skupinky už to začínali celkem rozjíždět a tak jsme po očku pozorovali, jak si například asi tři páry začínají užívat, chlápci v pozoru na gauči a holky u nich klečely, všem kouřily nebo honily, vždycky po chvíli se vystřídaly. Chlápci si to dost vychutnávali, jeden se zvedl a lehl si pod jednu kouřící holku a začal jí lízat, ta se hned přesunula k druhému chlápkovi a spolu s druhou ho střídavě kouřily a lízaly. Moc dlouho to nevydržel, za pár minut začal holkám stříkat do pusy, pěkně ho dokouřily a očistily mu ptáka. Pak se ta, co jí lízal chlápek na zemi, jen na jeho obličeji otočila, druhá si mu nasedla na ptáka, kterého měl v pozoru a začala rychle přirážet, přitom se líbala s druhou a navzájem si masírovaly prsa.</p><p>Začínalo nás to oba dost vzrušovat a byly jsme už dost nadržení, rozhodli jsme se, že se přesuneme do nějaké místnosti bokem a rozdáme si to. Vzal jsem tě za ruku a odvedl do jedné z místností, nikdo tam nebyl, což nám vyhovovalo, rychle jsem tě začal svlíkat, sundal jsem ti šatičky, ty jsi mi rozepla poklopec a sundala kalhoty, viděla jsi, že jsem dost vzrušený, takže jsi mi hned stáhla i trenky a začala kouřit mého ptáka, který byl hned v pozoru. Chytil jsem si tě za vlasy a začal ti pořádně šukat pusu, tak jak to máš ráda. Periferně jsme viděli, jak do místnosti přišel další pár a ještě ty dvě holky, co byly v klubu hned od začátku. Musím říct, že mě celkem vzrušovalo, jak nás pozorují a nepřestával jsem ti šukat pusu, je to evidentně taky dost rajcovalo a začaly se spolu mazlit, druhý pár si to mezitím začal rozdávat v posteli a holky nevěděli kam koukat dřív. Už jsi cítila, že jsi dost vlhká a chtěla jsi šukat. Bylo to na tobě vidět, takže jsem tě zvedl, přirazil ke stěně, strhl kalhotky na stranu a hned natvrdo přirazil do tvé kundičky. Natlačil jsem tě pořádně na zeď a začal tvrdě přirážet, šukal jsem tě tvrdě až ti nadskakovaly kozičky, netrvalo to tak dlouho a byl tu tvůj první orgasmus, já jsem byl naštěstí vyváženě připitý, takže to nevypadalo, že bych se měl hned udělat. V rychlosti jsme koukli po místnosti, holky si to už moc pěkně rozdávaly, navzájem se lízaly, mačkaly si prsa, viděl jsem na tobě, jak tě pohled na ně vzrušuje. Nechceš se k nim zkusit přidat? Já můžu jen koukat. Jedna se ti dost líbila – celkem vysoká tmavovláska, postava akorát, krásná pevná prsa – minimálně trojky. Přitom, co jí ta druhá vášnivě lízala, tak mě zřejmě zaslechla a koukla na tebe, kousala se do rtu a naznačila hlavou, ať se k nim přidáš. Nabrala jsi odvahu, svlékla sis prádélko a přišla k nim. Nejdřív ses s ní začala líbat, chutnala moc pěkně, dlouho jsi to ale nevydržela, do ucha jsi jí zašeptala, že bys už chtěla cítit její jazyk v tvojí kundičce, mrkla na tebe a naznačila, že si můžeš dělat, co chceš. Pomalu sis klekla nad její obličej a celá rozechvělá očekávala, až se tě začne dotýkat. Neváhala ani chvilinku a začala ti jazykem kroužit kolem poštěváčku, projelo tebou vzrušení a skoro jsi začala sténat slastí. Chvíli lízala nebo sála tvůj poštěváček a sem tam zasténala, protože si zároveň užívala lízání od své kamarádky. Když zajela jazykem pořádné hluboko do tvé štěrbinky, málem ses udělala, byla jsi úplně rozpálená, nechtěla jsi přestávat, ale zároveň jsi ji chtěla taky ochutnat. Najednou začala těžce dýchat a viděla jsi na ní, že se blíží k vrcholu, v souladu s jejím stoupajícím vzrušením tě začala vášnivě sát, po chvilce se celkem hlučně udělala a tobě to trvalo jen o pár vteřin déle, obě jste se svíjely v orgasmu. Lehly jste si vedle sebe a oddechovaly. Kamarádku ovšem mazlení dost bavilo, klekla si nad vás a každé strčila dva prsty do kundičky a začala vás obě prstit. Jak jste ležely vedle sebe, tak jste se začaly vášnivě líbat a navzájem si masírovat prsa. Její byly nádherné skoro akorát do ruky. Byla to nádhera, kamarádka to dost uměla, obě vás prstila a přitom sem tam olízla na střídačku poštěváček, netrvalo vám to dlouho a obě jste se udělaly. Kamarádka se vytratila a vy dvě jste ležely blaženě nahé na posteli. V ten okamžik jsem přišel já a vzhledem k tomu, že jsi ležela na zádech na kraji postele, jen jsem si tě malinko posunul a vrazil ti ptáka z ostra do kundičky. Trochu tě to překvapilo, takže jsi trochu vyjekla, ale byla jsi pořád hrozně vzrušená a dost jsi tekla, takže jsem tě mohl hned tvrdě začít šukat. Tmavovláska moc dlouho neváhala a tentokrát si klekla nad tebe ona, okamžitě jsi jí začala líbat její kundičku, která byla skoro celá vyholená až na malou čárku. Lízala jsi jí jak o život a vychutnávala sis její šťávu, zatímco já tě tvrdě šukal, byl to božský pohled, jak ti lítají kozičky při tvrdých přírazech a vidět, jak při tom lížeš tu krásnou tmavovlásku s pevnými kozičkami, které si sama dost mačká a drtí. Ten pohled mě doháněl k šílenství a zároveň mě hrozně vzrušoval, cítil jsem, že bych se za chvíli udělal. Chtěl jsem ti to ale nastříkat do pusinky, takže jsem ti řekl, ať si klekneš, abych ti mohl ještě chvíli šukat pusinku. Poslechla jsi a tmavovláska taky pochopila, co má dělat. Klekla sis přede mě na zem, ona si klekla vedle tebe, jednou rukou ti chytila pusu a držela ti jí u mého ptáka, druhou rukou mě začala honit. Chvíli mě honila a pomalu přesouvala ruku tak, aby tě chytla za vlasy, následně tě natlačila na mého ptáka a nechala mě šukat ti pusu, u toho mi masírovala koule. Bylo to nádherné, po chvíli tě zatáhla za vlasy a i ona olízla mého ptáka, střídavě mě kouřila ona a ty, přitom si tě pořád řídila rukou a dávala ti najevo, že můžeš kouřit, jen když ti to dovolí. Po chvíli jsem měl opravdu na krajíčku, poznala to, začalo mi v něm cukat a začal jsem stříkat. Držela ti hlavu před mým stříkajícím ptákem, tak, abych ti stříkal přímo do pusy. Všechno jsi poslušně spolykala, následně ti navedla ptáka do pusy, abys mě ještě dokouřila a očistila. Byl jsem v sedmém nebi a musel si na chvíli sednout. Tmavovláska tě políbila a odešla.</p><p>Oba jsme chvíli odechovali, ale všiml jsem si, že opodál stojí dva chlápci a při scéně, kterou viděli před chvílí, si honí naběhlé ptáky. Trochu nás překvapili, protože se celkem bez okolků zeptali, jestli by tě mohli ošukat, protože to vypadá, že jsi dost šikovná. Podívali jsme se na sebe a viděl jsem na tobě, že nejsi zásadně proti, nebyli to žádní kdovíjací krasavci, nicméně měli postavu podobnou jako já, byli celkem vysocí a měli poměrné velké ptáky. Přišli až k nám a téměř pár centimetrů od tebe pokračovali v honění. Znovu jsme se na sebe podívali, viděl jsem, jak ti jiskří v očích a jen na tebe kývl a řekl, OK pánové, tak tu kurvičku pořádně ošukejte, moc se s ní nemazlete, má to ráda tvrdě. Vylekaně jsi na mě koukla, co to říkám, ale na víc už jsi čas neměla. Jeden ti strčil svoje tvrdé péro do pusy, lekla ses a trochu ztuhla, ale chlápek měl asi zkušenosti, chytil tě za hlavu a nacpal ti skoro celého ptáka až do krku. Následně začal přirážet a ty jsi začínala být vzrušená, periferně jsi viděla, že já si začínám honit ptáka a koukám na vás. To tě ještě víc vzrušilo a začala jsi ho vášnivě kouřit a lízat. Za chvilku si tě přitáhl za vlasy ten druhý a začal ti taky šukat pusu. Druhý ovšem nechtěl jen tak koukat a postavil si tě a vrazil ti dva prsty do kundičky, která úplně tekla. Tvrdě ti jí začal prstit a ty jsi cítila, že se za chvilku uděláš, na jednu stranu ses cítila jako kurvička na druhou stranu jsi neudržela vzrušení, zároveň jsi toho nemohla moc dělat, ten co tě zezadu tvrdě šukal dvěma prsty, ti zkroutil ruku za záda a druhý, co ti šukal pusu si tě přidržoval za vlasy. Neubránila ses a udělala se. Chlapi si tě dost chválili a pokračovali v akci, přitlačili tě k zemi a ten co tě předtím prstil, ti vrazil svoje mohutné péro do kundičky a začal přirážet. Druhý chlápek si užíval, jak dobře kouříš, chvílemi ti šukal pusu, semtam ti ho narval až do krku až ses začla dávit, na chvíli ho vyndal a hned ti ho tam zase vrazil. Pak ho vyndal a honil si ho před tvým obličejem a chtěl, abys mu lízala žalud. Nicméně už si tě chtěl taky vyzkoušet, kývli na sebe, oba najednou přestali a vzali tě k posteli, přehnuli tě přes kraj, vyměnili se, ten cos ho kouřila si tě jen našteloval, chytil ti nohy a vrazil ti naběhlej klacek do tvojí už malinko rozšukaný kundičky, byla už dost roztažená, takže s tím neměl moc problém, prudkými tvrdými pohyby přirážel, až jeho koule pleskali o tvůj zadek. Bylo to přesně to, co miluješ, do toho ti najednou ten druhý zase vrazil ptáka do pusy, hlavu jsi měla zvrácenou přes postel, takže se ti lehce dostal dost hluboko, nemohla jsi v podstatě nic dělat, jen si to užívat. Zase sis uvědomila, že jsi jak kurvička dva chlápci tě tvrdě mrdají a ty jen držíš a ještě se ti to dost líbí. Po chvíli tvrdého šukání, si tě zase otočí, jeden si lehá pod tebe a hned ti ho vrazí do kundičky a pomalu přiráží, druhý si kleká za tebe a začne ti roztahovat prdelku prsty, které má úplně mokré z tvé kundičky. Prdelku máš trochu protaženou a začne ti tam cpát toho velkýho ptáka, máš trochu strach, ale vzhledem k tomu, že druhý tě už pomalu mrdá do kundičky, což tě dost vzrušuje, podléháš a jdeš mu naproti. Cítíš jak tě pomalu plní a dostává se dál a dál, cítíš, jak najednou naráží a je v tobě až po koule, v tom okamžiku začne přirážet a celým pohybem ti šuká prdelku. Dostáváš se do extáze, máš v sobě dva velké čuráky a oba tě tvrdě šukají, na chvilku otevíráš oči a vidíš jak před tebou stojím s naběhlým pérem. Instinktivně otevřeš pusu a já ti ho tam hned vrazím a šukám ti ještě pusu. Jsi úplně plná, šukáme tě všude kam to jde a ty se svíjíš v orgasmu. Nikdo z nás ale nepřestává a šukáme dál, tvoje prdelka je pro velkého čuráka dost těsná, takže cítíš, jak začíná oddechovat a plní ti prdelku dávkami spermatu. Chlápek zespodu, tě odstrkuje a ještě si kleká k tobě zezadu, vrazí ti ho zase do kundičky, chce se pořádně došukat. Po chvilce se znovu uděláš, ale jsi pořád strašně nadržená. Já ho vyndavám a honím si ho těsně před tvojí pusinkou, vypadá to, že konečně budeme oba, dostáváš povel, aby sis lehla na postel. My si nad tebe klekáme a vzápětí na tebe začínáme stříkat naše dávky. Cítíš, jak ti horké sperma dopadá všude od kundičky, přes prsa a krk, pár dávek skončí i na tvém obličeji. Jsi dost rozšukaná, ležíš na poseli pokrytá spermatem a přemýšlíš, jaké to je, být za kurvičku.</p>`
+  },
+  { id: "simple_6", type: "simple", title: "Název příběhu 7", description: "Krátký popis příběhu.", content: `<p>Text příběhu č. 7 — doplň zde svůj text.</p>` },
+  { id: "simple_7", type: "simple", title: "Název příběhu 8", description: "Krátký popis příběhu.", content: `<p>Text příběhu č. 8 — doplň zde svůj text.</p>` },
+  { id: "simple_8", type: "simple", title: "Název příběhu 9", description: "Krátký popis příběhu.", content: `<p>Text příběhu č. 9 — doplň zde svůj text.</p>` }
+];
+
+// ═══════════════════════════════════════════════════════════
+//  ZAMYKÁNÍ PŘÍBĚHŮ  (localStorage)
+// ═══════════════════════════════════════════════════════════
+const LOCKS_KEY = 'story_locks_v1';
+
+function getLocks() { try { return JSON.parse(localStorage.getItem(LOCKS_KEY)) || {}; } catch { return {}; } }
+function saveLocks(d) { localStorage.setItem(LOCKS_KEY, JSON.stringify(d)); }
+
+function isLocked(id) { return !!getLocks()[id]; }
+function getLockedNote(id) { return (getLocks()[id] && getLocks()[id].note) || ''; }
+
+function toggleLock(id) {
+  const locks = getLocks();
+  if (locks[id]) { delete locks[id]; }
+  else { locks[id] = { note: '' }; }
+  saveLocks(locks);
+  buildHomeGrid();
+  renderStoriesMgmt();
+}
+
+function saveNote(id, note) {
+  const locks = getLocks();
+  if (!locks[id]) locks[id] = {};
+  locks[id].note = note;
+  saveLocks(locks);
+  buildHomeGrid();
+}
+
+// ═══════════════════════════════════════════════════════════
+//  ACTIVITY LOG
+// ═══════════════════════════════════════════════════════════
+const ACTIVITY_KEY = 'story_activity_v1';
+
+function getActivity() { try { return JSON.parse(localStorage.getItem(ACTIVITY_KEY)) || []; } catch { return []; } }
+function saveActivity(d) { localStorage.setItem(ACTIVITY_KEY, JSON.stringify(d)); }
+
+function logActivity(entry) {
+  const log = getActivity();
+  log.unshift(entry);
+  if (log.length > 500) log.splice(500);
+  saveActivity(log);
+}
+
+// track current story view
+let viewStart = null;
+let viewStoryId = null;
+
+function startStoryView(id) {
+  viewStart = Date.now();
+  viewStoryId = id;
+}
+
+function endStoryView() {
+  if (viewStart && viewStoryId) {
+    const dur = Math.round((Date.now() - viewStart) / 1000);
+    const entry = STORY_LIST.find(s => s.id === viewStoryId);
+    logActivity({
+      type: 'view',
+      user: currentUser || '?',
+      storyId: viewStoryId,
+      storyTitle: entry ? entry.title : viewStoryId,
+      start: new Date(viewStart).toISOString(),
+      durationSec: dur
+    });
+  }
+  viewStart = null;
+  viewStoryId = null;
+}
+
+function fmtDur(sec) {
+  if (sec < 60) return sec + 's';
+  if (sec < 3600) return Math.floor(sec/60) + 'min ' + (sec%60) + 's';
+  return Math.floor(sec/3600) + 'h ' + Math.floor((sec%3600)/60) + 'min';
+}
+
+// ═══════════════════════════════════════════════════════════
+//  NAVIGACE
+// ═══════════════════════════════════════════════════════════
+function showHome() {
+  endStoryView();
+  document.getElementById('storyScreen').style.display = 'none';
+  document.getElementById('simpleStoryScreen').style.display = 'none';
+  document.getElementById('homeScreen').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function openStory(id) {
+  if (isLocked(id)) return;
+  endStoryView();
+  startStoryView(id);
+  const entry = STORY_LIST.find(s => s.id === id);
+  if (!entry) return;
+
+  if (entry.type === 'branching') {
+    document.getElementById('homeScreen').style.display = 'none';
+    document.getElementById('simpleStoryScreen').style.display = 'none';
+    document.getElementById('storyScreen').style.display = 'block';
+    storyHistory = [];
+    activeSession = { start: new Date().toISOString(), steps: [] };
+    renderScene('start');
+  } else {
+    document.getElementById('homeScreen').style.display = 'none';
+    document.getElementById('storyScreen').style.display = 'none';
+    document.getElementById('simpleStoryTitle').textContent = entry.title;
+    document.getElementById('simpleStorySubtitle').textContent = entry.description;
+    document.getElementById('simpleStoryContent').innerHTML = `<div class="scene-card" style="margin-bottom:2rem;"><div class="scene-text">${entry.content}</div></div>`;
+    document.getElementById('simpleStoryScreen').style.display = 'block';
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function buildHomeGrid() {
+  const locks = getLocks();
+  document.getElementById('homeGrid').innerHTML = STORY_LIST.map(s => {
+    const locked = !!locks[s.id];
+    const note = locked && locks[s.id].note ? locks[s.id].note : '';
+    return `
+      <div class="story-card ${locked ? 'locked' : ''}" onclick="${locked ? '' : `openStory('${s.id}')`}">
+        <div class="story-card-tag">
+          ${s.type === 'branching' ? '<span class="tag-branch">✦ Interaktivní</span>' : 'Povídka'}
+          ${locked ? '<span class="tag-locked">🔒 Zamčeno</span>' : ''}
+        </div>
+        <div class="story-card-title">${s.title}</div>
+        <div class="story-card-desc">${s.description}</div>
+        ${locked && note ? `<div class="locked-note">💬 ${note}</div>` : ''}
+        ${!locked ? '<span class="story-card-arrow">→</span>' : ''}
+      </div>`;
+  }).join('');
+}
+
+// ═══════════════════════════════════════════════════════════
+//  INTERAKTIVNÍ PŘÍBĚH
+// ═══════════════════════════════════════════════════════════
+const STORY = {
+  title: "Wellness se zápletkou",
+  scenes: {
+    "start": { title: "Úvod", text: `<p>Už nějaký čas se bavíme o tom, že zajdeme do soukromého wellnessu, konečně je tu víkend, kdy si naši odvezli děti do Děčína a my máme před sebou tři hodiny pohody. V duchu si říkáš, že by možná byla lepší sauna, protože v soukromí se budu o něco pokoušet, ale už jsme si dlouho pořádně nezašukali, tak si říkáš, že to přežiješ a wellness je dobrý bonus.</p><p>Přecejen bude pohoda, ujistil jsem tě, že máme raději dvě láhve prosecca a něco na zub a užijeme si relax. Nevíš přesně kam jedeme, wellness jsem objednával já. Takže jsi příjemně překvapená, že jsme zastavili u wellness Fenix, pod Ještědem, kam jsi se chtěla už dlouho podívat.</p>`, choices: [{ text: "Máme čas, takže si nejdřív jdeme sednout ještě na bar.", next: "Posezení u baru" }, { text: "Jdeme rovnou do wellness, už se těšíš, až se prohřeješ a dáš si k tomu prosecco.", next: "Rovnou do wellness" }] },
+    "Posezení u baru": { title: "Pár skleniček a trochu provokace", text: `<p>Nakonec jsme dorazili dost brzy, takže jsme měli dost času, abychom poseděli a dali si pár skleniček.</p><p>Prosecco ti celkem dost zachutnalo, tak jsi dala rychle po sobě 3 sklenice a výjimečně jsi byla celkem v dobré připité náladě.</p><p>Rozhlížíš se po baru a vidíš hned několik fešáků kolem 30–35. Vidíš, že jeden tě pozoruje, i když se to snaží skrývat.</p><p>Vzhledem k tomu, že jdeme do sauny, oblékla jsi se dost nalehko, jsi bez podprsenky, máš halenku s rozepnutým knoflíčkem tak, že máš decentně odhalený výstřih. Dál máš růžovou sukni nad kolena.</p><p>Napadlo tě, že si trochu zaflirtuješ, rozepnula sis knoflíček a tvoje krásná prsa poodhalíš tak akorát, aby ještě nebylo nic vidět, ale bylo jasné, co skrýváš.</p>`, choices: [{ text: "Chlapík se chytne a vidíš, jak nemůže od tvého výstřihu odtrhnout oči.", next: "Flirt bar pokračování" }, { text: "Bohužel dotyčný už se zvedá a odchází. Máš chuť se ohřát a jdeme do wellness.", next: "Do wellness z baru" }] },
+    "Rovnou do wellness": { title: "Rychle svléknout a šup do sauny", text: `<p>V šatně moc času nestrávíme, rychle se svlékneme, vezmeme prostěradla a jdem do sauny.</p><p>Já vytahuju dvě skleničky a nalévám prosecco. Venku je celkem zima, takže je dobře vychlazené. Chvíli popíjíme a povídáme. Ani nevíš jak, a vypili jsme první sklenku. Nalévám další.</p><p>„Jdeme s tím už dovnitř, nebo chceš ještě popíjet?"</p><p>Sauna je vytopená akorát, rozkládáš prostěradlo a leháš si na něj, prosecco máme s sebou a pomalu popíjíme.</p>`, choices: [{ text: "Máš chuť se ohřát, jdeme na první kolečko sauny.", next: "První sauna" }, { text: "Chvíli popíjíme, uklidňuju tě, že nakonec máme zaplacené 4 hodiny, čili času máme dost.", next: "Rozpíjení před saunou" }] },
+    "První sauna": { title: "Příjemné první kolečko", text: `<p>Celkem ti zachutná, nicméně jdeme na první kolečko. Dávám lahev do ledničky a hurá do sauny.</p><p>Sauna je vytopená akorát, rozkládáš prostěradlo a leháš si na něj, prosecco máme s sebou a pomalu popíjíme.</p><p>Povídáme, je ti jasné, že po tobě pořád pokukuju, ale zatím se držím.</p><p>Přemýšlíš, jestli mě chceš trochu provokovat nebo ne.</p>`, choices: [{ text: "Ne, v klidu dopijeme a jdeme se zchladit.", next: "Sprcha první kolečko" }, { text: "Jo, trochu si se mnou pohraješ, ale k ničemu mě nepustíš.", next: "Hrátky v prvním kolečku" }] },
+    "Sprcha první kolečko": { title: "Ven a první zchlazení", text: `<p>Vydrželi jsme 15 min a je čas na první ochlazení. Sklenky s sebou a jdem se sprchnout.</p><p>Vzhledem ke studené vodě se do ničeho nepouštím, ale pozoruju tvoje krásné kozičky a úhledně upravený klín.</p><p>Oblékáme ručník a jdeme popíjet. Ve wellnes je postel, takže si leháme na ní, relaxujeme a popíjíme.</p><p>Čas celkem utíká, zvládli jsme jednou dolít a jdeme na druhé kolečko.</p>`, choices: [{ text: "Začínáš mít chuť na trochu provokace.", next: "Provokace druhé kolečko" }, { text: "Přemýšlíš, jaké by to bylo, kdybychom v sauně nebyli sami.", next: "Alternativy společnost v sauně" }] },
+    "Hrátky v prvním kolečku":        { title: "Trochu si hraješ",              text: `<p>— tato scéna ještě čeká na dopsání —</p>`, choices: [{ text: "Pokračovat →", next: "Sprcha první kolečko" }] },
+    "Provokace druhé kolečko":         { title: "Druhé kolečko s provokací",     text: `<p>— tato scéna ještě čeká na dopsání —</p>`, choices: [{ text: "Pokračovat →", next: "Sprcha první kolečko" }] },
+    "Alternativy společnost v sauně":  { title: "Co kdybychom nebyli sami?",     text: `<p>— tato scéna ještě čeká na dopsání —</p>`, choices: [{ text: "Pokračovat →", next: "Sprcha první kolečko" }] },
+    "Sauna po flirtu":                 { title: "Do sauny po flirtu",            text: `<p>— tato scéna ještě čeká na dopsání —</p>`, choices: [{ text: "Pokračovat →", next: "První sauna" }] },
+    "Sauna po flirtu 2":               { title: "Do sauny nabitá vzrušením",     text: `<p>— tato scéna ještě čeká na dopsání —</p>`, choices: [{ text: "Pokračovat →", next: "První sauna" }] },
+    "Pokračujeme do sauny ve 3?":      { title: "Odvážná nabídka",               text: `<p>— tato scéna ještě čeká na dopsání —</p>`, choices: [{ text: "Pokračovat →", next: "První sauna" }] },
+    "Rozpíjení před saunou":           { title: "Času je dost a prosecco chutná!", text: `<p>— tato scéna ještě čeká na dopsání —</p>`, choices: [{ text: "Pokračovat →", next: "První sauna" }] },
+    "Flirt bar pokračování": { title: "Pokračuješ v laškování", text: `<p>Vidíš, že se chytil a má pohled zabodnutý v tvém výstřihu.</p><p>Děláš, že se potřebuješ podrbat na lýtku a nakláníš se naproti němu, tvoje kozičky se snaží dostat ven, ale halenka je zatím drží. Zaujatě tě pozoruju a trochu se mi dělá boule v kalhotech. Otáčíš se proti muži u stolu. Trošičku roztáhneš nohy a pak pomalu přehazuješ nohu přes nohu.</p><p>Vzrušeně prohazuji: „Zlato, jsi strašně sexy, co kdyby sis šla na záchod sundat kalhotky?"</p>`, choices: [{ text: "Jsi trochu vzrušená, ale flirtování bylo dost, je čas jít do sauny.", next: "Sauna po flirtu" }, { text: "Tak jo, jdeš se upravit na toaletu, dost tě to baví.", next: "Flirt pokračuje" }] },
+    "Flirt pokračuje": { title: "Trochu to okořeníme", text: `<p>Vracíš nohu přes nohu zpět, necháváš zase mírně roztažené nohy a pokračuješ v provokaci.</p><p>Zvedneš se a odejdeš na toaletu. Po cestě si uvědomuješ, že jsi celkem vzrušená.</p><p>Na toaletě rychle sundáš kalhotky, hodíš je do kabelky. Rychlá kontrola v zrcadle, upravíš výstřih — jeden knoflíček by to ještě sneslo. Jdeš zpět, při příchodu se na mě šibalsky usmíváš, je mi jasné, že se ti to líbí. Sedáš si zase tak, že máš kolena nasměrována k muži, se kterým flirtuješ. Sedáš si s mírně roztaženými stehny a čekáš, jestli si všimne. Po chvíli, kdy těká očima sem a tam, zabloudí jeho pohled do tvého klína a nedokáže zakrýt překvapení. Evidentně chvíli nedokáže koukat jinam. Otáčíš se směrem ke mě a stehna dáváš od sebe o něco víc, abych se také tím krásným pohledem pokochal.</p>`, choices: [{ text: "Jsi dost vzrušená, odcházíme do sauny a já jsem evidentně nadšený.", next: "Sauna po flirtu 2" }, { text: "Půjdeš k muži a zeptáš se ho, jestli by se k nám nechtěl přidat.", next: "Pokračujeme do sauny ve 3?" }] },
+    "Do wellness z baru": { title: "Hezky rozpito a pokračujeme v sauně", text: `<p>Už při svlékání se trochu motáš, ale zatím jsi v příjemné náladě.</p><p>Otevíráme první prosecco — vzal jsem i hezké skleničky.</p>`, choices: [{ text: "První kolečko proběhlo skvěle, ochlazení a jdem relaxovat a popíjet.", next: "Sprcha první kolečko" }, { text: "Máš trochu laškovnou náladu, v sauně ses rozhodla mě trochu provokovat.", next: "Hrátky v prvním kolečku" }] }
+  }
+};
+
+// ═══════════════════════════════════════════════════════════
+//  INTERAKTIVNÍ PŘÍBĚH — render
+// ═══════════════════════════════════════════════════════════
+let storyHistory = [];
+let currentScene = "start";
+
+function renderScene(sceneId) {
+  const scene = STORY.scenes[sceneId];
+  if (!scene) return;
+  currentScene = sceneId;
+  document.getElementById('storyTitle').textContent = STORY.title;
+  renderBreadcrumb();
+  let ch = '';
+  if (scene.ending) {
+    ch = `<div style="margin-top:2rem;text-align:center;"><div class="ending-badge">${scene.ending}</div><p style="font-style:italic;color:rgba(240,122,184,0.7);margin-top:0.5rem;">${scene.ending_note||''}</p></div>`;
+  } else if (scene.choices && scene.choices.length) {
+    ch = `<div class="choices-divider"><span class="choices-label">Co uděláš?</span></div><div class="choices-list">${scene.choices.map((c,i)=>`<button class="choice-btn" data-num="${i+1}." onclick="chooseOption('${c.next}')">${c.text}</button>`).join('')}</div>`;
+  }
+  document.getElementById('sceneContainer').innerHTML = `<div class="scene-card"><div class="scene-id">${scene.title||sceneId}</div><div class="scene-text">${scene.text}</div>${ch}</div><div class="nav-buttons"><button class="nav-btn" onclick="goBack()" ${storyHistory.length===0?'disabled':''}>← Zpět</button><button class="nav-btn restart" onclick="restartBranching()">↺ Začít znovu</button><button class="nav-btn home-back" onclick="showHome()">⌂ Zpět na úvodní stránku</button></div>`;
+}
+
+function renderBreadcrumb() {
+  const bc = document.getElementById('breadcrumb');
+  if (!storyHistory.length) { bc.innerHTML=''; return; }
+  bc.innerHTML = storyHistory.map((id,i)=>{ const sc=STORY.scenes[id]; return `<span onclick="jumpToHistory(${i})">${sc?sc.title:id}</span><span class="sep">›</span>`; }).join('') + `<span class="current">${(STORY.scenes[currentScene]||{}).title||currentScene}</span>`;
+}
+
+function chooseOption(nextId) { storyHistory.push(currentScene); renderScene(nextId); window.scrollTo({top:0,behavior:'smooth'}); }
+function goBack() { if (!storyHistory.length) return; renderScene(storyHistory.pop()); window.scrollTo({top:0,behavior:'smooth'}); }
+function jumpToHistory(i) { const id=storyHistory[i]; storyHistory=storyHistory.slice(0,i); renderScene(id); window.scrollTo({top:0,behavior:'smooth'}); }
+function restartBranching() { storyHistory=[]; activeSession={start:new Date().toISOString(),steps:[]}; renderScene('start'); window.scrollTo({top:0,behavior:'smooth'}); }
+
+// ═══════════════════════════════════════════════════════════
+//  LOGOVÁNÍ VOLEB
+// ═══════════════════════════════════════════════════════════
+const LOG_KEY = 'story_log_v1';
+function getLog() { try { return JSON.parse(localStorage.getItem(LOG_KEY))||{choices:{},sessions:[]}; } catch { return {choices:{},sessions:[]}; } }
+function saveLog(d) { localStorage.setItem(LOG_KEY,JSON.stringify(d)); }
+let activeSession = { start: new Date().toISOString(), steps: [] };
+
+const _origChoose = chooseOption;
+window.chooseOption = function(nextId) {
+  const scene=STORY.scenes[currentScene];
+  const co=scene?.choices?.find(c=>c.next===nextId);
+  const step={from:currentScene,fromTitle:scene?.title||currentScene,choiceText:co?.text||nextId,to:nextId,toTitle:STORY.scenes[nextId]?.title||nextId,time:new Date().toISOString()};
+  activeSession.steps.push(step);
+  const log=getLog(), key=`${currentScene}→${nextId}`;
+  log.choices[key]=log.choices[key]||{fromTitle:step.fromTitle,toTitle:step.toTitle,text:step.choiceText,count:0};
+  log.choices[key].count++;
+  saveLog(log);
+  _origChoose(nextId);
+  const ns=STORY.scenes[nextId];
+  if (ns?.ending) { activeSession.end=new Date().toISOString(); activeSession.endTitle=ns.ending; const l2=getLog(); l2.sessions.unshift({...activeSession}); if(l2.sessions.length>200)l2.sessions=l2.sessions.slice(0,200); saveLog(l2); activeSession={start:new Date().toISOString(),steps:[]}; }
+};
+
+// ═══════════════════════════════════════════════════════════
+//  ADMIN
+// ═══════════════════════════════════════════════════════════
+const ADMIN_PASSWORD = 'admin123'; // ← ZDE ZMĚŇ HESLO
+
+function openAdmin() { document.getElementById('adminOverlay').classList.add('open'); document.getElementById('adminLogin').style.display='flex'; document.getElementById('adminDash').style.display='none'; document.getElementById('adminPwdInput').value=''; document.getElementById('adminErr').style.display='none'; setTimeout(()=>document.getElementById('adminPwdInput').focus(),100); }
+function closeAdmin() { document.getElementById('adminOverlay').classList.remove('open'); }
+function adminLogin() {
+  if (document.getElementById('adminPwdInput').value===ADMIN_PASSWORD) { document.getElementById('adminLogin').style.display='none'; document.getElementById('adminDash').style.display='flex'; renderAdminDash(); }
+  else { document.getElementById('adminErr').style.display='block'; document.getElementById('adminPwdInput').value=''; }
+}
+function showTab(name,btn) {
+  ['overview','choices','sessions','stories','activity'].forEach(t=>document.getElementById('tab-'+t).style.display=t===name?'block':'none');
+  document.querySelectorAll('.admin-tab').forEach(b=>b.classList.remove('active')); btn.classList.add('active');
+  document.getElementById('clearStatsBtn').style.display = (name==='overview'||name==='choices'||name==='sessions') ? 'block' : 'none';
+}
+function fmtDate(iso) { const d=new Date(iso); return d.toLocaleDateString('cs-CZ')+' '+d.toLocaleTimeString('cs-CZ',{hour:'2-digit',minute:'2-digit'}); }
+
+function renderAdminDash() {
+  const log=getLog(), choices=Object.values(log.choices), sessions=log.sessions;
+  const totalClicks=choices.reduce((s,c)=>s+c.count,0), completed=sessions.filter(s=>s.endTitle).length;
+  document.getElementById('statGrid').innerHTML=`<div class="stat-card"><div class="stat-num">${totalClicks}</div><div class="stat-label">Celkem rozhodnutí</div></div><div class="stat-card"><div class="stat-num">${sessions.length}</div><div class="stat-label">Průchodů příběhem</div></div><div class="stat-card"><div class="stat-num">${completed}</div><div class="stat-label">Dokončených konců</div></div><div class="stat-card"><div class="stat-num">${choices.length}</div><div class="stat-label">Různých voleb</div></div>`;
+  const sorted=[...choices].sort((a,b)=>b.count-a.count).slice(0,6),maxC=sorted[0]?.count||1;
+  document.getElementById('topChoices').innerHTML=sorted.length?sorted.map(c=>`<div class="choice-bar-row"><div class="choice-bar-label">${c.text}</div><div class="choice-bar-wrap"><div class="choice-bar-fill" style="width:${Math.round(c.count/maxC*100)}%"></div></div><div class="choice-bar-count">${c.count}×</div></div>`).join(''):'<div class="admin-empty">Zatím žádná data.</div>';
+  const all=[...choices].sort((a,b)=>b.count-a.count),maxA=all[0]?.count||1;
+  document.getElementById('allChoices').innerHTML=all.length?all.map(c=>`<div class="choice-bar-row"><div class="choice-bar-label" style="font-size:0.84rem"><span style="color:rgba(240,122,184,0.5);font-size:0.75rem">${c.fromTitle} → ${c.toTitle}</span><br>${c.text}</div><div class="choice-bar-wrap"><div class="choice-bar-fill" style="width:${Math.round(c.count/maxA*100)}%"></div></div><div class="choice-bar-count">${c.count}×</div></div>`).join(''):'<div class="admin-empty">Zatím žádná data.</div>';
+  document.getElementById('sessionsList').innerHTML=sessions.length?sessions.map((s,i)=>{
+    const nodes=s.steps.map(st=>`<span class="path-node">${st.fromTitle}</span><span style="color:rgba(240,122,184,0.35);font-size:0.75rem"> › </span>`).join('');
+    const last=s.steps[s.steps.length-1];
+    const end=s.endTitle?`<span class="path-node ending">${s.endTitle}</span>`:(last?`<span class="path-node">${last.toTitle}</span><span style="color:rgba(240,122,184,0.3);font-size:0.75rem"> (nedokončeno)</span>`:'');
+    return `<div class="session-item"><div class="session-meta"><span>Průchod #${sessions.length-i} · ${fmtDate(s.start)}</span><span>${s.steps.length} rozhodnutí</span></div><div class="session-path">${nodes}${end}</div></div>`;
+  }).join(''):'<div class="admin-empty">Zatím žádné průchody.</div>';
+  renderStoriesMgmt();
+  renderActivityLog();
+  document.getElementById('clearStatsBtn').style.display = 'block';
+}
+
+function renderStoriesMgmt() {
+  const locks = getLocks();
+  document.getElementById('storiesMgmt').innerHTML = STORY_LIST.map(s => {
+    const locked = !!locks[s.id];
+    const note = locked && locks[s.id].note ? locks[s.id].note : '';
+    return `
+      <div class="story-mgmt-row">
+        <div class="story-mgmt-info">
+          <div class="story-mgmt-title">${s.title}</div>
+          <div style="font-size:0.8rem;color:rgba(240,180,220,0.4);margin-top:0.15rem;">${s.type==='branching'?'Interaktivní':'Povídka'}</div>
+          ${locked ? `
+            <input class="story-mgmt-note-input" id="note_${s.id}" placeholder="Komentář pro čtenáře (nepovinný)..." value="${note.replace(/"/g,'&quot;')}">
+            <button class="note-save-btn" onclick="saveNote('${s.id}', document.getElementById('note_${s.id}').value)">💾 Uložit komentář</button>
+          ` : ''}
+        </div>
+        <div class="story-mgmt-controls">
+          <button class="lock-toggle ${locked ? 'is-locked' : 'unlocked'}" onclick="toggleLock('${s.id}')">
+            ${locked ? '🔒 Odemknout' : '🔓 Zamknout'}
+          </button>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function renderActivityLog() {
+  const log = getActivity();
+  if (!log.length) { document.getElementById('activityList').innerHTML = '<div class="admin-empty">Zatím žádná aktivita.</div>'; return; }
+  document.getElementById('activityList').innerHTML = log.map(e => {
+    if (e.type === 'login') {
+      return `<div class="activity-item activity-type-login">
+        <span class="activity-time">${fmtDate(e.time)}</span>
+        <span class="activity-user">${e.user}</span>
+        <span class="activity-action">přihlášení</span>
+      </div>`;
+    } else {
+      return `<div class="activity-item activity-type-view">
+        <span class="activity-time">${fmtDate(e.start)}</span>
+        <span class="activity-user">${e.user}</span>
+        <span class="activity-action">četl/a: ${e.storyTitle}</span>
+        <span class="activity-duration">${fmtDur(e.durationSec)}</span>
+      </div>`;
+    }
+  }).join('');
+}
+
+function clearLog() { if(confirm('Opravdu smazat statistiky voleb a průchodů?')){ localStorage.removeItem(LOG_KEY); renderAdminDash(); } }
+function clearActivity() { if(confirm('Opravdu smazat celý log aktivity?')){ localStorage.removeItem(ACTIVITY_KEY); renderActivityLog(); } }
+document.addEventListener('keydown', e => { if(e.ctrlKey && e.shiftKey && e.key==='A') openAdmin(); });
 
 // ═══════════════════════════════════════════════════════════
 //  INIT
