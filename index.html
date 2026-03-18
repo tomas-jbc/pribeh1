@@ -3,20 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Povídka pro Míšu</title>
+<title>Povídky pro Míšu</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #2e2e35;
-    --bg2: #383840;
-    --bg3: #424249;
     --parchment: #fdf0f8;
-    --ink: #1a1a1f;
     --amber: #f07ab8;
     --amber-glow: #ff99cc;
     --ember: #c94d8a;
-    --mist: rgba(240,122,184,0.10);
     --border: rgba(240,122,184,0.32);
     --choice-bg: rgba(240,122,184,0.09);
     --choice-hover: rgba(240,122,184,0.20);
@@ -67,10 +63,7 @@
     padding: 0 1.5rem;
   }
 
-  header {
-    padding: 3.5rem 0 2rem;
-    text-align: center;
-  }
+  header { padding: 3.5rem 0 2rem; text-align: center; }
 
   .story-title {
     font-family: 'Playfair Display', serif;
@@ -90,522 +83,20 @@
     letter-spacing: 0.08em;
   }
 
-  .ornament {
-    margin: 1.2rem auto 0;
-    color: var(--amber);
-    opacity: 0.5;
-    font-size: 1.1rem;
-    letter-spacing: 0.5em;
-  }
-
-  .breadcrumb {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-size: 0.78rem;
-    color: rgba(242,200,224,0.3);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    margin-bottom: 1.8rem;
-    flex-wrap: wrap;
-  }
-
-  .breadcrumb span { cursor: pointer; transition: color 0.2s; }
-  .breadcrumb span:hover { color: var(--amber); }
-  .breadcrumb .sep { opacity: 0.3; user-select: none; }
-  .breadcrumb .current { color: rgba(242,200,224,0.55); cursor: default; }
-
-  .scene-card {
-    background: linear-gradient(160deg, #42424e 0%, #38383f 100%);
-    border: 1px solid var(--border);
-    border-radius: 2px;
-    padding: 2.8rem 3rem;
-    position: relative;
-    animation: fadeSlide 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
-    box-shadow:
-      0 0 0 1px rgba(224,111,160,0.05) inset,
-      0 8px 40px rgba(0,0,0,0.7),
-      0 0 60px rgba(180,60,120,0.07);
-  }
-
-  .scene-card::before,
-  .scene-card::after {
-    content: '';
-    position: absolute;
-    width: 18px;
-    height: 18px;
-    border-color: var(--amber);
-    border-style: solid;
-    opacity: 0.35;
-  }
-  .scene-card::before { top: 10px; left: 10px; border-width: 1px 0 0 1px; }
-  .scene-card::after  { bottom: 10px; right: 10px; border-width: 0 1px 1px 0; }
+  .ornament { margin: 1.2rem auto 0; color: var(--amber); opacity: 0.5; font-size: 1.1rem; letter-spacing: 0.5em; }
 
   @keyframes fadeSlide {
     from { opacity: 0; transform: translateY(18px); }
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  .scene-id {
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: var(--amber);
-    opacity: 0.55;
-    margin-bottom: 1.4rem;
-  }
-
-  .scene-text {
-    font-size: clamp(1rem, 2.5vw, 1.18rem);
-    line-height: 1.85;
-    color: rgba(242,232,248,0.88);
-    font-weight: 300;
-  }
-
-  .scene-text p + p { margin-top: 1.1em; }
-
-  .choices-divider {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin: 2.4rem 0 1.6rem;
-  }
-
-  .choices-divider::before,
-  .choices-divider::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-
-  .choices-label {
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.18em;
-    color: rgba(224,111,160,0.5);
-    white-space: nowrap;
-  }
-
-  .choices-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.7rem;
-  }
-
-  .choice-btn {
-    background: var(--choice-bg);
-    border: 1px solid var(--border);
-    border-radius: 2px;
-    padding: 1rem 1.4rem 1rem 3.2rem;
-    text-align: left;
-    cursor: pointer;
-    font-family: 'Crimson Pro', serif;
-    font-size: 1.05rem;
-    font-weight: 300;
-    color: rgba(242,200,224,0.75);
-    line-height: 1.5;
-    position: relative;
-    transition: all 0.22s ease;
-    letter-spacing: 0.01em;
-  }
-
-  .choice-btn::before {
-    content: attr(data-num);
-    position: absolute;
-    left: 1.1rem;
-    top: 50%;
-    transform: translateY(-50%);
-    font-family: 'Playfair Display', serif;
-    font-size: 0.8rem;
-    color: var(--amber);
-    opacity: 0.6;
-    transition: opacity 0.2s;
-  }
-
-  .choice-btn::after {
-    content: '→';
-    position: absolute;
-    right: 1.2rem;
-    top: 50%;
-    transform: translateY(-50%) translateX(-4px);
-    opacity: 0;
-    color: var(--amber-glow);
-    font-size: 1rem;
-    transition: all 0.22s ease;
-  }
-
-  .choice-btn:hover {
-    background: var(--choice-hover);
-    border-color: rgba(224,111,160,0.5);
-    color: var(--parchment);
-    transform: translateX(4px);
-  }
-
-  .choice-btn:hover::before { opacity: 1; }
-  .choice-btn:hover::after  { opacity: 1; transform: translateY(-50%) translateX(0); }
-
-  .ending-badge {
-    display: inline-block;
-    font-size: 0.68rem;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    color: var(--amber);
-    border: 1px solid var(--border);
-    padding: 0.3em 0.8em;
-    border-radius: 1px;
-    margin-bottom: 1.4rem;
-  }
-
-  .nav-buttons {
-    display: flex;
-    gap: 1rem;
-    margin-top: 2rem;
-    flex-wrap: wrap;
-  }
-
-  .nav-btn {
-    background: transparent;
-    border: 1px solid rgba(224,111,160,0.22);
-    border-radius: 2px;
-    padding: 0.6rem 1.2rem;
-    font-family: 'Crimson Pro', serif;
-    font-size: 0.85rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: rgba(242,200,224,0.5);
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .nav-btn:hover:not(:disabled) {
-    border-color: var(--amber);
-    color: var(--amber-glow);
-  }
-
-  .nav-btn:disabled { opacity: 0.2; cursor: default; }
-
-  .nav-btn.restart {
-    border-color: rgba(184,77,122,0.35);
-    color: rgba(224,111,160,0.6);
-  }
-  .nav-btn.restart:hover {
-    border-color: var(--ember);
-    color: var(--ember);
-  }
-
-  footer {
-    padding: 3rem 0 2rem;
-    text-align: center;
-    font-size: 0.72rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: rgba(242,200,224,0.18);
-  }
-
-  ::-webkit-scrollbar { width: 10px; }
-  ::-webkit-scrollbar-track { background: #2e2e35; }
-  ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #f07ab8, #c94d8a);
-    border-radius: 6px;
-    border: 2px solid #2e2e35;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, #ff99cc, #e0609a);
-  }
-
-  /* ── Admin overlay ── */
-  #adminOverlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(10,10,14,0.85);
-    backdrop-filter: blur(6px);
-    z-index: 1000;
-    align-items: center;
-    justify-content: center;
-  }
-  #adminOverlay.open { display: flex; }
-
-  .admin-box {
-    background: #242429;
-    border: 1px solid rgba(240,122,184,0.35);
-    border-radius: 4px;
-    width: min(92vw, 820px);
-    max-height: 88vh;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.7), 0 0 40px rgba(240,122,184,0.08);
-    overflow: hidden;
-  }
-
-  .admin-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.2rem 1.6rem;
-    border-bottom: 1px solid rgba(240,122,184,0.18);
-    flex-shrink: 0;
-  }
-
-  .admin-header h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.2rem;
-    color: var(--amber-glow);
-    letter-spacing: 0.05em;
-  }
-
-  .admin-close {
-    background: none;
-    border: 1px solid rgba(240,122,184,0.25);
-    border-radius: 2px;
-    color: rgba(240,180,220,0.6);
-    font-size: 1rem;
-    width: 2rem;
-    height: 2rem;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .admin-close:hover { border-color: var(--amber); color: var(--amber-glow); }
-
-  .admin-tabs {
-    display: flex;
-    border-bottom: 1px solid rgba(240,122,184,0.18);
-    flex-shrink: 0;
-  }
-
-  .admin-tab {
-    background: none;
-    border: none;
-    border-bottom: 2px solid transparent;
-    padding: 0.75rem 1.4rem;
-    font-family: 'Crimson Pro', serif;
-    font-size: 0.82rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: rgba(240,180,220,0.45);
-    cursor: pointer;
-    transition: all 0.2s;
-    margin-bottom: -1px;
-  }
-  .admin-tab.active, .admin-tab:hover {
-    color: var(--amber-glow);
-    border-bottom-color: var(--amber);
-  }
-
-  .admin-body {
-    overflow-y: auto;
-    padding: 1.4rem 1.6rem;
-    flex: 1;
-  }
-
-  .admin-stat-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 0.8rem;
-    margin-bottom: 1.6rem;
-  }
-
-  .stat-card {
-    background: rgba(240,122,184,0.07);
-    border: 1px solid rgba(240,122,184,0.18);
-    border-radius: 3px;
-    padding: 1rem;
-    text-align: center;
-  }
-
-  .stat-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 2rem;
-    color: var(--amber-glow);
-    line-height: 1;
-  }
-
-  .stat-label {
-    font-size: 0.72rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: rgba(240,180,220,0.45);
-    margin-top: 0.3rem;
-  }
-
-  .admin-section-title {
-    font-size: 0.72rem;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: rgba(240,122,184,0.55);
-    margin: 1.4rem 0 0.8rem;
-    border-bottom: 1px solid rgba(240,122,184,0.12);
-    padding-bottom: 0.4rem;
-  }
-
-  .choice-bar-row {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    margin-bottom: 0.55rem;
-  }
-
-  .choice-bar-label {
-    flex: 1;
-    color: rgba(253,240,248,0.75);
-    font-size: 0.88rem;
-    line-height: 1.3;
-  }
-
-  .choice-bar-wrap {
-    width: 120px;
-    height: 6px;
-    background: rgba(240,122,184,0.12);
-    border-radius: 3px;
-    flex-shrink: 0;
-    overflow: hidden;
-  }
-
-  .choice-bar-fill {
-    height: 100%;
-    background: linear-gradient(90deg, #f07ab8, #ff99cc);
-    border-radius: 3px;
-    transition: width 0.5s ease;
-  }
-
-  .choice-bar-count {
-    width: 2rem;
-    text-align: right;
-    color: var(--amber);
-    font-size: 0.85rem;
-    flex-shrink: 0;
-  }
-
-  .session-item {
-    background: rgba(240,122,184,0.05);
-    border: 1px solid rgba(240,122,184,0.14);
-    border-radius: 3px;
-    padding: 0.9rem 1rem;
-    margin-bottom: 0.6rem;
-  }
-
-  .session-meta {
-    font-size: 0.72rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: rgba(240,122,184,0.5);
-    margin-bottom: 0.5rem;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .session-path {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.3rem;
-    align-items: center;
-  }
-
-  .path-node {
-    font-size: 0.8rem;
-    background: rgba(240,122,184,0.1);
-    border: 1px solid rgba(240,122,184,0.2);
-    border-radius: 2px;
-    padding: 0.15em 0.5em;
-    color: rgba(253,240,248,0.7);
-  }
-
-  .path-node.ending {
-    background: rgba(240,122,184,0.2);
-    border-color: rgba(240,122,184,0.4);
-    color: var(--amber-glow);
-  }
-
-  .admin-empty {
-    text-align: center;
-    padding: 3rem 1rem;
-    color: rgba(240,180,220,0.3);
-    font-style: italic;
-    font-size: 0.95rem;
-  }
-
-  .admin-clear-btn {
-    background: none;
-    border: 1px solid rgba(201,77,138,0.3);
-    border-radius: 2px;
-    color: rgba(201,77,138,0.6);
-    font-family: 'Crimson Pro', serif;
-    font-size: 0.8rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 0.4rem 0.9rem;
-    cursor: pointer;
-    transition: all 0.2s;
-    margin-top: 1rem;
-  }
-  .admin-clear-btn:hover { border-color: #c94d8a; color: #c94d8a; }
-
-  .admin-login {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    padding: 2.5rem;
-  }
-
-  .admin-login h3 {
-    font-family: 'Playfair Display', serif;
-    color: var(--amber-glow);
-    font-size: 1.3rem;
-  }
-
-  .admin-login input {
-    background: rgba(240,122,184,0.07);
-    border: 1px solid rgba(240,122,184,0.3);
-    border-radius: 2px;
-    padding: 0.6rem 1rem;
-    color: var(--parchment);
-    font-family: 'Crimson Pro', serif;
-    font-size: 1rem;
-    width: 240px;
-    text-align: center;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-  .admin-login input:focus { border-color: var(--amber); }
-
-  .admin-login button {
-    background: rgba(240,122,184,0.12);
-    border: 1px solid rgba(240,122,184,0.35);
-    border-radius: 2px;
-    color: var(--amber-glow);
-    font-family: 'Crimson Pro', serif;
-    font-size: 0.85rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 0.55rem 1.5rem;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .admin-login button:hover { background: rgba(240,122,184,0.22); }
-
-  .admin-login .error {
-    color: #c94d8a;
-    font-size: 0.85rem;
-    font-style: italic;
-  }
-
-  /* ── Vstupní login obrazovka ── */
+  /* ════════ LOGIN ════════ */
   #loginScreen {
-    position: fixed;
-    inset: 0;
-    background: var(--bg);
-    z-index: 2000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: fixed; inset: 0; background: var(--bg);
+    z-index: 2000; display: flex; align-items: center; justify-content: center;
   }
-
   #loginScreen::before {
-    content: '';
-    position: fixed;
-    inset: 0;
+    content: ''; position: fixed; inset: 0;
     background:
       radial-gradient(ellipse 70% 50% at 50% 0%, rgba(240,122,184,0.13) 0%, transparent 70%),
       radial-gradient(ellipse 50% 70% at 15% 90%, rgba(240,122,184,0.07) 0%, transparent 60%),
@@ -616,108 +107,181 @@
   .login-box {
     position: relative;
     background: linear-gradient(160deg, #42424e 0%, #38383f 100%);
-    border: 1px solid var(--border);
-    border-radius: 2px;
-    padding: 3rem 3.5rem;
-    width: min(90vw, 420px);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.2rem;
+    border: 1px solid var(--border); border-radius: 2px;
+    padding: 3rem 3.5rem; width: min(90vw, 420px);
+    display: flex; flex-direction: column; align-items: center; gap: 1.2rem;
     box-shadow: 0 8px 40px rgba(0,0,0,0.7), 0 0 60px rgba(180,60,120,0.07);
     animation: fadeSlide 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
-
-  .login-box::before,
-  .login-box::after {
-    content: '';
-    position: absolute;
-    width: 18px;
-    height: 18px;
-    border-color: var(--amber);
-    border-style: solid;
-    opacity: 0.35;
+  .login-box::before, .login-box::after {
+    content: ''; position: absolute; width: 18px; height: 18px;
+    border-color: var(--amber); border-style: solid; opacity: 0.35;
   }
   .login-box::before { top: 10px; left: 10px; border-width: 1px 0 0 1px; }
   .login-box::after  { bottom: 10px; right: 10px; border-width: 0 1px 1px 0; }
 
-  .login-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: var(--amber-glow);
-    letter-spacing: 0.04em;
-    text-align: center;
-    text-shadow: 0 0 40px rgba(224,111,160,0.4);
-  }
+  .login-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: var(--amber-glow); letter-spacing: 0.04em; text-align: center; text-shadow: 0 0 40px rgba(224,111,160,0.4); }
+  .login-ornament { color: var(--amber); opacity: 0.4; letter-spacing: 0.5em; font-size: 0.9rem; }
 
-  .login-ornament {
-    color: var(--amber);
-    opacity: 0.4;
-    letter-spacing: 0.5em;
-    font-size: 0.9rem;
-  }
-
-  .login-field {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-  }
-
-  .login-field label {
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: rgba(240,122,184,0.55);
-  }
-
+  .login-field { width: 100%; display: flex; flex-direction: column; gap: 0.35rem; }
+  .login-field label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em; color: rgba(240,122,184,0.55); }
   .login-field input {
-    background: rgba(240,122,184,0.07);
-    border: 1px solid rgba(240,122,184,0.28);
-    border-radius: 2px;
-    padding: 0.65rem 1rem;
-    color: var(--parchment);
-    font-family: 'Crimson Pro', serif;
-    font-size: 1rem;
-    width: 100%;
-    outline: none;
-    transition: border-color 0.2s;
+    background: rgba(240,122,184,0.07); border: 1px solid rgba(240,122,184,0.28); border-radius: 2px;
+    padding: 0.65rem 1rem; color: var(--parchment); font-family: 'Crimson Pro', serif; font-size: 1rem;
+    width: 100%; outline: none; transition: border-color 0.2s;
   }
   .login-field input:focus { border-color: var(--amber); }
 
   .login-btn {
-    width: 100%;
-    margin-top: 0.4rem;
-    background: rgba(240,122,184,0.12);
-    border: 1px solid rgba(240,122,184,0.38);
-    border-radius: 2px;
-    color: var(--amber-glow);
-    font-family: 'Crimson Pro', serif;
-    font-size: 0.88rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    padding: 0.7rem 1.5rem;
-    cursor: pointer;
-    transition: all 0.2s;
+    width: 100%; margin-top: 0.4rem;
+    background: rgba(240,122,184,0.12); border: 1px solid rgba(240,122,184,0.38); border-radius: 2px;
+    color: var(--amber-glow); font-family: 'Crimson Pro', serif; font-size: 0.88rem;
+    letter-spacing: 0.12em; text-transform: uppercase; padding: 0.7rem 1.5rem; cursor: pointer; transition: all 0.2s;
   }
   .login-btn:hover { background: rgba(240,122,184,0.22); border-color: var(--amber); }
+  .login-error { color: #e06090; font-size: 0.85rem; font-style: italic; min-height: 1.2em; text-align: center; }
 
-  .login-error {
-    color: #e06090;
-    font-size: 0.85rem;
-    font-style: italic;
-    min-height: 1.2em;
-    text-align: center;
+  /* ════════ HOME SCREEN ════════ */
+  #homeScreen { display: none; position: relative; z-index: 1; width: 100%; max-width: 720px; padding: 0 1.5rem; animation: fadeSlide 0.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+  .home-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 3rem; }
+
+  .story-card {
+    background: linear-gradient(160deg, #42424e 0%, #38383f 100%);
+    border: 1px solid var(--border); border-radius: 2px;
+    padding: 1.6rem 1.8rem; cursor: pointer; position: relative;
+    transition: all 0.22s ease; text-align: left;
+    font-family: 'Crimson Pro', serif; color: var(--parchment);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4); overflow: hidden;
   }
+  .story-card::before, .story-card::after {
+    content: ''; position: absolute; width: 12px; height: 12px;
+    border-color: var(--amber); border-style: solid; opacity: 0.3; transition: opacity 0.2s;
+  }
+  .story-card::before { top: 7px; left: 7px; border-width: 1px 0 0 1px; }
+  .story-card::after  { bottom: 7px; right: 7px; border-width: 0 1px 1px 0; }
+  .story-card:hover { transform: translateY(-3px); border-color: rgba(240,122,184,0.55); box-shadow: 0 8px 30px rgba(0,0,0,0.5), 0 0 20px rgba(240,122,184,0.08); }
+  .story-card:hover::before, .story-card:hover::after { opacity: 0.6; }
+
+  .story-card-tag { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.18em; color: rgba(240,122,184,0.55); margin-bottom: 0.6rem; }
+  .tag-branch { background: rgba(240,122,184,0.12); border: 1px solid rgba(240,122,184,0.25); border-radius: 1px; padding: 0.1em 0.5em; color: var(--amber-glow); }
+  .story-card-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; color: var(--amber-glow); letter-spacing: 0.02em; line-height: 1.3; margin-bottom: 0.5rem; }
+  .story-card-desc { font-size: 0.9rem; color: rgba(242,200,224,0.5); font-style: italic; line-height: 1.5; padding-right: 1.5rem; }
+  .story-card-arrow { position: absolute; bottom: 1.2rem; right: 1.4rem; color: var(--amber); opacity: 0; font-size: 1rem; transition: all 0.22s ease; transform: translateX(-4px); }
+  .story-card:hover .story-card-arrow { opacity: 0.7; transform: translateX(0); }
+
+  /* ════════ SCENE CARD ════════ */
+  #storyScreen { display: none; position: relative; z-index: 1; width: 100%; max-width: 720px; padding: 0 1.5rem; }
+
+  .breadcrumb { display: flex; align-items: center; gap: 0.4rem; font-size: 0.78rem; color: rgba(242,200,224,0.3); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 1.8rem; flex-wrap: wrap; }
+  .breadcrumb span { cursor: pointer; transition: color 0.2s; }
+  .breadcrumb span:hover { color: var(--amber); }
+  .breadcrumb .sep { opacity: 0.3; user-select: none; }
+  .breadcrumb .current { color: rgba(242,200,224,0.55); cursor: default; }
+
+  .scene-card {
+    background: linear-gradient(160deg, #42424e 0%, #38383f 100%);
+    border: 1px solid var(--border); border-radius: 2px; padding: 2.8rem 3rem; position: relative;
+    animation: fadeSlide 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+    box-shadow: 0 0 0 1px rgba(224,111,160,0.05) inset, 0 8px 40px rgba(0,0,0,0.7), 0 0 60px rgba(180,60,120,0.07);
+  }
+  .scene-card::before, .scene-card::after { content: ''; position: absolute; width: 18px; height: 18px; border-color: var(--amber); border-style: solid; opacity: 0.35; }
+  .scene-card::before { top: 10px; left: 10px; border-width: 1px 0 0 1px; }
+  .scene-card::after  { bottom: 10px; right: 10px; border-width: 0 1px 1px 0; }
+
+  .scene-id { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--amber); opacity: 0.55; margin-bottom: 1.4rem; }
+
+  .scene-text { font-size: clamp(1rem, 2.5vw, 1.18rem); line-height: 1.85; color: rgba(242,232,248,0.88); font-weight: 300; }
+  .scene-text p + p { margin-top: 1.1em; }
+
+  .choices-divider { display: flex; align-items: center; gap: 1rem; margin: 2.4rem 0 1.6rem; }
+  .choices-divider::before, .choices-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .choices-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.18em; color: rgba(224,111,160,0.5); white-space: nowrap; }
+  .choices-list { display: flex; flex-direction: column; gap: 0.7rem; }
+
+  .choice-btn {
+    background: var(--choice-bg); border: 1px solid var(--border); border-radius: 2px;
+    padding: 1rem 1.4rem 1rem 3.2rem; text-align: left; cursor: pointer;
+    font-family: 'Crimson Pro', serif; font-size: 1.05rem; font-weight: 300;
+    color: rgba(242,200,224,0.75); line-height: 1.5; position: relative; transition: all 0.22s ease; letter-spacing: 0.01em;
+  }
+  .choice-btn::before { content: attr(data-num); position: absolute; left: 1.1rem; top: 50%; transform: translateY(-50%); font-family: 'Playfair Display', serif; font-size: 0.8rem; color: var(--amber); opacity: 0.6; transition: opacity 0.2s; }
+  .choice-btn::after { content: '→'; position: absolute; right: 1.2rem; top: 50%; transform: translateY(-50%) translateX(-4px); opacity: 0; color: var(--amber-glow); font-size: 1rem; transition: all 0.22s ease; }
+  .choice-btn:hover { background: var(--choice-hover); border-color: rgba(224,111,160,0.5); color: var(--parchment); transform: translateX(4px); }
+  .choice-btn:hover::before { opacity: 1; }
+  .choice-btn:hover::after  { opacity: 1; transform: translateY(-50%) translateX(0); }
+
+  .ending-badge { display: inline-block; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--amber); border: 1px solid var(--border); padding: 0.3em 0.8em; border-radius: 1px; margin-bottom: 1.4rem; }
+
+  .nav-buttons { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+
+  .nav-btn {
+    background: transparent; border: 1px solid rgba(224,111,160,0.22); border-radius: 2px;
+    padding: 0.6rem 1.2rem; font-family: 'Crimson Pro', serif; font-size: 0.85rem;
+    letter-spacing: 0.08em; text-transform: uppercase; color: rgba(242,200,224,0.5); cursor: pointer; transition: all 0.2s;
+  }
+  .nav-btn:hover:not(:disabled) { border-color: var(--amber); color: var(--amber-glow); }
+  .nav-btn:disabled { opacity: 0.2; cursor: default; }
+  .nav-btn.restart { border-color: rgba(184,77,122,0.35); color: rgba(224,111,160,0.6); }
+  .nav-btn.restart:hover { border-color: var(--ember); color: var(--ember); }
+  .nav-btn.home-back { border-color: rgba(240,122,184,0.22); color: rgba(242,200,224,0.45); }
+  .nav-btn.home-back:hover { border-color: var(--amber); color: var(--amber-glow); }
+
+  /* ════════ SIMPLE STORY ════════ */
+  #simpleStoryScreen { display: none; position: relative; z-index: 1; width: 100%; max-width: 720px; padding: 0 1.5rem; }
+
+  footer { padding: 3rem 0 2rem; text-align: center; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(242,200,224,0.18); position: relative; z-index: 1; }
+
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: #2e2e35; }
+  ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #f07ab8, #c94d8a); border-radius: 6px; border: 2px solid #2e2e35; }
+  ::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #ff99cc, #e0609a); }
+
+  /* ════════ ADMIN ════════ */
+  #adminOverlay { display: none; position: fixed; inset: 0; background: rgba(10,10,14,0.85); backdrop-filter: blur(6px); z-index: 1000; align-items: center; justify-content: center; }
+  #adminOverlay.open { display: flex; }
+  .admin-box { background: #242429; border: 1px solid rgba(240,122,184,0.35); border-radius: 4px; width: min(92vw, 820px); max-height: 88vh; display: flex; flex-direction: column; box-shadow: 0 20px 60px rgba(0,0,0,0.7), 0 0 40px rgba(240,122,184,0.08); overflow: hidden; }
+  .admin-header { display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 1.6rem; border-bottom: 1px solid rgba(240,122,184,0.18); flex-shrink: 0; }
+  .admin-header h2 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--amber-glow); letter-spacing: 0.05em; }
+  .admin-close { background: none; border: 1px solid rgba(240,122,184,0.25); border-radius: 2px; color: rgba(240,180,220,0.6); font-size: 1rem; width: 2rem; height: 2rem; cursor: pointer; transition: all 0.2s; }
+  .admin-close:hover { border-color: var(--amber); color: var(--amber-glow); }
+  .admin-tabs { display: flex; border-bottom: 1px solid rgba(240,122,184,0.18); flex-shrink: 0; }
+  .admin-tab { background: none; border: none; border-bottom: 2px solid transparent; padding: 0.75rem 1.4rem; font-family: 'Crimson Pro', serif; font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(240,180,220,0.45); cursor: pointer; transition: all 0.2s; margin-bottom: -1px; }
+  .admin-tab.active, .admin-tab:hover { color: var(--amber-glow); border-bottom-color: var(--amber); }
+  .admin-body { overflow-y: auto; padding: 1.4rem 1.6rem; flex: 1; }
+  .admin-stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 0.8rem; margin-bottom: 1.6rem; }
+  .stat-card { background: rgba(240,122,184,0.07); border: 1px solid rgba(240,122,184,0.18); border-radius: 3px; padding: 1rem; text-align: center; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--amber-glow); line-height: 1; }
+  .stat-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(240,180,220,0.45); margin-top: 0.3rem; }
+  .admin-section-title { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.14em; color: rgba(240,122,184,0.55); margin: 1.4rem 0 0.8rem; border-bottom: 1px solid rgba(240,122,184,0.12); padding-bottom: 0.4rem; }
+  .choice-bar-row { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.55rem; }
+  .choice-bar-label { flex: 1; color: rgba(253,240,248,0.75); font-size: 0.88rem; line-height: 1.3; }
+  .choice-bar-wrap { width: 120px; height: 6px; background: rgba(240,122,184,0.12); border-radius: 3px; flex-shrink: 0; overflow: hidden; }
+  .choice-bar-fill { height: 100%; background: linear-gradient(90deg, #f07ab8, #ff99cc); border-radius: 3px; transition: width 0.5s ease; }
+  .choice-bar-count { width: 2rem; text-align: right; color: var(--amber); font-size: 0.85rem; flex-shrink: 0; }
+  .session-item { background: rgba(240,122,184,0.05); border: 1px solid rgba(240,122,184,0.14); border-radius: 3px; padding: 0.9rem 1rem; margin-bottom: 0.6rem; }
+  .session-meta { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(240,122,184,0.5); margin-bottom: 0.5rem; display: flex; justify-content: space-between; }
+  .session-path { display: flex; flex-wrap: wrap; gap: 0.3rem; align-items: center; }
+  .path-node { font-size: 0.8rem; background: rgba(240,122,184,0.1); border: 1px solid rgba(240,122,184,0.2); border-radius: 2px; padding: 0.15em 0.5em; color: rgba(253,240,248,0.7); }
+  .path-node.ending { background: rgba(240,122,184,0.2); border-color: rgba(240,122,184,0.4); color: var(--amber-glow); }
+  .admin-empty { text-align: center; padding: 3rem 1rem; color: rgba(240,180,220,0.3); font-style: italic; font-size: 0.95rem; }
+  .admin-clear-btn { background: none; border: 1px solid rgba(201,77,138,0.3); border-radius: 2px; color: rgba(201,77,138,0.6); font-family: 'Crimson Pro', serif; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.4rem 0.9rem; cursor: pointer; transition: all 0.2s; margin-top: 1rem; }
+  .admin-clear-btn:hover { border-color: #c94d8a; color: #c94d8a; }
+  .admin-login { display: flex; flex-direction: column; align-items: center; gap: 1rem; padding: 2.5rem; }
+  .admin-login h3 { font-family: 'Playfair Display', serif; color: var(--amber-glow); font-size: 1.3rem; }
+  .admin-login input { background: rgba(240,122,184,0.07); border: 1px solid rgba(240,122,184,0.3); border-radius: 2px; padding: 0.6rem 1rem; color: var(--parchment); font-family: 'Crimson Pro', serif; font-size: 1rem; width: 240px; text-align: center; outline: none; transition: border-color 0.2s; }
+  .admin-login input:focus { border-color: var(--amber); }
+  .admin-login button { background: rgba(240,122,184,0.12); border: 1px solid rgba(240,122,184,0.35); border-radius: 2px; color: var(--amber-glow); font-family: 'Crimson Pro', serif; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.55rem 1.5rem; cursor: pointer; transition: all 0.2s; }
+  .admin-login button:hover { background: rgba(240,122,184,0.22); }
+  .admin-login .error { color: #c94d8a; font-size: 0.85rem; font-style: italic; }
 </style>
 </head>
 <body>
 
-<!-- ── Vstupní login obrazovka ── -->
+<!-- LOGIN -->
 <div id="loginScreen">
   <div class="login-box">
-    <div class="login-title">Povídka pro Míšu</div>
+    <div class="login-title">Povídky pro Míšu</div>
     <div class="login-ornament">✦ ✦ ✦</div>
     <div class="login-field">
       <label>Uživatelské jméno</label>
@@ -730,37 +294,56 @@
              onkeydown="if(event.key==='Enter') doLogin()">
     </div>
     <div class="login-error" id="loginError"></div>
-    <button class="login-btn" onclick="doLogin()">Vstoupit do příběhu →</button>
+    <button class="login-btn" onclick="doLogin()">Vstoupit →</button>
   </div>
 </div>
 
-<div class="wrapper">
+<!-- HOME SCREEN -->
+<div id="homeScreen" class="wrapper">
   <header>
-    <div class="story-title" id="storyTitle">Povídka pro Míšu</div>
+    <div class="story-title">Povídky pro Míšu</div>
+    <div class="story-subtitle">Vyber si příběh a začni číst</div>
+    <div class="ornament">✦ ✦ ✦</div>
+  </header>
+  <div class="home-grid" id="homeGrid"></div>
+</div>
+
+<!-- INTERAKTIVNÍ PŘÍBĚH -->
+<div id="storyScreen" class="wrapper">
+  <header>
+    <div class="story-title" id="storyTitle"></div>
     <div class="story-subtitle">Interaktivní povídka · Tvoje volby tvoří příběh</div>
     <div class="ornament">✦ ✦ ✦</div>
   </header>
-
   <div id="breadcrumb" class="breadcrumb"></div>
   <div id="sceneContainer"></div>
-
-  <footer>Interaktivní příběh · Vytvořeno s láskou</footer>
 </div>
 
-<!-- Skryté tlačítko pro admin (pravý dolní roh) -->
+<!-- JEDNODUCHÁ POVÍDKA -->
+<div id="simpleStoryScreen" class="wrapper">
+  <header>
+    <div class="story-title" id="simpleStoryTitle"></div>
+    <div class="story-subtitle" id="simpleStorySubtitle"></div>
+    <div class="ornament">✦ ✦ ✦</div>
+  </header>
+  <div id="simpleStoryContent"></div>
+  <div class="nav-buttons" style="margin-bottom: 3rem;">
+    <button class="nav-btn home-back" onclick="showHome()">⌂ Zpět na úvodní stránku</button>
+  </div>
+</div>
+
+<footer id="mainFooter" style="display:none;">Povídky pro Míšu · Vytvořeno s láskou</footer>
+
+<!-- Skryté tlačítko admin (pravý dolní roh) -->
 <button id="adminTrigger" onclick="openAdmin()" title="Admin" style="
-  position: fixed; bottom: 1rem; right: 1rem;
-  width: 2rem; height: 2rem;
-  background: none; border: none;
-  opacity: 0.08; cursor: pointer;
-  font-size: 1.1rem; color: #f07ab8;
-  transition: opacity 0.3s; z-index: 500;
+  position:fixed; bottom:1rem; right:1rem; width:2rem; height:2rem;
+  background:none; border:none; opacity:0.08; cursor:pointer;
+  font-size:1.1rem; color:#f07ab8; transition:opacity 0.3s; z-index:500; display:none;
 " onmouseenter="this.style.opacity='0.5'" onmouseleave="this.style.opacity='0.08'">⚙</button>
 
 <!-- Admin overlay -->
 <div id="adminOverlay">
   <div class="admin-box">
-
     <div id="adminLogin" class="admin-login">
       <h3>Admin přístup</h3>
       <input type="password" id="adminPwdInput" placeholder="Heslo" onkeydown="if(event.key==='Enter') adminLogin()">
@@ -768,10 +351,9 @@
       <span id="adminErr" class="error" style="display:none">Špatné heslo</span>
       <button onclick="closeAdmin()" style="background:none;border:none;color:rgba(240,180,220,0.3);font-family:inherit;cursor:pointer;font-size:0.85rem;margin-top:0.5rem">Zrušit</button>
     </div>
-
     <div id="adminDash" style="display:none; flex-direction:column; flex:1; overflow:hidden;">
       <div class="admin-header">
-        <h2>📊 Admin — Statistiky příběhu</h2>
+        <h2>📊 Admin — Statistiky</h2>
         <button class="admin-close" onclick="closeAdmin()">✕</button>
       </div>
       <div class="admin-tabs">
@@ -780,33 +362,140 @@
         <button class="admin-tab" onclick="showTab('sessions', this)">Průchody</button>
       </div>
       <div class="admin-body">
-        <div id="tab-overview">
-          <div class="admin-stat-grid" id="statGrid"></div>
-          <div class="admin-section-title">Nejpopulárnější volby</div>
-          <div id="topChoices"></div>
-        </div>
-        <div id="tab-choices" style="display:none">
-          <div class="admin-section-title">Všechny volby a počty kliknutí</div>
-          <div id="allChoices"></div>
-        </div>
-        <div id="tab-sessions" style="display:none">
-          <div class="admin-section-title">Historie průchodů příběhem</div>
-          <div id="sessionsList"></div>
-        </div>
+        <div id="tab-overview"><div class="admin-stat-grid" id="statGrid"></div><div class="admin-section-title">Nejpopulárnější volby</div><div id="topChoices"></div></div>
+        <div id="tab-choices" style="display:none"><div class="admin-section-title">Všechny volby a počty kliknutí</div><div id="allChoices"></div></div>
+        <div id="tab-sessions" style="display:none"><div class="admin-section-title">Historie průchodů příběhem</div><div id="sessionsList"></div></div>
         <button class="admin-clear-btn" onclick="clearLog()">🗑 Smazat všechna data</button>
       </div>
     </div>
-
   </div>
 </div>
 
 <script>
 // ═══════════════════════════════════════════════════════════
-//  PŘÍBĚHOVÁ DATA
+//  SEZNAM PŘÍBĚHŮ
+//  type "branching" = interaktivní s větvením (vždy jen jeden)
+//  type "simple"    = jen text, bez voleb
+//
+//  Pro jednoduché příběhy vyplň:
+//    title       — název zobrazený na kartě i v hlavičce
+//    description — krátký popis pod názvem na kartě
+//    content     — HTML text příběhu (odstavce v <p>...</p>)
+// ═══════════════════════════════════════════════════════════
+const STORY_LIST = [
+  {
+    id: "wellness",
+    type: "branching",
+    title: "Wellness se zápletkou",
+    description: "Interaktivní příběh — každé rozhodnutí vede jinam."
+  },
+  {
+    id: "simple_1",
+    type: "simple",
+    title: "Valentýnská povídka",            // ← ZDE ZMĚŇ
+    description: "S partou na chalupě", // ← ZDE ZMĚŇ
+    content: `
+      <p>Tak jako už hodněkrát jsme společně s partou vyrazili na chalupu. Byly to divoké večírky plné alkoholu a nespoutané zábavy, ale tentokrát to bylo úplně jiné, než bych si kdy dřív uměla v divokých snech představit. Ale začnu hezky od začátku ….
+Hned při příjezdu na nás čekal pan domácí s uvítacím drinkem a jedním malým překvapením pro pánské osazenstvo večírku. Přijela za ním sestřenice z Itálie a on se těšil, jak se se svou krásnou sestřenicí pochlubí všem přátelům. Byla opravdu nádherná, krásné tmavé vlasy do půli zad, obrovské černé oči plné vášně a divokosti. Světlé džíny krásně zvýraznily její dokonalý zadeček, krátké tílko jí odhalovalo ploché opálené bříško a pod bílým tílkem se jí rýsovaly úžasně pevné čtyřky. Byla to radost pohledět a já hned věděla, že tahle dívka bude celý večer středem pozornosti. A nemýlila jsem se. Celý večer ji všichni kamarádi obletovali a předháněli se v získání její pozornosti.
+Byla to koketa a náramně si tuto pozornost užívala. Každou chvíli to vypadalo, že zmizí v nedalekém lesíku s některým z kamarádů. Během večera jsem ji opakovaně viděla, jak několika kamarádům šeptá do ucha. Pokaždé se k němu přitiskla, pohrávala si s jeho vlasy, její rozkrok se třel o jeho stehno a něco mu šuškala do ucha. Muselo to být něco opravdu nemravného, protože všichni se po setkání s ní vzrušili. Ale nikdy s nikým v lesíku nezmizela.
+Večer ubíhal dál, přibylo množství vypitého alkoholu. Jak postupně všichni odpadávali zmoženi alkoholem, tak ubylo i nápadníků se kterými by mohla koketovat. Až jsme v jednu chvíli zůstali jen samy dvě. Seděly jsme na betonovém stole na ping-pong naproti sobě a popíjely broskvovou jako kdyby to byla limonáda. Byla opravdu legrace, jako bychom se znaly odjakživa. Jen mi pořád vrtalo hlavou, co těm chlapům špitala do ucha, že byli pokaždé tak vzrušení.
+Sebrala jsem odvahu a zeptala se. Ona se jen usmála, přisedla si vedle mě, rukou mi zajela do vlasů a potichu mi do ucha pošeptala „Celý večer jsem tvým kamarádům popisovala, co bych chtěla dělat nemravného s tebou“. Podívala se na mě a už nahlas se zeptala „Chceš mé představy popsat nebo zažít?“
+Nezmohla jsem se na žádnou odpověď, jen jsem se začervenala. V ten okamžik jsem ale věděla, že  odpovídat nemusím, že stačí přikývnout.
+Ona můj signál pochopila a hned se ke mně přitiskla a začala mě vášnivě líbat.
+Nebyly to něžné dívčí polibky, byly nádherně divoké. Očividně už měla zkušenost se ženou, protože mi velmi rychle sundala tričko a začala líbat prsa. Její polibky byly vlhké a postupně jimi zahrnula celá má prsa. 
+Moje bradavky byly ztuhlé, vystouplé, možná trochu zimou, možná vzrušením. Užívala jsem si, když mi jazykem kroužila kolem bradavek a rukou hladila prsa. Chvíli mi jednou rukou mi pročechrávala vlasy a druhou něžně hladila prsa. V druhý okamžik se ke mně těsně přitiskla a vášnivě mě líbala na rty. Pevně se ke mně tiskla svými prsy. Moje hebká kůže se dotýkala jejího vzrušeného těla, naše prsa od sebe dělilo jen její lehounké bílé tílko. Hladila jsem ji ve vlasech, dotýkala se jejích holých ramen a pomalu rukou zajížděla pod její tílko, abych se mohla dotknout jejích nádherných pevných čtyřek. Jemné vzrušivé doteky jsme si vzájemně opětovaly, hladily si prsa, vášnivě se líbaly a třely se klínem o sebe. Byla jsem neuvěřitelně vzrušená a chtěla jsem víc. Obratně jsem ji rozepla knoflíček u kalhot a chtěla ji svléknout, ale ona mé ruce zarazila.
+Položila mě na chladný betonový stůl, klekla si nade mě a začala mě znovu líbat na rty, jazykem pomalu sjížděla od krku, přes prsa, kolem pupíku stále níž a níž. Pomalu mi rozepla kalhoty, ale nesundala mi je. Začala mě líbat přes kalhotky přímo na pošťěváčku. Sténala jsem vzrušením a cítila jak rychle vlhnu. Zeptala se, zda může pokračovat. Já jen slastně vzdychla. Bylo to vzrušující, záda jsem měla na studeném stole, ale celé mé tělo bylo zalité horkem z vzrušení. Sundala mi kalhoty a stále mě něžně líbala přes mé krajkové kalhotky na prcince. Pomalinku začala prsty zajíždět pod kalhotky. Vždy jen prsty lehce brnkla o můj vzrušený klitoris a bez ustání mě líbala poštěváček. Chtěla jsem víc. Byla jsem nesmírně vzrušená. Pomalu mi začala stahovat kalhotky. Celá jsem se chvěla vzrušením a očekáváním něčeho nového. Kalhotky mi pomalu sundavala a přitom se její rty stále dotýkaly mé kůže. Když jsem před ní ležela zcela nahá, prohlédla si mě a mlsně se olízla. Položila mi hlavu do klína a začala mě něžně lízat. Nejdříve jazykem lehce kroužila kolem poštváčku, pak zajížděla hluboko do kundičky. Poznala jsem, že mi na klitoris píše jazykem vzkaz. Každým písmenkem jsem byla víc a víc vzrušená. Sténala jsem slastí a přála si, aby mě stále dál lízala prcinku a přitom zabořila prsty do kundičky. Jako by mi četla myšlenky. Velmi něžně mi zasunula do kundičky dva prsty a začala jimi jemně kroužit uvnitř mě. U to ho mi stále lízala prcinku. Bylo to nádherné. Chtěla jsem jí náklonost opětovat, ale nenechala mě se ani pohnout a užívala si jazykem vlhkost mé kundičky. Prsty postupně přirážela víc a víc a já cítila, že se blížím k vrcholu. Chvílemi mi pošťeváček něžně lízala, chvílemi sála a občas mě lehounce kousla. Bylo to nádherné. Vůbec netuším, jak dlouho to trvalo, ale bylo to nádherné, vzrušující. Nechtěla jsem aby přestala. Když jsem s výkřikem prožila třetí orgasmus, jen se usmála a naposledy mě políbila na prcinku. Podala mi mé krajkové kalhotky, políbila na rozloučenou na tvář a odešla do tmavé noci. V šeru jsem viděla jen její nádherný zadeček a splývavé vlasy na zádech.
+Měla jsem se obléknout a jít za ní, ale neměla jsem sílu se pohnout. Ležela jsem na chladném stole a zhluboka oddychovala. Byla jsem ještě celá vzrušená a rozechvělá ale také strašně unavená na to, abych se vrátila zpět do chalupy za ostatními.
+Na stole jsem usnula. Schoulená do klubíčka, jen s přehozenou bundičkou přes tělo.
+Náhle mě něco probudilo. Zaslechla jsem kroky, zvuk zipu, hluboké oddechování. Náhle jsem se nemohla nadechnout. Nic jsem v té tmě neviděla, jen jsem cítila, jak mě někdo drží pod krkem a cpe mi do pusy svůj tvrdý penis. Nemohla jsem se bránit, byla jsem celá promrzlá a zkřehlá, navíc mě pevně držel pod krkem a hlavu jsem měla zakloněnou dolů ze stolu. Stál u mě a hned tvrdě přirážel do pusy. Chtěla jsem křičet, ať mě pustí, ale pusu mi zacpal svým velkým ptákem a já byla ráda, že se můžu alespoň občas nadechnout.
+Naříkala jsem, ale nebylo mi to nic platné. Stále dál mi přirážel hluboko do krku a dávil mě svým mohutným penisem. Přirážel stále dál a dál, hlouběji a hlouběji.
+V jeden okamžik se mi povedlo se mu vysmeknout a chtěla jsem utéct. Ale on mě hned chytil, dal mi ruce za záda a svázal mi je mojí bundou. Donutil mě si kleknout a znovu mi ho nacpal do pusy, kterou mi hned zase začal tvrdě šukat. Nemohla jsem se bránit a tak jsem nakonec pokorně začala kouřit. Musím přiznat, že se mi to nakonec začalo i líbit a přestala jsem s ním bojovat. S chutí jsem ho kouřila, lízala mu koule, jazykem kroužila okolo žaludu, nechala si ho nacpat až do krku.
+Bylo vidět, že se mu to líbí, protože slastně vzdychal a říkal „Vidíš, jaká jsi šikovná kurvička, jestli mě hezky vykouříš tak tě pustím a neublížím ti“
+Poznala jsem, že se blíží k vrcholu. Jeho obrovský penis najednou začal pulzovat. V ten okamžik mi ho vyndal z pusy a postříkal mi obličej mohutnými výstřiky. Jeho semeno jsem měla po celém obličeji.
+Podíval se na mě, uvolnil mi pouta, otřel mikinou pocákaný obličej a řekl, že takhle dlouho už ho do huby žádné kurvičce nenacpal, že jsem byla opravdu dobrá děvka a ráno si mě najde znovu, abych mu znova vykouřila péro.
+Stejně rychle jako přišel tak zase rychle zmizel ve tmě a já do dnešního dne nevím, kdo to byl, kdo mi rozšukal pusinku a postříkal celý obličej.
+Na jednu stranu jsem se cítila zneužitá, na druhou stranu jsem z toho zážitku byla celá vzrušená.
+A to jsem ještě nevěděla, že se večer ani zdaleka neblíží ke konci.
+
+Bylo už k ránu, začínalo se pomalu rozednívat a já se celá zmačkaná, zmrzlá a opilá vracela zpátky k chatě. Po paměti jsem došla do svého pokoje a padla úplně vyřízená na postel.
+V pokoji vedle na posteli ležela Italka, ale nebyla tam sama. Chvíli mi trvalo, než mi došlo, co se na té na posteli děje. 
+Poodkryla peřinu a šeptla „Chceš se přidat?“
+Dnes v noci jsem zažila lesbické lízání s krásnou ženou, drsné kouření s cizím mužem, ale nebyla jsem nikým pořádně vyšukaná.
+V ten okamžik jsem měla obrovskou chuť vlézt si k nim pod peřinu a pořádně si zašukat ve třech.
+Tentokrát jsem ji chtěla oplatit její lízání, ale jaké bylo moje překvapení, že pod peřinou s ní nebyl jeden muž. Měla tam dva chlapy a oba dva jí tvrdě šukali.
+Chvíli jsem se na ně s úžasem dívala, byla jsem hned vzrušená a cítila jak mi vlhne kundička.
+Neměla jsem ale odvahu se k nim přidat. Začala jsem si zlehka hladit kozičky, pak jsem pomalu sjela dlaní po mé holé kůži níž až jsem nahmatala můj zvlhlý poštěváček a začala si ho prsty jemně masírovat. Druhou rukou jsem si sundala kalhoty a přes kalhotky si dál dráždila svojí kundičku
+V ten okamžik si mě všiml jeden z mužů. Hned se ke mně přisunul, poodhrnul mé krajkové kalhotky a bez jakéhokoliv zaváhání ho do mě rovnou strčil. 
+Vykřikla jsem bolestí, ale on nebral ohledy a tvrdě mi začal šukat kundičku. Přirážel tak tvrdě a tak hluboko.
+Úplně stejný scénář se odehrával i vedle nás, kdy druhý muž stejně tvrdě šukal do kundičky Italku. I ona sténala bolestí, ale ani jeden z nich nepřestával a obě nás tvrdě šukali a slastně vzdychali.
+S Italkou jsme se na sebe dívaly a bylo vidět, že i přes bolest si to obě užíváme, ale zároveň toužíme i po sobě navzájem. Moc jsem ji chtěla lízat, moc jsem chtěla ochutnat její kundičku a jazykem jí napsat vzkaz na pošťěváček. Moc jsem chtěla hladit její pevná prsa, jazykem kroužit kolem bradavek, prsty si pohrávat s jejím klitorisem a jazýčkem dráždit kundičku. Přála jsem si pohrát si i s jejím pevným zadečkem, hladit půlky, něžně líbat prdelku a lehce prstíčky dráždit její análek. Chtěla jsem jí jedním prstem vyplnit zadeček a druhým kundičku. Chtěla jsem jazykem kroužit kolem jejího zvlhlého klína a jemně laskat prcinku, rukama hladit prsa, tisknout je k sobě a vášnivě ji líbat.
+Ale to mi už toho večera nebylo umožněno. Celou dobu jsme se na sebe jen dívaly a držely pevným a drsným přírazům do kundičky. Šukání to bylo opravdu drsné, ani jeden se s námi moc nemazlil.
+Otočil mě zády k sobě, na všechny čtyři, jednou rukou pevně chytil za vlasy a druhou rukou chytil za rameno. Přirazil do mě hluboko, a přirážel znovu a znovu. Viděl, že se mi to líbí, a dopřál mi ještě kousek rozkoše navíc. Stále mě držel pevně za vlasy a ruku ramene posunul k zadečku. Dvakrát mě plácl na holou a pak velmi pomalu zasunul prst přímo do análku. Viděl, že se mi to líbí. Viděl, že mám ráda mrdání prdelky. Přestal přirážet do kundičky a obratem mi zasunul celý svůj penis do zadečku. A zase začal tvrdě přirážet a mrdal mě do prdelky. Mrdal a mrdal. Tak hluboko. Křičela jsem slastí a blížila se k vrcholu.
+Pak mě pustil. Celou rozšukanou.Únavou jsem padla na postel. Ale to zdaleka nebyl konec. Lehl si na záda a mě si přitáhl k sobě. Položil mě na sebe. Zvedl mi nohy, chytil mě pod kolenama a nacpal mi ho zase do zadečku. Šlo to krásně hladce a krásně hluboko. Pokračoval v drsném šukání zadečku. V tom se ke mně přisunul i druhý muž, klekl si před nás a díval se, jak mi jeho kamarád šuká prdelku. Asi se mu to hodně líbilo, protože si u toho začal honit svoje péro. I Italka se zaujetím pozorovala, jak mě šuká do zadečku. Dívala se ale jen chvilku, pak se naklonila přímo k mojí prcince a začala mě zase náruživě lízat. Jak mě lízala, ani jsem si nevšimla, že druhý muž si přestal honit a už se chystal vrazit ho do mě. Italka se jen kousek posunula, aby mu nepřekážela hlavou, dál pokračovala v hlubokém lízání mojí prcinky a v ten okamžik jsem zažila největší slast. Jeden muž mě tvrdě šukal do zadečku, druhý muž mě hluboce prcal kundičku a můj poštěváček se nechal slastně lízat od Italky.
+Zhluboka jsem dýchala a užívala si tohle luxusní šukání.
+Nevím jak dlouho to trvalo, ale bylo to úžasné, intenzivní, hluboké, drsné i něžné zároveň.
+Zažila jsem nejintenzivnější orgasmus současně v prdelce, kundičce i prcince.
+</p>
+      <p>Každý odstavec obal do &lt;p&gt;...&lt;/p&gt;.</p>
+      <p>Kurzíva: <em>takto</em>. Tučně: <strong>takto</strong>.</p>
+    `
+  },
+  {
+    id: "simple_2",
+    type: "simple",
+    title: "Název příběhu 3",
+    description: "Krátký popis příběhu.",
+    content: `<p>Text příběhu č. 3...</p>`
+  },
+  {
+    id: "simple_3",
+    type: "simple",
+    title: "Název příběhu 4",
+    description: "Krátký popis příběhu.",
+    content: `<p>Text příběhu č. 4...</p>`
+  },
+  {
+    id: "simple_4",
+    type: "simple",
+    title: "Název příběhu 5",
+    description: "Krátký popis příběhu.",
+    content: `<p>Text příběhu č. 5...</p>`
+  },
+  {
+    id: "simple_5",
+    type: "simple",
+    title: "Název příběhu 6",
+    description: "Krátký popis příběhu.",
+    content: `<p>Text příběhu č. 6...</p>`
+  },
+  {
+    id: "simple_6",
+    type: "simple",
+    title: "Název příběhu 7",
+    description: "Krátký popis příběhu.",
+    content: `<p>Text příběhu č. 7...</p>`
+  },
+  {
+    id: "simple_7",
+    type: "simple",
+    title: "Název příběhu 8",
+    description: "Krátký popis příběhu.",
+    content: `<p>Text příběhu č. 8...</p>`
+  },
+  {
+    id: "simple_8",
+    type: "simple",
+    title: "Název příběhu 9",
+    description: "Krátký popis příběhu.",
+    content: `<p>Text příběhu č. 9...</p>`
+  }
+];
+
+// ═══════════════════════════════════════════════════════════
+//  INTERAKTIVNÍ PŘÍBĚH — scény
 // ═══════════════════════════════════════════════════════════
 const STORY = {
-  title: "Wellnes se zápletkou",
-
+  title: "Wellness se zápletkou",
   scenes: {
 
     "start": {
@@ -875,29 +564,13 @@ const STORY = {
       ]
     },
 
-    "Hrátky v prvním kolečku": {
-      title: "Trochu si hraješ",
-      text: `<p>— tato scéna ještě čeká na dopsání —</p>`,
-      choices: [
-        { text: "Pokračovat →", next: "Sprcha první kolečko" }
-      ]
-    },
-
-    "Provokace druhé kolečko": {
-      title: "Druhé kolečko s provokací",
-      text: `<p>— tato scéna ještě čeká na dopsání —</p>`,
-      choices: [
-        { text: "Pokračovat →", next: "Sprcha první kolečko" }
-      ]
-    },
-
-    "Alternativy společnost v sauně": {
-      title: "Co kdybychom nebyli sami?",
-      text: `<p>— tato scéna ještě čeká na dopsání —</p>`,
-      choices: [
-        { text: "Pokračovat →", next: "Sprcha první kolečko" }
-      ]
-    },
+    "Hrátky v prvním kolečku":        { title: "Trochu si hraješ",              text: `<p>— tato scéna ještě čeká na dopsání —</p>`, choices: [{ text: "Pokračovat →", next: "Sprcha první kolečko" }] },
+    "Provokace druhé kolečko":         { title: "Druhé kolečko s provokací",     text: `<p>— tato scéna ještě čeká na dopsání —</p>`, choices: [{ text: "Pokračovat →", next: "Sprcha první kolečko" }] },
+    "Alternativy společnost v sauně":  { title: "Co kdybychom nebyli sami?",     text: `<p>— tato scéna ještě čeká na dopsání —</p>`, choices: [{ text: "Pokračovat →", next: "Sprcha první kolečko" }] },
+    "Sauna po flirtu":                 { title: "Do sauny po flirtu",            text: `<p>— tato scéna ještě čeká na dopsání —</p>`, choices: [{ text: "Pokračovat →", next: "První sauna" }] },
+    "Sauna po flirtu 2":               { title: "Do sauny nabitá vzrušením",     text: `<p>— tato scéna ještě čeká na dopsání —</p>`, choices: [{ text: "Pokračovat →", next: "První sauna" }] },
+    "Pokračujeme do sauny ve 3?":      { title: "Odvážná nabídka",               text: `<p>— tato scéna ještě čeká na dopsání —</p>`, choices: [{ text: "Pokračovat →", next: "První sauna" }] },
+    "Rozpíjení před saunou":           { title: "Času je dost a prosecco chutná!", text: `<p>— tato scéna ještě čeká na dopsání —</p>`, choices: [{ text: "Pokračovat →", next: "První sauna" }] },
 
     "Flirt bar pokračování": {
       title: "Pokračuješ v laškování",
@@ -909,14 +582,6 @@ const STORY = {
       choices: [
         { text: "Jsi trochu vzrušená, ale flirtování bylo dost, je čas jít do sauny.", next: "Sauna po flirtu" },
         { text: "Tak jo, jdeš se upravit na toaletu, dost tě to baví.", next: "Flirt pokračuje" }
-      ]
-    },
-
-    "Sauna po flirtu": {
-      title: "Do sauny po flirtu",
-      text: `<p>— tato scéna ještě čeká na dopsání —</p>`,
-      choices: [
-        { text: "Pokračovat →", next: "První sauna" }
       ]
     },
 
@@ -935,22 +600,6 @@ const STORY = {
       ]
     },
 
-    "Sauna po flirtu 2": {
-      title: "Do sauny nabitá vzrušením",
-      text: `<p>— tato scéna ještě čeká na dopsání —</p>`,
-      choices: [
-        { text: "Pokračovat →", next: "První sauna" }
-      ]
-    },
-
-    "Pokračujeme do sauny ve 3?": {
-      title: "Odvážná nabídka",
-      text: `<p>— tato scéna ještě čeká na dopsání —</p>`,
-      choices: [
-        { text: "Pokračovat →", next: "První sauna" }
-      ]
-    },
-
     "Do wellness z baru": {
       title: "Hezky rozpito a pokračujeme v sauně",
       text: `<p>Už při svlékání se trochu motáš, ale zatím jsi v příjemné náladě.</p>
@@ -959,107 +608,124 @@ const STORY = {
         { text: "První kolečko proběhlo skvěle, ochlazení a jdem relaxovat a popíjet.", next: "Sprcha první kolečko" },
         { text: "Máš trochu laškovnou náladu, v sauně ses rozhodla mě trochu provokovat.", next: "Hrátky v prvním kolečku" }
       ]
-    },
-
-    "Rozpíjení před saunou": {
-      title: "Času je dost a prosecco dnes chutná!",
-      text: `<p>— tato scéna ještě čeká na dopsání —</p>`,
-      choices: [
-        { text: "Pokračovat →", next: "První sauna" }
-      ]
     }
-
   }
 };
 
 // ═══════════════════════════════════════════════════════════
-//  STAV APLIKACE
+//  NAVIGACE
 // ═══════════════════════════════════════════════════════════
-let history = [];
-let currentScene = "start";
+function showHome() {
+  document.getElementById('storyScreen').style.display = 'none';
+  document.getElementById('simpleStoryScreen').style.display = 'none';
+  document.getElementById('homeScreen').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function openStory(id) {
+  const entry = STORY_LIST.find(s => s.id === id);
+  if (!entry) return;
+
+  if (entry.type === 'branching') {
+    document.getElementById('homeScreen').style.display = 'none';
+    document.getElementById('simpleStoryScreen').style.display = 'none';
+    document.getElementById('storyScreen').style.display = 'block';
+    storyHistory = [];
+    activeSession = { start: new Date().toISOString(), steps: [] };
+    renderScene('start');
+  } else {
+    document.getElementById('homeScreen').style.display = 'none';
+    document.getElementById('storyScreen').style.display = 'none';
+    document.getElementById('simpleStoryTitle').textContent = entry.title;
+    document.getElementById('simpleStorySubtitle').textContent = entry.description;
+    document.getElementById('simpleStoryContent').innerHTML = `
+      <div class="scene-card" style="margin-bottom:2rem;">
+        <div class="scene-text">${entry.content}</div>
+      </div>`;
+    document.getElementById('simpleStoryScreen').style.display = 'block';
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function buildHomeGrid() {
+  document.getElementById('homeGrid').innerHTML = STORY_LIST.map(s => `
+    <div class="story-card" onclick="openStory('${s.id}')">
+      <div class="story-card-tag">
+        ${s.type === 'branching' ? '<span class="tag-branch">✦ Interaktivní</span>' : 'Povídka'}
+      </div>
+      <div class="story-card-title">${s.title}</div>
+      <div class="story-card-desc">${s.description}</div>
+      <span class="story-card-arrow">→</span>
+    </div>`).join('');
+}
 
 // ═══════════════════════════════════════════════════════════
-//  RENDEROVÁNÍ
+//  INTERAKTIVNÍ PŘÍBĚH — renderování
 // ═══════════════════════════════════════════════════════════
+let storyHistory = [];
+let currentScene = "start";
+
 function renderScene(sceneId) {
   const scene = STORY.scenes[sceneId];
   if (!scene) return;
-
   currentScene = sceneId;
   document.getElementById('storyTitle').textContent = STORY.title;
   renderBreadcrumb();
 
-  const container = document.getElementById('sceneContainer');
   let choicesHTML = '';
-
   if (scene.ending) {
-    choicesHTML = `
-      <div style="margin-top:2rem; text-align:center;">
-        <div class="ending-badge">${scene.ending}</div>
-        <p style="font-style:italic; color:rgba(240,122,184,0.7); margin-top:0.5rem;">${scene.ending_note || ''}</p>
-      </div>
-    `;
+    choicesHTML = `<div style="margin-top:2rem;text-align:center;"><div class="ending-badge">${scene.ending}</div><p style="font-style:italic;color:rgba(240,122,184,0.7);margin-top:0.5rem;">${scene.ending_note||''}</p></div>`;
   } else if (scene.choices && scene.choices.length) {
-    const btns = scene.choices.map((c, i) => `
-      <button class="choice-btn" data-num="${i + 1}." onclick="chooseOption('${c.next}')">
-        ${c.text}
-      </button>
-    `).join('');
-    choicesHTML = `
-      <div class="choices-divider"><span class="choices-label">Co uděláš?</span></div>
-      <div class="choices-list">${btns}</div>
-    `;
+    const btns = scene.choices.map((c,i) => `<button class="choice-btn" data-num="${i+1}." onclick="chooseOption('${c.next}')">${c.text}</button>`).join('');
+    choicesHTML = `<div class="choices-divider"><span class="choices-label">Co uděláš?</span></div><div class="choices-list">${btns}</div>`;
   }
 
-  container.innerHTML = `
+  document.getElementById('sceneContainer').innerHTML = `
     <div class="scene-card">
       <div class="scene-id">${scene.title || sceneId}</div>
       <div class="scene-text">${scene.text}</div>
       ${choicesHTML}
     </div>
     <div class="nav-buttons">
-      <button class="nav-btn" onclick="goBack()" ${history.length === 0 ? 'disabled' : ''}>← Zpět</button>
-      <button class="nav-btn restart" onclick="restartStory()">↺ Začít znovu</button>
-    </div>
-  `;
+      <button class="nav-btn" onclick="goBack()" ${storyHistory.length === 0 ? 'disabled' : ''}>← Zpět</button>
+      <button class="nav-btn restart" onclick="restartBranching()">↺ Začít znovu</button>
+      <button class="nav-btn home-back" onclick="showHome()">⌂ Zpět na úvodní stránku</button>
+    </div>`;
 }
 
 function renderBreadcrumb() {
   const bc = document.getElementById('breadcrumb');
-  if (history.length === 0) { bc.innerHTML = ''; return; }
-  const items = history.map((id, i) => {
+  if (storyHistory.length === 0) { bc.innerHTML = ''; return; }
+  const items = storyHistory.map((id,i) => {
     const sc = STORY.scenes[id];
     return `<span onclick="jumpToHistory(${i})">${sc ? sc.title : id}</span><span class="sep">›</span>`;
   });
-  const current = STORY.scenes[currentScene];
-  items.push(`<span class="current">${current ? current.title : currentScene}</span>`);
+  const cur = STORY.scenes[currentScene];
+  items.push(`<span class="current">${cur ? cur.title : currentScene}</span>`);
   bc.innerHTML = items.join('');
 }
 
-// ═══════════════════════════════════════════════════════════
-//  OVLÁDÁNÍ
-// ═══════════════════════════════════════════════════════════
 function chooseOption(nextId) {
-  history.push(currentScene);
+  storyHistory.push(currentScene);
   renderScene(nextId);
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function goBack() {
-  if (history.length === 0) return;
-  renderScene(history.pop());
+  if (storyHistory.length === 0) return;
+  renderScene(storyHistory.pop());
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function jumpToHistory(index) {
-  const targetId = history[index];
-  history = history.slice(0, index);
+  const targetId = storyHistory[index];
+  storyHistory = storyHistory.slice(0, index);
   renderScene(targetId);
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function restartStory() {
-  history = [];
+function restartBranching() {
+  storyHistory = [];
   activeSession = { start: new Date().toISOString(), steps: [] };
   renderScene('start');
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1069,171 +735,74 @@ function restartStory() {
 //  LOGOVÁNÍ
 // ═══════════════════════════════════════════════════════════
 const LOG_KEY = 'story_log_v1';
-
-function getLog() {
-  try { return JSON.parse(localStorage.getItem(LOG_KEY)) || { choices: {}, sessions: [] }; }
-  catch { return { choices: {}, sessions: [] }; }
-}
-function saveLog(data) { localStorage.setItem(LOG_KEY, JSON.stringify(data)); }
-
+function getLog() { try { return JSON.parse(localStorage.getItem(LOG_KEY)) || { choices:{}, sessions:[] }; } catch { return { choices:{}, sessions:[] }; } }
+function saveLog(d) { localStorage.setItem(LOG_KEY, JSON.stringify(d)); }
 let activeSession = { start: new Date().toISOString(), steps: [] };
 
 const _origChoose = chooseOption;
 window.chooseOption = function(nextId) {
   const scene = STORY.scenes[currentScene];
   const choiceObj = scene?.choices?.find(c => c.next === nextId);
-  const step = {
-    from: currentScene,
-    fromTitle: scene?.title || currentScene,
-    choiceText: choiceObj?.text || nextId,
-    to: nextId,
-    toTitle: STORY.scenes[nextId]?.title || nextId,
-    time: new Date().toISOString()
-  };
+  const step = { from: currentScene, fromTitle: scene?.title||currentScene, choiceText: choiceObj?.text||nextId, to: nextId, toTitle: STORY.scenes[nextId]?.title||nextId, time: new Date().toISOString() };
   activeSession.steps.push(step);
-
   const log = getLog();
   const key = `${currentScene}→${nextId}`;
   log.choices[key] = log.choices[key] || { fromTitle: step.fromTitle, toTitle: step.toTitle, text: step.choiceText, count: 0 };
   log.choices[key].count++;
   saveLog(log);
-
   _origChoose(nextId);
-
   const nextScene = STORY.scenes[nextId];
   if (nextScene?.ending) {
     activeSession.end = new Date().toISOString();
     activeSession.endTitle = nextScene.ending;
     const log2 = getLog();
-    log2.sessions.unshift({ ...activeSession });
-    if (log2.sessions.length > 200) log2.sessions = log2.sessions.slice(0, 200);
+    log2.sessions.unshift({...activeSession});
+    if (log2.sessions.length > 200) log2.sessions = log2.sessions.slice(0,200);
     saveLog(log2);
     activeSession = { start: new Date().toISOString(), steps: [] };
   }
 };
 
 // ═══════════════════════════════════════════════════════════
-//  ADMIN PANEL
+//  ADMIN
 // ═══════════════════════════════════════════════════════════
 const ADMIN_PASSWORD = 'admin123'; // ← ZDE ZMĚŇ HESLO
 
-function openAdmin() {
-  document.getElementById('adminOverlay').classList.add('open');
-  document.getElementById('adminLogin').style.display = 'flex';
-  document.getElementById('adminDash').style.display = 'none';
-  document.getElementById('adminPwdInput').value = '';
-  document.getElementById('adminErr').style.display = 'none';
-  setTimeout(() => document.getElementById('adminPwdInput').focus(), 100);
-}
-
-function closeAdmin() {
-  document.getElementById('adminOverlay').classList.remove('open');
-}
-
+function openAdmin() { document.getElementById('adminOverlay').classList.add('open'); document.getElementById('adminLogin').style.display='flex'; document.getElementById('adminDash').style.display='none'; document.getElementById('adminPwdInput').value=''; document.getElementById('adminErr').style.display='none'; setTimeout(()=>document.getElementById('adminPwdInput').focus(),100); }
+function closeAdmin() { document.getElementById('adminOverlay').classList.remove('open'); }
 function adminLogin() {
-  if (document.getElementById('adminPwdInput').value === ADMIN_PASSWORD) {
-    document.getElementById('adminLogin').style.display = 'none';
-    document.getElementById('adminDash').style.display = 'flex';
-    renderAdminDash();
-  } else {
-    document.getElementById('adminErr').style.display = 'block';
-    document.getElementById('adminPwdInput').value = '';
-  }
+  if (document.getElementById('adminPwdInput').value === ADMIN_PASSWORD) { document.getElementById('adminLogin').style.display='none'; document.getElementById('adminDash').style.display='flex'; renderAdminDash(); }
+  else { document.getElementById('adminErr').style.display='block'; document.getElementById('adminPwdInput').value=''; }
 }
-
 function showTab(name, btn) {
-  ['overview','choices','sessions'].forEach(t => {
-    document.getElementById('tab-'+t).style.display = t === name ? 'block' : 'none';
-  });
-  document.querySelectorAll('.admin-tab').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
+  ['overview','choices','sessions'].forEach(t => document.getElementById('tab-'+t).style.display = t===name?'block':'none');
+  document.querySelectorAll('.admin-tab').forEach(b=>b.classList.remove('active')); btn.classList.add('active');
 }
-
-function fmtDate(iso) {
-  const d = new Date(iso);
-  return d.toLocaleDateString('cs-CZ') + ' ' + d.toLocaleTimeString('cs-CZ', { hour: '2-digit', minute: '2-digit' });
-}
-
+function fmtDate(iso) { const d=new Date(iso); return d.toLocaleDateString('cs-CZ')+' '+d.toLocaleTimeString('cs-CZ',{hour:'2-digit',minute:'2-digit'}); }
 function renderAdminDash() {
-  const log = getLog();
-  const choices = Object.values(log.choices);
-  const sessions = log.sessions;
-  const totalClicks = choices.reduce((s, c) => s + c.count, 0);
-  const completedSessions = sessions.filter(s => s.endTitle).length;
-
-  document.getElementById('statGrid').innerHTML = `
-    <div class="stat-card"><div class="stat-num">${totalClicks}</div><div class="stat-label">Celkem rozhodnutí</div></div>
-    <div class="stat-card"><div class="stat-num">${sessions.length}</div><div class="stat-label">Průchodů příběhem</div></div>
-    <div class="stat-card"><div class="stat-num">${completedSessions}</div><div class="stat-label">Dokončených konců</div></div>
-    <div class="stat-card"><div class="stat-num">${choices.length}</div><div class="stat-label">Různých voleb</div></div>
-  `;
-
-  const sorted = [...choices].sort((a,b) => b.count - a.count).slice(0, 6);
-  const maxCount = sorted[0]?.count || 1;
-  document.getElementById('topChoices').innerHTML = sorted.length
-    ? sorted.map(c => `
-        <div class="choice-bar-row">
-          <div class="choice-bar-label">${c.text}</div>
-          <div class="choice-bar-wrap"><div class="choice-bar-fill" style="width:${Math.round(c.count/maxCount*100)}%"></div></div>
-          <div class="choice-bar-count">${c.count}×</div>
-        </div>`).join('')
-    : '<div class="admin-empty">Zatím žádná data.</div>';
-
-  const allSorted = [...choices].sort((a,b) => b.count - a.count);
-  const maxAll = allSorted[0]?.count || 1;
-  document.getElementById('allChoices').innerHTML = allSorted.length
-    ? allSorted.map(c => `
-        <div class="choice-bar-row">
-          <div class="choice-bar-label" style="font-size:0.84rem">
-            <span style="color:rgba(240,122,184,0.5);font-size:0.75rem">${c.fromTitle} → ${c.toTitle}</span><br>
-            ${c.text}
-          </div>
-          <div class="choice-bar-wrap"><div class="choice-bar-fill" style="width:${Math.round(c.count/maxAll*100)}%"></div></div>
-          <div class="choice-bar-count">${c.count}×</div>
-        </div>`).join('')
-    : '<div class="admin-empty">Zatím žádná data.</div>';
-
-  document.getElementById('sessionsList').innerHTML = sessions.length
-    ? sessions.map((s, i) => {
-        const nodes = s.steps.map(step =>
-          `<span class="path-node">${step.fromTitle}</span><span style="color:rgba(240,122,184,0.35);font-size:0.75rem"> › </span>`
-        ).join('');
-        const lastStep = s.steps[s.steps.length - 1];
-        const endNode = s.endTitle
-          ? `<span class="path-node ending">${s.endTitle}</span>`
-          : (lastStep ? `<span class="path-node">${lastStep.toTitle}</span><span style="color:rgba(240,122,184,0.3);font-size:0.75rem"> (nedokončeno)</span>` : '');
-        return `
-          <div class="session-item">
-            <div class="session-meta">
-              <span>Průchod #${sessions.length - i} · ${fmtDate(s.start)}</span>
-              <span>${s.steps.length} rozhodnutí</span>
-            </div>
-            <div class="session-path">${nodes}${endNode}</div>
-          </div>`;
-      }).join('')
-    : '<div class="admin-empty">Zatím žádné průchody.</div>';
+  const log=getLog(), choices=Object.values(log.choices), sessions=log.sessions;
+  const totalClicks=choices.reduce((s,c)=>s+c.count,0), completed=sessions.filter(s=>s.endTitle).length;
+  document.getElementById('statGrid').innerHTML=`<div class="stat-card"><div class="stat-num">${totalClicks}</div><div class="stat-label">Celkem rozhodnutí</div></div><div class="stat-card"><div class="stat-num">${sessions.length}</div><div class="stat-label">Průchodů příběhem</div></div><div class="stat-card"><div class="stat-num">${completed}</div><div class="stat-label">Dokončených konců</div></div><div class="stat-card"><div class="stat-num">${choices.length}</div><div class="stat-label">Různých voleb</div></div>`;
+  const sorted=[...choices].sort((a,b)=>b.count-a.count).slice(0,6), maxC=sorted[0]?.count||1;
+  document.getElementById('topChoices').innerHTML=sorted.length?sorted.map(c=>`<div class="choice-bar-row"><div class="choice-bar-label">${c.text}</div><div class="choice-bar-wrap"><div class="choice-bar-fill" style="width:${Math.round(c.count/maxC*100)}%"></div></div><div class="choice-bar-count">${c.count}×</div></div>`).join(''):'<div class="admin-empty">Zatím žádná data.</div>';
+  const all=[...choices].sort((a,b)=>b.count-a.count), maxA=all[0]?.count||1;
+  document.getElementById('allChoices').innerHTML=all.length?all.map(c=>`<div class="choice-bar-row"><div class="choice-bar-label" style="font-size:0.84rem"><span style="color:rgba(240,122,184,0.5);font-size:0.75rem">${c.fromTitle} → ${c.toTitle}</span><br>${c.text}</div><div class="choice-bar-wrap"><div class="choice-bar-fill" style="width:${Math.round(c.count/maxA*100)}%"></div></div><div class="choice-bar-count">${c.count}×</div></div>`).join(''):'<div class="admin-empty">Zatím žádná data.</div>';
+  document.getElementById('sessionsList').innerHTML=sessions.length?sessions.map((s,i)=>{
+    const nodes=s.steps.map(st=>`<span class="path-node">${st.fromTitle}</span><span style="color:rgba(240,122,184,0.35);font-size:0.75rem"> › </span>`).join('');
+    const last=s.steps[s.steps.length-1];
+    const end=s.endTitle?`<span class="path-node ending">${s.endTitle}</span>`:(last?`<span class="path-node">${last.toTitle}</span><span style="color:rgba(240,122,184,0.3);font-size:0.75rem"> (nedokončeno)</span>`:'');
+    return `<div class="session-item"><div class="session-meta"><span>Průchod #${sessions.length-i} · ${fmtDate(s.start)}</span><span>${s.steps.length} rozhodnutí</span></div><div class="session-path">${nodes}${end}</div></div>`;
+  }).join(''):'<div class="admin-empty">Zatím žádné průchody.</div>';
 }
-
-function clearLog() {
-  if (confirm('Opravdu smazat všechna statistická data?')) {
-    localStorage.removeItem(LOG_KEY);
-    renderAdminDash();
-  }
-}
-
-// Klávesová zkratka: Ctrl+Shift+A
-document.addEventListener('keydown', e => {
-  if (e.ctrlKey && e.shiftKey && e.key === 'A') openAdmin();
-});
+function clearLog() { if(confirm('Opravdu smazat všechna statistická data?')){ localStorage.removeItem(LOG_KEY); renderAdminDash(); } }
+document.addEventListener('keydown', e => { if(e.ctrlKey && e.shiftKey && e.key==='A') openAdmin(); });
 
 // ═══════════════════════════════════════════════════════════
-//  UŽIVATELÉ — přidej nebo odeber záznamy dle potřeby
-//  formát: { user: "jméno", pass: "heslo" }
+//  UŽIVATELÉ  ← přidávej sem nové uživatele
 // ═══════════════════════════════════════════════════════════
 const USERS = [
   { user: "Misa",  pass: "ruzovysvet" },
   { user: "Tomas", pass: "tajneheslo" }
-  // sem přidej další uživatele stejným způsobem
 ];
 
 const SESSION_KEY = 'story_auth';
@@ -1247,7 +816,11 @@ function doLogin() {
     const screen = document.getElementById('loginScreen');
     screen.style.transition = 'opacity 0.4s ease';
     screen.style.opacity = '0';
-    setTimeout(() => screen.remove(), 400);
+    setTimeout(() => {
+      screen.remove();
+      document.getElementById('adminTrigger').style.display = 'block';
+      document.getElementById('mainFooter').style.display = 'block';
+    }, 400);
   } else {
     const err = document.getElementById('loginError');
     err.textContent = 'Nesprávné jméno nebo heslo.';
@@ -1260,6 +833,8 @@ function doLogin() {
 function checkAuth() {
   if (sessionStorage.getItem(SESSION_KEY)) {
     document.getElementById('loginScreen').remove();
+    document.getElementById('adminTrigger').style.display = 'block';
+    document.getElementById('mainFooter').style.display = 'block';
   } else {
     setTimeout(() => document.getElementById('loginUser').focus(), 100);
   }
@@ -1268,8 +843,9 @@ function checkAuth() {
 // ═══════════════════════════════════════════════════════════
 //  INIT
 // ═══════════════════════════════════════════════════════════
+buildHomeGrid();
+showHome();
 checkAuth();
-renderScene('start');
 </script>
 </body>
 </html>
